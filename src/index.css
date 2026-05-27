@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #FDF9F0; /* Softer cream */
+  --foreground: #4A2B0F; /* Deeper, more readable brown */
+  
+  --primary: #008751;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #D4A017; /* Brighter gold */
+  --secondary-foreground: #FFFFFF;
+  
+  --accent: #FF7043; /* Added a coral accent for contrast */
+  --accent-foreground: #FFFFFF;
+  
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  
+  --card: #FFFFFF;
+  --card-foreground: #4A2B0F;
+  
+  --border: #E8E2D2;
+  --input: #E8E2D2;
+  --ring: #008751;
+
+  --radius: 1.5rem; /* Rounder for kids */
+  
+  /* Brand Specifics */
+  --nigerian-green: #008751;
+  --nigerian-green-light: #E6F3EE;
+  --adire-gold: #D4A017;
+  --adire-gold-light: #FFF8E1;
+  --earth-brown: #4A2B0F;
+  --parchment-cream: #FDF9F0;
+}
+
+@theme inline {
+  --color-nigerian-green: var(--nigerian-green);
+  --color-nigerian-green-light: var(--nigerian-green-light);
+  --color-adire-gold: var(--adire-gold);
+  --color-adire-gold-light: var(--adire-gold-light);
+  --color-earth-brown: var(--earth-brown);
+  --color-parchment: var(--parchment-cream);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-sm: calc(var(--radius) - 8px);
+  
+  --shadow-kid: 0 10px 30px -5px rgba(74, 43, 15, 0.1), 0 4px 12px -2px rgba(74, 43, 15, 0.05);
+  --shadow-kid-hover: 0 20px 40px -8px rgba(0, 135, 81, 0.15), 0 8px 16px -4px rgba(0, 135, 81, 0.1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-earth-brown font-extrabold tracking-tight;
+  }
+}
+
+.adire-pattern {
+  background-image: url('https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/adire-pattern-png-48c7819f-1779824707634.webp');
+  background-size: 350px;
+  background-repeat: repeat;
+  opacity: 0.06;
+}
+
+.nigerian-gradient {
+  background: linear-gradient(135deg, #008751 0%, #00A663 100%);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #D4A017 0%, #FFB300 100%);
+}
+
+.ankara-border {
+  position: relative;
+}
+
+.ankara-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-image: linear-gradient(90deg, #008751 20%, #D4A017 20%, #D4A017 40%, #4A2B0F 40%, #4A2B0F 60%, #FF7043 60%, #FF7043 80%, #FDF9F0 80%);
+  background-size: 60px 100%;
+}
+
+.glass {
+  @apply bg-white/75 backdrop-blur-2xl border border-white/40 shadow-kid;
+}
+
+.glass-dark {
+  @apply bg-earth-brown/10 backdrop-blur-xl border border-white/10;
+}
+
+.mode-buba {
+  @apply bg-green-50/60 border-nigerian-green/10;
+}
+
+.mode-kemi {
+  @apply bg-amber-50/60 border-adire-gold/10;
+}
+
+.mode-chike {
+  @apply bg-slate-50/60 border-earth-brown/10;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.kid-button {
+  @apply transition-all duration-300 active:scale-95 hover:scale-105 hover:shadow-kid-hover font-bold rounded-2xl;
+}
