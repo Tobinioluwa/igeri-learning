@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, MessageSquare, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,10 +6,27 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Contact = () => {
   const navigate = useNavigate();
   const CONTACT_MASCOT = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/nigerian-support-mascot-png-da050e15-1779836834795.webp";
+
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+
+  const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) {
+      toast.error("Please fill in your name, email, and message.");
+      return;
+    }
+    toast.success("Message sent! We'll get back to you soon. 🌿");
+    setForm({ name: '', email: '', subject: '', message: '' });
+  };
 
   return (
     <div className="min-h-screen bg-parchment relative overflow-hidden">
@@ -84,7 +101,7 @@ const Contact = () => {
                      <MessageSquare size={20} /> Open Chat
                   </Button>
                </div>
-               <img src={CONTACT_MASCOT} className="absolute -bottom-10 -right-10 w-48 h-48 opacity-20 pointer-events-none" />
+               <img src={CONTACT_MASCOT} alt="" className="absolute -bottom-10 -right-10 w-48 h-48 opacity-20 pointer-events-none" />
             </div>
           </motion.div>
 
@@ -93,26 +110,26 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             className="glass p-10 md:p-12 rounded-[3rem] border-white/60 shadow-xl"
           >
-             <form className="space-y-6">
+             <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-6">
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Your Name</Label>
-                      <Input placeholder="Olukayode Israel" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                      <Input value={form.name} onChange={handleChange('name')} placeholder="Olukayode Israel" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
                    </div>
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Email Address</Label>
-                      <Input placeholder="hello@example.com" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                      <Input type="email" value={form.email} onChange={handleChange('email')} placeholder="hello@example.com" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
                    </div>
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Subject</Label>
-                   <Input placeholder="How can we help?" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                   <Input value={form.subject} onChange={handleChange('subject')} placeholder="How can we help?" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Message</Label>
-                   <Textarea placeholder="Tell us more..." className="min-h-[150px] rounded-[2rem] border-earth-brown/10 p-6" />
+                   <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-[2rem] border-earth-brown/10 p-6" />
                 </div>
-                <Button className="w-full h-16 bg-nigerian-green text-white font-black text-xl rounded-2xl shadow-xl kid-button">
+                <Button type="submit" className="w-full h-16 bg-nigerian-green text-white font-black text-xl rounded-2xl shadow-xl kid-button">
                    Send Message <Send className="ml-2" size={20} />
                 </Button>
              </form>

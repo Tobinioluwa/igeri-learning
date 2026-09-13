@@ -48,8 +48,9 @@ const ForSchools = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+            <div className="relative aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
               <img src={SCHOOL_KIDS_IMG} alt="Nigerian Kids in School" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-adire-gold/20 mix-blend-multiply" />
             </div>
           </motion.div>
         </div>

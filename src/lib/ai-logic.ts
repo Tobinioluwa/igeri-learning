@@ -112,7 +112,7 @@ export const generateAIResponse = async (
     'result', 'how much', 'tell me the answer', 'do my work'
   ];
   
-  const isHomework = homeworkKeywords.some(keyword => lowerInput.includes(keyword)) || lowerInput.match(/\d+ \s*[\+\-\*\/]\s* \d+/);
+  const isHomework = homeworkKeywords.some(keyword => lowerInput.includes(keyword)) || lowerInput.match(/\d+ \s*[+\-*/]\s* \d+/);
   
   const pool = (language === 'Pidgin') ? PIDGIN_RESPONSES[tier] : RESPONSES[tier];
   

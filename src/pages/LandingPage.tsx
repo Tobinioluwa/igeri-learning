@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Shield, BookOpen, Globe, Star, Sparkles, Heart, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, Shield, BookOpen, Globe, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { AvatarBubble } from '@/components/AvatarBubble';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -92,8 +93,8 @@ export const LandingPage = () => {
               </Button>
               <div className="flex items-center gap-4 p-2 pl-4 bg-white/40 rounded-2xl border border-white/60">
                  <div className="flex -space-x-3">
-                   {[1,2,3,4].map(i => (
-                     <img key={i} src={`https://i.pravatar.cc/100?u=igeri${i}`} className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
+                   {['Emeka','Kemi','Chike','Zainab'].map(name => (
+                     <AvatarBubble key={name} name={name} size={40} className="border-2 border-white shadow-sm" />
                    ))}
                  </div>
                  <div className="flex flex-col">
@@ -159,7 +160,7 @@ export const LandingPage = () => {
                 { title: 'Safety Center', path: '/safety-center', icon: Shield, color: 'bg-green-100', text: 'text-nigerian-green', desc: 'How we keep children safe and parents in control.' },
                 { title: 'Parents Guide', path: '/parents-guide', icon: BookOpen, color: 'bg-amber-100', text: 'text-adire-gold', desc: 'Everything you need to support your child.' },
                 { title: 'Schools', path: '/schools', icon: Globe, color: 'bg-slate-100', text: 'text-earth-brown', desc: 'Partnering with educational institutions nationwide.' }
-              ].map((card, i) => (
+              ].map((card) => (
                 <motion.div
                   key={card.title}
                   whileHover={{ y: -10 }}
@@ -183,7 +184,7 @@ export const LandingPage = () => {
       <footer className="bg-white/50 backdrop-blur-md py-12 relative overflow-hidden border-t border-earth-brown/5">
          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
             <div className="flex items-center gap-3">
-              <img src={LOGO_URL} className="w-8 h-8 grayscale opacity-50" />
+              <img src={LOGO_URL} alt="Igeri AI logo" className="w-8 h-8 grayscale opacity-50" />
               <span className="text-lg font-black text-earth-brown/30 tracking-widest uppercase">IGERI AI</span>
             </div>
             <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-earth-brown/40 uppercase tracking-widest">

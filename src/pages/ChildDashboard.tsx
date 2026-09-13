@@ -4,21 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { 
-  BookOpen, 
-  MessageSquare, 
-  Settings, 
-  LogOut, 
-  Award, 
+import {
+  BookOpen,
+  MessageSquare,
+  Settings,
+  LogOut,
+  Award,
   BrainCircuit,
   Calculator,
   Globe2,
   FlaskConical,
   ChevronRight,
-  Sparkles,
-  Trophy
+  Sparkles
 } from 'lucide-react';
-import { toast } from 'sonner';
 
 export const ChildDashboard = () => {
   const { profile, clearAll, language, setLanguage } = useStore();
@@ -51,7 +49,7 @@ export const ChildDashboard = () => {
         <div className="container mx-auto px-6 h-24 flex items-center justify-between">
           <div className="flex items-center gap-4 group cursor-pointer" onClick={() => navigate('/')}>
             <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-earth-brown/5 group-hover:scale-110 transition-transform">
-               <img src={LOGO_URL} className="w-9 h-9 object-contain" />
+               <img src={LOGO_URL} alt="Igeri AI logo" className="w-9 h-9 object-contain" />
             </div>
             <div>
               <h1 className="font-black text-2xl text-nigerian-green leading-none tracking-tighter">IGERI AI</h1>
@@ -110,7 +108,8 @@ export const ChildDashboard = () => {
             <motion.img 
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              src={MASCOT_PRO} 
+              src={MASCOT_PRO}
+              alt="Igeri mascot"
               className="absolute -bottom-10 -right-6 w-72 h-72 md:w-[450px] md:h-[450px] object-contain pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] hidden md:block"
             />
           </div>
@@ -147,7 +146,7 @@ export const ChildDashboard = () => {
         <div className="grid lg:grid-cols-3 gap-8">
            <Card className="lg:col-span-2 p-10 rounded-[3rem] border-earth-brown/5 shadow-kid overflow-hidden relative group cursor-pointer" onClick={() => navigate('/how-it-works')}>
               <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform w-1/3">
-                 <img src={HOW_IT_WORKS_ILLU} className="w-full h-full object-contain" />
+                 <img src={HOW_IT_WORKS_ILLU} alt="" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col md:flex-row items-center gap-10">
                  <div className="w-24 h-24 bg-adire-gold/10 rounded-full flex items-center justify-center text-adire-gold shrink-0">
