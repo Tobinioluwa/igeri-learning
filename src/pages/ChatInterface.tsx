@@ -5,22 +5,20 @@ import { useStore } from '@/lib/store';
 import { generateAIResponse } from '@/lib/ai-logic';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
-  ArrowLeft, 
-  Send, 
-  Sparkles, 
-  User, 
-  Info, 
-  HelpCircle, 
-  Mic, 
-  Smile, 
-  MoreVertical,
+import {
+  ArrowLeft,
+  Send,
+  Sparkles,
+  HelpCircle,
+  Mic,
+  Smile,
   Volume2,
   Star,
   ShieldCheck
 } from 'lucide-react';
 import { Message } from '@/lib/types';
 import { toast } from 'sonner';
+import { AvatarBubble } from '@/components/AvatarBubble';
 
 export const ChatInterface = () => {
   const { profile, language, addMessage, sessions, addSession } = useStore();
@@ -98,7 +96,7 @@ export const ChatInterface = () => {
         timestamp: Date.now()
       };
       addMessage(currentSessionId, aiMsg);
-    } catch (error) {
+    } catch {
       toast.error("Network issue. Please try again.");
     } finally {
       setIsTyping(false);
@@ -127,7 +125,7 @@ export const ChatInterface = () => {
   if (!profile) return null;
 
   return (
-    <div className={`flex flex-col h-screen overflow-hidden transition-colors duration-500 ${getModeClass()}`}>
+    <div className={`relative flex flex-col h-screen overflow-hidden transition-colors duration-500 ${getModeClass()}`}>
       <div className="absolute inset-0 adire-pattern opacity-[0.03] pointer-events-none" />
 
       <header className="relative z-30 bg-white/80 backdrop-blur-2xl border-b border-earth-brown/5 px-4 h-24 flex items-center justify-between shrink-0">
@@ -142,7 +140,7 @@ export const ChatInterface = () => {
           </Button>
           <div className="flex items-center gap-4">
              <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center overflow-hidden">
-                <img src={LOGO_URL} className="w-9 h-9 object-contain" />
+                <img src={LOGO_URL} alt="Igeri AI logo" className="w-9 h-9 object-contain" />
              </div>
              <div>
                 <h2 className="font-black text-earth-brown text-xl leading-none">{initialSubject}</h2>
@@ -157,9 +155,7 @@ export const ChatInterface = () => {
            <Button variant="ghost" size="icon" className="rounded-full text-earth-brown/40 hover:bg-earth-brown/5">
               <Volume2 size={24} />
            </Button>
-           <div className="w-10 h-10 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white/50">
-              <img src={`https://i.pravatar.cc/100?u=${profile.name}`} />
-           </div>
+           <AvatarBubble name={profile.name} size={40} className="border-2 border-white shadow-sm" />
         </div>
       </header>
 
@@ -194,7 +190,7 @@ export const ChatInterface = () => {
               <div className={`flex gap-5 max-w-[85%] md:max-w-[75%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                 {msg.role === 'assistant' && (
                   <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center shrink-0 overflow-hidden self-end">
-                    <img src={SUPPORT_MASCOT} className="w-full h-full object-contain animate-float" />
+                    <img src={SUPPORT_MASCOT} alt="Igeri mascot" className="w-full h-full object-contain animate-float" />
                   </div>
                 )}
                 <div 
@@ -224,7 +220,7 @@ export const ChatInterface = () => {
           >
             <div className="flex gap-5">
               <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center shrink-0 overflow-hidden">
-                <img src={SUPPORT_MASCOT} className="w-full h-full object-contain animate-bounce" />
+                <img src={SUPPORT_MASCOT} alt="Igeri is typing" className="w-full h-full object-contain animate-bounce" />
               </div>
               <div className="bg-white p-6 rounded-3xl rounded-tl-none border border-earth-brown/5 flex gap-3 items-center shadow-sm">
                 <div className="w-2.5 h-2.5 bg-nigerian-green rounded-full animate-bounce" />

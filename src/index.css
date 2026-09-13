@@ -157,3 +157,28 @@
 .kid-button {
   @apply transition-all duration-300 active:scale-95 hover:scale-105 hover:shadow-kid-hover font-bold rounded-2xl;
 }
+
+/* Playful custom cursors — a little green arrow by default, a gold sparkle
+   over anything clickable so kids always know what they can tap. */
+html, body {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%202%20L3%2019%20L8%2015.5%20L11.5%2022%20L14.5%2020.5%20L11%2014%20L19%2014%20Z'%20fill='rgb(0,135,81)'%20stroke='white'%20stroke-width='1.5'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E") 3 2, auto;
+}
+
+a,
+button,
+[role="button"],
+.cursor-pointer,
+input[type="submit"],
+input[type="button"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+summary,
+label[for] {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cpath%20d='M15%201%20L18.7%2011.3%20L29%2015%20L18.7%2018.7%20L15%2029%20L11.3%2018.7%20L1%2015%20L11.3%2011.3%20Z'%20fill='rgb(212,160,23)'%20stroke='white'%20stroke-width='1.5'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='15'%20cy='15'%20r='3'%20fill='rgb(0,135,81)'/%3E%3C/svg%3E") 15 15, pointer;
+}
+
+button:disabled,
+[disabled] {
+  cursor: not-allowed;
+}

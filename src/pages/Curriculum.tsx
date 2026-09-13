@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookMarked, Calculator, FlaskConical, Globe2, Landmark, Microscope, PenTool, TreePine, ShieldCheck, GraduationCap, Zap } from 'lucide-react';
+import { BookMarked, Calculator, Globe2, Landmark, Microscope, PenTool, TreePine, ShieldCheck, GraduationCap, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 

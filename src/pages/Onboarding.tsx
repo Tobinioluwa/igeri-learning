@@ -5,7 +5,7 @@ import { useStore, getTier } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChevronRight, ArrowLeft, User, ShieldCheck, Mail, Sparkles, Heart } from 'lucide-react';
+import { ChevronRight, ArrowLeft, User, Mail, Sparkles, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const Onboarding = () => {
@@ -71,10 +71,14 @@ export const Onboarding = () => {
                animate={{ opacity: 1, scale: 1 }}
                className="mb-12"
             >
-               <img 
-                 src={step === 1 ? ONBOARDING_HERO : MASCOT_PRO} 
-                 className={`w-full ${step === 1 ? 'aspect-square rounded-[3rem] object-cover border-8 border-white/20' : 'max-w-sm mx-auto object-contain'} drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)] ${step === 2 ? 'animate-float' : ''}`}
-               />
+               <div className={step === 1 ? 'relative aspect-square rounded-[3rem] overflow-hidden border-8 border-white/20 drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)]' : ''}>
+                 <img
+                   src={step === 1 ? ONBOARDING_HERO : MASCOT_PRO}
+                   alt={step === 1 ? 'Nigerian children learning together' : 'Igeri mascot cheering you on'}
+                   className={`w-full ${step === 1 ? 'h-full object-cover' : 'max-w-sm mx-auto object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.2)]'} ${step === 2 ? 'animate-float' : ''}`}
+                 />
+                 {step === 1 && <div className="absolute inset-0 bg-nigerian-green/25 mix-blend-multiply" />}
+               </div>
             </motion.div>
             <h2 className="text-white text-4xl font-black mb-6 leading-tight">
                {step === 1 ? "Empowering the next generation." : "Your learning journey begins now!"}
@@ -85,7 +89,7 @@ export const Onboarding = () => {
          </div>
          
          <div className="absolute bottom-10 left-10 flex items-center gap-3">
-            <img src={LOGO_URL} className="w-8 h-8 brightness-0 invert opacity-50" />
+            <img src={LOGO_URL} alt="Igeri AI logo" className="w-8 h-8 brightness-0 invert opacity-50" />
             <span className="text-white/30 font-black text-sm uppercase tracking-widest">IGERI AI</span>
          </div>
       </div>
@@ -100,7 +104,7 @@ export const Onboarding = () => {
          >
             <div className="lg:hidden flex justify-center mb-10">
                <div className="flex items-center gap-3">
-                 <img src={LOGO_URL} className="w-10 h-10" />
+                 <img src={LOGO_URL} alt="Igeri AI logo" className="w-10 h-10" />
                  <span className="text-2xl font-black text-nigerian-green">IGERI AI</span>
                </div>
             </div>
