@@ -1,13 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-const PALETTE = [
-  'from-nigerian-green to-emerald-400',
-  'from-adire-gold to-amber-400',
-  'from-orange-400 to-rose-400',
-  'from-sky-400 to-blue-500',
-  'from-purple-400 to-fuchsia-400',
-];
+const PALETTE = ['bg-nigerian-green', 'bg-adire-gold', 'bg-accent', 'bg-sky-blue', 'bg-berry-pink'];
 
 /**
  * A friendly, illustrated stand-in for a profile photo. We deliberately never
@@ -31,7 +25,7 @@ export function AvatarBubble({
   return (
     <div
       className={cn(
-        'flex items-center justify-center rounded-full font-black text-white shrink-0 bg-gradient-to-br',
+        'flex items-center justify-center rounded-full font-black text-white shrink-0 border-[3px] border-earth-brown',
         PALETTE[paletteIndex],
         className,
       )}

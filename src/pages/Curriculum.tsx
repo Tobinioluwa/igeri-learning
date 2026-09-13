@@ -7,18 +7,16 @@ import { CURRICULUM_IMG } from '@/lib/assets';
 
 const Curriculum = () => {
   return (
-    <div className="min-h-screen bg-parchment relative overflow-hidden">
-      <div className="absolute inset-0 adire-pattern pointer-events-none" />
-
+    <div className="min-h-screen bg-parchment">
       <Navbar />
 
-      <main className="relative z-10 container mx-auto px-6 py-12">
+      <main className="container mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <div className="inline-flex items-center gap-2 bg-nigerian-green/10 px-4 py-2 rounded-full text-nigerian-green font-bold text-sm mb-6 border border-nigerian-green/20">
+            <div className="sticker-badge text-nigerian-green mb-6">
               <BookMarked size={16} />
               <span>NERDC / NTI Alignment</span>
             </div>
@@ -35,7 +33,7 @@ const Curriculum = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="relative"
           >
-            <div className="aspect-square pill-photo overflow-hidden shadow-2xl">
+            <div className="aspect-square brut-card overflow-hidden">
               <img src={CURRICULUM_IMG} alt="Curriculum Materials" className="w-full h-full object-cover" />
             </div>
           </motion.div>
@@ -49,7 +47,7 @@ const Curriculum = () => {
 
           <div className="grid md:grid-cols-2 gap-16">
             <div className="space-y-8">
-               <h3 className="text-2xl font-black text-nigerian-green flex items-center gap-3 border-b border-earth-brown/5 pb-4">
+               <h3 className="text-2xl font-black text-nigerian-green flex items-center gap-3 border-b-[3px] border-earth-brown pb-4">
                  <PenTool size={28} /> Primary (P1–P6)
                </h3>
                <div className="grid grid-cols-2 gap-4">
@@ -61,7 +59,7 @@ const Curriculum = () => {
                     { icon: TreePine, label: "Agric Science" },
                     { icon: ShieldCheck, label: "Civic Ed" }
                   ].map((s, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-2xl shadow-kid">
+                    <div key={i} className="flex items-center gap-3 p-4 brut-card-sm">
                        <s.icon className="text-nigerian-green" size={20} />
                        <span className="font-bold text-earth-brown">{s.label}</span>
                     </div>
@@ -70,7 +68,7 @@ const Curriculum = () => {
             </div>
 
             <div className="space-y-8">
-               <h3 className="text-2xl font-black text-adire-gold flex items-center gap-3 border-b border-earth-brown/5 pb-4">
+               <h3 className="text-2xl font-black text-adire-gold flex items-center gap-3 border-b-[3px] border-earth-brown pb-4">
                  <GraduationCap size={28} /> JSS (JSS1–JSS3)
                </h3>
                <div className="grid grid-cols-2 gap-4">
@@ -82,7 +80,7 @@ const Curriculum = () => {
                     { icon: Zap, label: "Business Studies" },
                     { icon: PenTool, label: "Creative Arts" }
                   ].map((s, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-2xl shadow-kid">
+                    <div key={i} className="flex items-center gap-3 p-4 brut-card-sm">
                        <s.icon className="text-adire-gold" size={20} />
                        <span className="font-bold text-earth-brown">{s.label}</span>
                     </div>
@@ -92,7 +90,7 @@ const Curriculum = () => {
           </div>
         </section>
 
-        <section className="bg-earth-brown/5 rounded-[3rem] p-12 md:p-20 border border-earth-brown/5 text-center">
+        <section className="bg-adire-gold-light rounded-2xl brut-border p-12 md:p-20 text-center">
            <h2 className="text-3xl font-black mb-6 text-earth-brown">Indigenous Knowledge</h2>
            <p className="text-lg text-earth-brown/60 font-medium max-w-3xl mx-auto">
              Beyond academic subjects, IGERI AI also teaches children about Nigerian history, cultural heritage, and values, helping them grow as well-rounded citizens of our nation.

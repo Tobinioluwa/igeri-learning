@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { School, Users, Award, Layout, GraduationCap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
@@ -11,18 +10,16 @@ const Schools = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-parchment relative overflow-hidden">
-      <div className="absolute inset-0 adire-pattern pointer-events-none" />
-
+    <div className="min-h-screen bg-parchment">
       <Navbar />
 
-      <main className="relative z-10 container mx-auto px-6 py-12 text-center">
+      <main className="container mx-auto px-6 py-12 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-4xl mx-auto mb-20"
         >
-          <div className="inline-flex items-center gap-2 bg-nigerian-green/10 px-4 py-2 rounded-full text-nigerian-green font-bold text-sm mb-6 border border-nigerian-green/20">
+          <div className="sticker-badge text-nigerian-green mb-6">
             <School size={16} />
             <span>Educational Partnerships</span>
           </div>
@@ -32,9 +29,9 @@ const Schools = () => {
           <p className="text-xl text-earth-brown/60 font-medium leading-relaxed max-w-2xl mx-auto mb-10">
             Empower your teachers and pupils with Nigeria's first curriculum-aligned AI assistant. Designed for the modern Nigerian school.
           </p>
-          <Button onClick={() => navigate('/contact')} className="bg-earth-brown hover:bg-earth-brown/90 text-white font-black px-12 h-16 rounded-full kid-button text-xl shadow-xl">
+          <button onClick={() => navigate('/contact')} className="kid-button bg-earth-brown text-white px-12 h-16 rounded-xl text-xl">
             Partner with Us
-          </Button>
+          </button>
         </motion.div>
 
         <motion.div
@@ -42,7 +39,7 @@ const Schools = () => {
           animate={{ opacity: 1, y: 0 }}
           className="relative max-w-6xl mx-auto mb-32"
         >
-          <div className="aspect-[21/9] rounded-[3rem] overflow-hidden shadow-2xl">
+          <div className="aspect-[21/9] brut-card overflow-hidden">
             <img src={SCHOOL_IMG} alt="Modern Nigerian School" className="w-full h-full object-cover" />
           </div>
         </motion.div>
@@ -53,8 +50,8 @@ const Schools = () => {
             { icon: Layout, color: 'bg-adire-gold', title: "Teacher Dashboard", desc: "Gain insights into class progress, common learning gaps, and individual engagement." },
             { icon: GraduationCap, color: 'bg-sky-blue', title: "Teacher Support", desc: "IGERI AI helps teachers with lesson plans and provides instant explanations for complex topics." }
           ].map((feature, i) => (
-            <div key={i} className="p-10 bg-white rounded-[2.5rem] shadow-kid">
-              <div className={`w-16 h-16 ${feature.color} text-white rounded-2xl flex items-center justify-center mx-auto mb-8`}>
+            <div key={i} className="p-10 brut-card">
+              <div className={`w-16 h-16 ${feature.color} text-white rounded-xl flex items-center justify-center mx-auto mb-8 brut-border`}>
                 <feature.icon size={32} />
               </div>
               <h3 className="text-2xl font-black mb-4 text-earth-brown">{feature.title}</h3>
@@ -63,7 +60,7 @@ const Schools = () => {
           ))}
         </section>
 
-        <section className="max-w-4xl mx-auto mb-32 bg-white p-12 rounded-[3rem] shadow-kid text-left">
+        <section className="max-w-4xl mx-auto mb-32 brut-card bg-white p-12 text-left">
            <h2 className="text-3xl font-black mb-8 text-earth-brown">Pilot Programs (FCT Abuja)</h2>
            <p className="text-lg text-earth-brown/70 font-medium mb-8">
              We are currently selecting 5 schools in the FCT Abuja for our Phase 2 pilot program. Participants will receive early access, training, and direct support from IGERI AI.

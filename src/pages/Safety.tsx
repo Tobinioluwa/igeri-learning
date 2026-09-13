@@ -7,18 +7,16 @@ import { SAFETY_HERO_IMG } from '@/lib/assets';
 
 const Safety = () => {
   return (
-    <div className="min-h-screen bg-parchment relative overflow-hidden">
-      <div className="absolute inset-0 adire-pattern pointer-events-none" />
-
+    <div className="min-h-screen bg-parchment">
       <Navbar />
 
-      <main className="relative z-10 container mx-auto px-6 py-12">
+      <main className="container mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <div className="inline-flex items-center gap-2 bg-nigerian-green/10 px-4 py-2 rounded-full text-nigerian-green font-bold text-sm mb-6 border border-nigerian-green/20">
+            <div className="sticker-badge text-nigerian-green mb-6">
               <Shield size={16} />
               <span>Safety &amp; Policy</span>
             </div>
@@ -35,7 +33,7 @@ const Safety = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="relative"
           >
-            <div className="aspect-square pill-photo overflow-hidden shadow-2xl">
+            <div className="aspect-square brut-card overflow-hidden">
               <img src={SAFETY_HERO_IMG} alt="Digital Safety Shield" className="w-full h-full object-cover" />
             </div>
           </motion.div>
@@ -48,8 +46,8 @@ const Safety = () => {
              { icon: Database, color: 'bg-sky-blue', title: "Nigerian Data Residency", desc: "We process data in compliance with the Nigeria Data Protection Act (NDPA) 2023 guidelines." },
              { icon: FileText, color: 'bg-berry-pink', title: "Parental Consent", desc: "No child account can be activated without explicit parent or guardian verification via OTP." }
            ].map((policy, i) => (
-             <div key={i} className="flex gap-6 p-8 bg-white rounded-[2.5rem] shadow-kid">
-               <div className={`w-16 h-16 ${policy.color} text-white rounded-2xl flex items-center justify-center shrink-0`}>
+             <div key={i} className="flex gap-6 p-8 brut-card">
+               <div className={`w-16 h-16 ${policy.color} text-white rounded-xl flex items-center justify-center shrink-0 brut-border`}>
                  <policy.icon size={32} />
                </div>
                <div>
@@ -60,7 +58,7 @@ const Safety = () => {
            ))}
         </section>
 
-        <section className="bg-white p-12 md:p-20 rounded-[3rem] shadow-kid">
+        <section className="brut-card bg-white p-12 md:p-20">
            <h2 className="text-3xl font-black mb-12 text-center text-earth-brown">Safety Compliance</h2>
            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -70,7 +68,7 @@ const Safety = () => {
                 "GDPR (Best Practice)"
               ].map((cert, i) => (
                 <div key={i} className="flex flex-col items-center text-center gap-4">
-                   <div className="w-20 h-20 bg-nigerian-green rounded-full flex items-center justify-center text-white">
+                   <div className="w-20 h-20 bg-nigerian-green rounded-full flex items-center justify-center text-white brut-border">
                       <CheckCircle size={40} />
                    </div>
                    <span className="font-bold text-earth-brown tracking-tight">{cert}</span>

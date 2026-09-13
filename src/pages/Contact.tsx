@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, MessageSquare, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,12 +27,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-parchment relative overflow-hidden">
-      <div className="absolute inset-0 adire-pattern pointer-events-none" />
-
+    <div className="min-h-screen bg-parchment">
       <Navbar />
 
-      <main className="relative z-10 container mx-auto px-6 py-12">
+      <main className="container mx-auto px-6 py-12">
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -49,14 +46,14 @@ const Contact = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start mb-32">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-12"
           >
             <div className="space-y-8">
                <div className="flex gap-6 items-center">
-                  <div className="w-14 h-14 bg-nigerian-green/10 rounded-2xl flex items-center justify-center text-nigerian-green shrink-0">
+                  <div className="w-14 h-14 bg-nigerian-green text-white rounded-xl flex items-center justify-center shrink-0 brut-border">
                      <Mail size={24} />
                   </div>
                   <div>
@@ -65,7 +62,7 @@ const Contact = () => {
                   </div>
                </div>
                <div className="flex gap-6 items-center">
-                  <div className="w-14 h-14 bg-adire-gold/10 rounded-2xl flex items-center justify-center text-adire-gold shrink-0">
+                  <div className="w-14 h-14 bg-adire-gold text-earth-brown rounded-xl flex items-center justify-center shrink-0 brut-border">
                      <Phone size={24} />
                   </div>
                   <div>
@@ -74,7 +71,7 @@ const Contact = () => {
                   </div>
                </div>
                <div className="flex gap-6 items-center">
-                  <div className="w-14 h-14 bg-earth-brown/10 rounded-2xl flex items-center justify-center text-earth-brown shrink-0">
+                  <div className="w-14 h-14 bg-earth-brown text-white rounded-xl flex items-center justify-center shrink-0 brut-border">
                      <MapPin size={24} />
                   </div>
                   <div>
@@ -84,13 +81,13 @@ const Contact = () => {
                </div>
             </div>
 
-            <div className="relative bg-white p-10 rounded-[3rem] shadow-kid overflow-hidden">
+            <div className="relative brut-card p-10 overflow-hidden">
                <div className="relative z-10">
                   <h3 className="text-2xl font-black mb-4 text-earth-brown">Direct Chat</h3>
                   <p className="text-earth-brown/60 font-medium mb-8">Need instant help? Our support mascot is waiting for you.</p>
-                  <Button className="bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black px-8 h-14 rounded-full kid-button flex items-center gap-2">
+                  <button className="kid-button bg-nigerian-green text-white px-8 h-14 rounded-xl flex items-center gap-2">
                      <MessageSquare size={20} /> Open Chat
-                  </Button>
+                  </button>
                </div>
                <img src={SUPPORT_MASCOT} alt="" className="absolute -bottom-10 -right-10 w-48 h-48 opacity-20 pointer-events-none" />
             </div>
@@ -99,30 +96,30 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white p-10 md:p-12 rounded-[3rem] shadow-kid"
+            className="brut-card p-10 md:p-12"
           >
              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-6">
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Your Name</Label>
-                      <Input value={form.name} onChange={handleChange('name')} placeholder="Olukayode Israel" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                      <Input value={form.name} onChange={handleChange('name')} placeholder="Olukayode Israel" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
                    </div>
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Email Address</Label>
-                      <Input type="email" value={form.email} onChange={handleChange('email')} placeholder="hello@example.com" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                      <Input type="email" value={form.email} onChange={handleChange('email')} placeholder="hello@example.com" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
                    </div>
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Subject</Label>
-                   <Input value={form.subject} onChange={handleChange('subject')} placeholder="How can we help?" className="h-14 rounded-2xl border-earth-brown/10 px-6" />
+                   <Input value={form.subject} onChange={handleChange('subject')} placeholder="How can we help?" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Message</Label>
-                   <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-[2rem] border-earth-brown/10 p-6" />
+                   <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green p-6" />
                 </div>
-                <Button type="submit" className="w-full h-16 bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black text-xl rounded-full shadow-xl kid-button">
+                <button type="submit" className="kid-button w-full h-16 bg-nigerian-green text-white text-xl rounded-xl flex items-center justify-center">
                    Send Message <Send className="ml-2" size={20} />
-                </Button>
+                </button>
              </form>
           </motion.div>
         </div>

@@ -3,44 +3,51 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #FDF9F0; /* Softer cream */
-  --foreground: #4A2B0F; /* Deeper, more readable brown */
-  
-  --primary: #008751;
+  --background: #FFFBF2; /* Near-white canvas — bold color-block sections do the work now, not a background tint */
+  --foreground: #331D0A; /* Near-black brown ink for max contrast against flat colors */
+
+  --primary: #009654; /* Punchier, more saturated green */
   --primary-foreground: #FFFFFF;
-  
-  --secondary: #D4A017; /* Brighter gold */
-  --secondary-foreground: #FFFFFF;
-  
-  --accent: #FF7043; /* Added a coral accent for contrast */
+
+  --secondary: #E8A711; /* Punchier gold */
+  --secondary-foreground: #331D0A;
+
+  --accent: #FF5A36; /* Hotter coral */
   --accent-foreground: #FFFFFF;
-  
+
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  
+
   --muted: #F1F5F9;
   --muted-foreground: #64748B;
-  
+
   --card: #FFFFFF;
-  --card-foreground: #4A2B0F;
-  
-  --border: #E8E2D2;
+  --card-foreground: #331D0A;
+
+  --border: #331D0A;
   --input: #E8E2D2;
-  --ring: #008751;
+  --ring: #009654;
 
-  --radius: 1.5rem; /* Rounder for kids */
-  
+  --radius: 1rem; /* Disciplined, moderate rounding — no more full pills */
+
   /* Brand Specifics */
-  --nigerian-green: #008751;
+  --nigerian-green: #009654;
   --nigerian-green-light: #E6F3EE;
-  --adire-gold: #D4A017;
+  --adire-gold: #E8A711;
   --adire-gold-light: #FFF8E1;
-  --earth-brown: #4A2B0F;
-  --parchment-cream: #FDF9F0;
+  --earth-brown: #331D0A;
+  --parchment-cream: #FFFBF2;
 
-  /* Extra decorative accents for dots/icon badges, alongside the brand trio above */
-  --sky-blue: #3B82F6;
-  --berry-pink: #EC4899;
+  /* Extra decorative accents for badges/icon blocks, alongside the brand trio above */
+  --sky-blue: #2563EB;
+  --berry-pink: #E11D74;
+
+  /* Hard, unblurred "offset" shadows — the signature of the neo-brutalist
+     look this design system uses: everything casts a flat ink-colored
+     shadow instead of a soft blur. */
+  --shadow-brut-sm: 4px 4px 0 0 var(--earth-brown);
+  --shadow-brut: 6px 6px 0 0 var(--earth-brown);
+  --shadow-brut-lg: 10px 10px 0 0 var(--earth-brown);
 }
 
 @theme inline {
@@ -70,9 +77,6 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 4px);
   --radius-sm: calc(var(--radius) - 8px);
-  
-  --shadow-kid: 0 10px 30px -5px rgba(74, 43, 15, 0.1), 0 4px 12px -2px rgba(74, 43, 15, 0.05);
-  --shadow-kid-hover: 0 20px 40px -8px rgba(0, 135, 81, 0.15), 0 8px 16px -4px rgba(0, 135, 81, 0.1);
 }
 
 @layer base {
@@ -86,23 +90,12 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply text-earth-brown font-extrabold tracking-tight;
+    /* No color here on purpose: headings inherit from their container so
+       ones on a colored section (text-white) read correctly. Body's
+       --foreground already equals --earth-brown, so on the plain
+       background they come out the same as before. */
+    @apply font-extrabold tracking-tight;
   }
-}
-
-.adire-pattern {
-  background-image: url('https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/adire-pattern-png-48c7819f-1779824707634.webp');
-  background-size: 350px;
-  background-repeat: repeat;
-  opacity: 0.06;
-}
-
-.nigerian-gradient {
-  background: linear-gradient(135deg, #008751 0%, #00A663 100%);
-}
-
-.gold-gradient {
-  background: linear-gradient(135deg, #D4A017 0%, #FFB300 100%);
 }
 
 .ankara-border {
@@ -118,14 +111,6 @@
   height: 6px;
   background-image: linear-gradient(90deg, #008751 20%, #D4A017 20%, #D4A017 40%, #4A2B0F 40%, #4A2B0F 60%, #FF7043 60%, #FF7043 80%, #FDF9F0 80%);
   background-size: 60px 100%;
-}
-
-.glass {
-  @apply bg-white/75 backdrop-blur-2xl border border-white/40 shadow-kid;
-}
-
-.glass-dark {
-  @apply bg-earth-brown/10 backdrop-blur-xl border border-white/10;
 }
 
 .mode-buba {
@@ -151,39 +136,61 @@
   animation: float 4s ease-in-out infinite;
 }
 
-@keyframes pulse-soft {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
+/* Neo-brutalist core: thick ink borders + a flat, unblurred "offset" shadow
+   instead of a soft glow. Cards sit still; buttons physically press in. */
+.brut-border {
+  border: 3px solid var(--earth-brown);
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 3s ease-in-out infinite;
+.brut-card {
+  @apply bg-white rounded-2xl;
+  border: 3px solid var(--earth-brown);
+  box-shadow: var(--shadow-brut);
 }
 
+.brut-card-sm {
+  @apply bg-white rounded-xl;
+  border: 3px solid var(--earth-brown);
+  box-shadow: var(--shadow-brut-sm);
+}
+
+/* A pressable button: the shadow grows on hover (lifts up) and vanishes on
+   active as the button physically shifts into its own shadow (presses in).
+   Combine with your own bg and text color utilities plus rounded-xl. */
 .kid-button {
-  @apply transition-all duration-300 active:scale-95 hover:scale-105 hover:shadow-kid-hover font-bold rounded-2xl;
+  @apply font-black transition-all duration-150 ease-out;
+  border: 3px solid var(--earth-brown);
+  box-shadow: var(--shadow-brut-sm);
 }
 
-/* Floating pill navbar used site-wide. */
-.pill-nav {
-  @apply bg-white/90 backdrop-blur-xl rounded-full shadow-kid border border-earth-brown/5;
+.kid-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brut);
 }
 
-/* A tall photo crop rounded into a capsule/pill shape, as used in the hero
-   photo collages. Pair with an aspect ratio on the element. */
-.pill-photo {
-  border-radius: 999px;
+.kid-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 0 var(--earth-brown);
 }
 
-/* Small floating decorative dot, colored via a `bg-*` utility on the element. */
-.deco-dot {
+/* Small bold eyebrow/label pill used above headings. */
+.sticker-badge {
+  @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-widest bg-white;
+  border: 2.5px solid var(--earth-brown);
+  box-shadow: var(--shadow-brut-sm);
+}
+
+/* A colored circle/square marker used for scattered decorative accents —
+   color it with a bg-* utility on the element. */
+.deco-mark {
   @apply absolute rounded-full pointer-events-none;
+  border: 3px solid var(--earth-brown);
 }
 
 /* Playful custom cursors — a little green arrow by default, a gold sparkle
    over anything clickable so kids always know what they can tap. */
 html, body {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%202%20L3%2019%20L8%2015.5%20L11.5%2022%20L14.5%2020.5%20L11%2014%20L19%2014%20Z'%20fill='rgb(0,135,81)'%20stroke='white'%20stroke-width='1.5'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E") 3 2, auto;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%202%20L3%2019%20L8%2015.5%20L11.5%2022%20L14.5%2020.5%20L11%2014%20L19%2014%20Z'%20fill='rgb(0,150,84)'%20stroke='rgb(51,29,10)'%20stroke-width='1.5'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E") 3 2, auto;
 }
 
 a,
@@ -197,7 +204,7 @@ input[type="radio"],
 select,
 summary,
 label[for] {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cpath%20d='M15%201%20L18.7%2011.3%20L29%2015%20L18.7%2018.7%20L15%2029%20L11.3%2018.7%20L1%2015%20L11.3%2011.3%20Z'%20fill='rgb(212,160,23)'%20stroke='white'%20stroke-width='1.5'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='15'%20cy='15'%20r='3'%20fill='rgb(0,135,81)'/%3E%3C/svg%3E") 15 15, pointer;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cpath%20d='M15%201%20L18.7%2011.3%20L29%2015%20L18.7%2018.7%20L15%2029%20L11.3%2018.7%20L1%2015%20L11.3%2011.3%20Z'%20fill='rgb(232,167,17)'%20stroke='rgb(51,29,10)'%20stroke-width='1.5'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='15'%20cy='15'%20r='3'%20fill='rgb(0,150,84)'/%3E%3C/svg%3E") 15 15, pointer;
 }
 
 button:disabled,
