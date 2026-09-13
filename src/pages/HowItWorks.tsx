@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
 import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
-import { MASCOT_PRO, HERO_KIDS, SAFETY_HERO_IMG, SCHOOL_IMG, CURRICULUM_IMG } from '@/lib/assets';
+import { MASCOT_PRO, SUPPORT_MASCOT, HERO_KIDS, SAFETY_HERO_IMG, SCHOOL_IMG, CURRICULUM_IMG, PARENTS_GUIDE_IMG } from '@/lib/assets';
 
 const HowItWorks = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const HowItWorks = () => {
                 <div className="w-8 h-8 rounded-lg bg-sky-blue text-white flex items-center justify-center shrink-0">
                   <Globe size={16} />
                 </div>
-                <span className="font-black text-sm text-earth-brown">English & Pidgin</span>
+                <span className="font-black text-sm text-earth-brown">5 Nigerian Languages</span>
               </div>
 
               <div className="brut-card-sm absolute -bottom-6 -right-4 md:-right-16 px-4 py-3 flex items-center gap-2 bg-white rotate-3">
@@ -68,9 +68,9 @@ const HowItWorks = () => {
 
         <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
            {[
-             { image: MASCOT_PRO, position: 'center', accent: 'green' as const, title: "Claude AI Layer", desc: "Powered by Anthropic's Claude API, customized with Nigerian-specific context and age filters." },
+             { image: SUPPORT_MASCOT, position: 'center', accent: 'green' as const, title: "Claude AI Layer", desc: "Powered by Anthropic's Claude API, customized with Nigerian-specific context and age filters." },
              { image: HERO_KIDS, position: 'top', accent: 'gold' as const, title: "Age-Gated Tiers", desc: "Buba, Kemi, and Chike modes ensure the language and complexity match the child's age." },
-             { image: MASCOT_PRO, position: 'bottom', accent: 'sky' as const, title: "Language Logic", desc: "A hybrid model that supports Standard English, Pidgin, and indigenous languages fluently." },
+             { image: PARENTS_GUIDE_IMG, position: 'top', accent: 'sky' as const, title: "Language Logic", desc: "Fluent in English, Pidgin, Yoruba, Igbo, and Hausa — chosen per child, changeable anytime." },
              { image: SAFETY_HERO_IMG, position: 'bottom', accent: 'berry' as const, title: "Safety Guardrails", desc: "Our 'Anti-Dependency' system prevents the AI from simply giving answers to homework." },
              { image: SCHOOL_IMG, position: 'top', accent: 'green' as const, title: "Nigerian Context", desc: "Examples use local names, currency, and cultural references instead of Western ones." },
              { image: CURRICULUM_IMG, position: 'center', accent: 'gold' as const, title: "Offline Ready", desc: "Content packs can be cached to support learning in areas with intermittent internet." }

@@ -8,6 +8,7 @@ import { ChevronRight, ArrowLeft, User, Mail, Lock, Sparkles, Heart } from 'luci
 import { toast } from 'sonner';
 import { LOGO_URL, MASCOT_PRO } from '@/lib/assets';
 import { firebaseEnabled } from '@/lib/firebase';
+import { LANGUAGES, Language } from '@/lib/types';
 
 const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/email-already-in-use': 'That email already has an account — try logging in instead.',
@@ -35,6 +36,7 @@ export const Onboarding = () => {
   const [password, setPassword] = useState('');
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('');
+  const [childLanguage, setChildLanguage] = useState<Language>('English');
 
   const { signUp, signIn, addProfile, user, profiles, setProfile } = useStore();
   const navigate = useNavigate();
@@ -92,7 +94,7 @@ export const Onboarding = () => {
         name: childName,
         age,
         tier: getTier(age),
-        language: 'English',
+        language: childLanguage,
         subjects: ['Maths', 'English', 'Basic Science'],
       });
       toast.success(`Success! Welcome to the family, ${childName}!`);
@@ -298,6 +300,25 @@ export const Onboarding = () => {
                           />
                        </div>
                        <p className="text-[10px] text-earth-brown/40 font-bold uppercase tracking-widest ml-2">This helps us pick the best learning mode.</p>
+                    </div>
+
+                    <div className="space-y-2">
+                       <Label className="text-sm font-black text-earth-brown/60 ml-2 uppercase tracking-widest">Preferred Language</Label>
+                       <div className="grid grid-cols-3 gap-2">
+                          {LANGUAGES.map((l) => (
+                            <button
+                              key={l.value}
+                              type="button"
+                              onClick={() => setChildLanguage(l.value)}
+                              className={`kid-button h-12 rounded-xl text-sm font-black flex items-center justify-center gap-1.5 ${
+                                childLanguage === l.value ? 'bg-adire-gold text-earth-brown' : 'bg-white text-earth-brown/60'
+                              }`}
+                            >
+                              <span>{l.flag}</span> {l.label}
+                            </button>
+                          ))}
+                       </div>
+                       <p className="text-[10px] text-earth-brown/40 font-bold uppercase tracking-widest ml-2">Can be changed anytime from the dashboard.</p>
                     </div>
 
                     <div className="pt-4">

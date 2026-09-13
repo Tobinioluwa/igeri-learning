@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '@/lib/store';
-import { generateAIResponse } from '@/lib/ai-logic';
+import { getIgeriResponse, getWelcomeMessage, getChatPlaceholder } from '@/lib/ai-logic';
 import { Input } from '@/components/ui/input';
 import {
   ArrowLeft,
@@ -43,13 +43,7 @@ export const ChatInterface = () => {
         {
           id: 'welcome',
           role: 'assistant',
-          content: initialSubject !== 'General Learning'
-            ? language === 'Pidgin'
-              ? `Oya! Make we start ${initialSubject} lessons. Wetin you want know? 🌟`
-              : `Hello! Let's dive into ${initialSubject}. What would you like to explore today? 🌟`
-            : language === 'Pidgin'
-              ? `A-low ${profile.name}! I be Igeri. Wetin we go learn today? 🌿`
-              : `Hello ${profile.name}! I'm Igeri, your learning companion. How can I help you today? 🌿`,
+          content: getWelcomeMessage(language, profile.name, initialSubject),
           timestamp: Date.now(),
           subject: initialSubject
         }
@@ -84,8 +78,7 @@ export const ChatInterface = () => {
 
     try {
       await addMessage(currentSessionId, userMsg);
-      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-      const aiResponse = await generateAIResponse(input, profile!.tier, language);
+      const aiResponse = await getIgeriResponse(input, profile!.tier, language, initialSubject, messages);
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -235,7 +228,7 @@ export const ChatInterface = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={language === 'English' ? "Wetin dey your mind?..." : "Ask me anything..."}
+              placeholder={getChatPlaceholder(language)}
               className="flex-1 h-20 bg-white border-[3px] border-earth-brown rounded-2xl pl-16 pr-36 text-xl font-bold focus-visible:border-nigerian-green transition-all"
             />
             <div className="absolute right-3 flex items-center gap-3">

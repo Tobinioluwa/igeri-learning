@@ -1,6 +1,6 @@
 # IGERI AI
 
-**IGERI AI** is a child-safe, curriculum-aligned AI learning companion for Nigerian children aged 5–17. It pairs an age-gated chat companion ("Igeri") with a parent dashboard, built on the Nigerian NERDC curriculum, with English and Pidgin language support and a Nigerian cultural identity throughout.
+**IGERI AI** is a child-safe, curriculum-aligned AI learning companion for Nigerian children aged 5–17. It pairs an age-gated chat companion ("Igeri") with a parent dashboard, built on the Nigerian NERDC curriculum, with English, Nigerian Pidgin, Yoruba, Igbo, and Hausa language support and a Nigerian cultural identity throughout.
 
 > Built with React, TypeScript, Tailwind CSS, Firebase (Auth + Firestore), and a bold neo-brutalist design system.
 
@@ -15,6 +15,7 @@
 - [Architecture](#architecture)
 - [Data Model & Security Rules](#data-model--security-rules)
 - [Admin System](#admin-system)
+- [Real AI Backend (Claude API)](#real-ai-backend-claude-api)
 - [Design System](#design-system)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
@@ -36,8 +37,8 @@ The product is built around one core promise: **Igeri helps kids think, it doesn
 ### For Kids
 - **Chat with Igeri** — a warm, encouraging AI companion with a distinct personality per age tier.
 - **Subject picker** — jump straight into Maths, English, Basic Science, or Civic Ed, or just chat freely.
-- **Anti-dependency guardrails** — when a message looks like a homework question (detected via keyword/pattern matching — see [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts)), Igeri responds with a guiding question instead of a direct answer.
-- **English & Pidgin** — toggle the conversation language at any time.
+- **Anti-dependency guardrails** — when a message looks like a homework question, Igeri responds with a guiding question instead of a direct answer. Enforced by the system prompt sent to Claude (see [Real AI Backend](#real-ai-backend-claude-api)), with a keyword-based fallback in [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts) if the AI backend is unreachable.
+- **5 Nigerian languages** — English, Pidgin, Yoruba, Igbo, and Hausa. Picked once during onboarding, changeable anytime from the child dashboard.
 - **"Get a Hint" / "Try a Different Way"** quick-actions in the chat composer.
 - **Colorful, non-photographic avatars** — every user (kids, testimonials, chat participants) gets a generated initial-bubble avatar instead of a real stranger's photo, which is a deliberate child-safety/privacy choice (see [`src/components/AvatarBubble.tsx`](src/components/AvatarBubble.tsx)).
 
@@ -85,6 +86,7 @@ A child's age is mapped to one of three tiers (`getTier()` in [`src/lib/store.ts
 | Client state | Zustand (thin reactive cache over Firebase — see below) |
 | Auth | Firebase Authentication (email/password) |
 | Database | Cloud Firestore (realtime listeners) |
+| AI | Claude API (`claude-opus-5`) via a Netlify Function — see [Real AI Backend](#real-ai-backend-claude-api) |
 | Icons | lucide-react |
 | Toasts | Sonner |
 
@@ -155,6 +157,47 @@ IGERI AI ships a separate, parallel admin auth flow — same Firebase project, s
 
 **Known limitation:** deleting a user from the admin dashboard wipes their Firestore data (account doc, profiles, sessions) but **cannot** delete their underlying Firebase Auth login — that requires the Firebase Admin SDK (a server/Cloud Function), which this client-only app doesn't have. Their email would simply have no data left if they signed back in.
 
+## Real AI Backend (Claude API)
+
+Igeri's chat is powered by a real call to Anthropic's Claude API, not just canned text. Since this is a static React app with no server of its own, that call happens through a small **Netlify Function** — the one bit of this project that runs server-side.
+
+**How it works:**
+
+```
+Browser (ChatInterface.tsx)
+        │  fetch('/api/chat', { message, tier, language, subject, history })
+        ▼
+Netlify redirect  /api/*  →  /.netlify/functions/:splat   (see netlify.toml)
+        ▼
+netlify/functions/chat.ts   (runs on Netlify's servers, never in the browser)
+        │  reads ANTHROPIC_API_KEY from its own environment
+        │  builds a system prompt from tier + language + subject
+        ▼
+Anthropic Messages API  (model: claude-opus-5 by default)
+        ▼
+{ reply: "..." }  →  back to the browser  →  rendered as Igeri's message
+```
+
+**Why a serverless function and not a direct client call:** an API key sent straight from the browser would be visible to anyone who opens dev tools — it would leak within minutes of going live. The function keeps `ANTHROPIC_API_KEY` server-side, where the browser never sees it. This is also why the key is named `ANTHROPIC_API_KEY` rather than `VITE_ANTHROPIC_API_KEY` — the `VITE_` prefix is exactly what tells Vite to bundle a variable into the public client JS, so this key deliberately doesn't get that prefix.
+
+**What the system prompt encodes** (built fresh per request in `buildSystemPrompt()`, [`netlify/functions/chat.ts`](netlify/functions/chat.ts)):
+- **Age persona** — Buba (5–8), Kemi (9–13), or Chike (14–17) tone and vocabulary.
+- **Language** — reply fluently in whichever of the 5 supported languages the child profile is set to.
+- **The anti-dependency guardrail** — explicit instructions not to hand over homework answers, and to respond with a guiding question or hint instead, which is the product's core promise.
+- **Nigerian context** — Naira for money examples, local names/places, NERDC curriculum alignment.
+- **Safety** — age-appropriate content only, with a note that parents can see the whole conversation.
+
+The last 10 messages of the current session are sent along as conversation history so Igeri's replies stay contextual within a session.
+
+**Setting it up:**
+
+1. Get an API key from the [Anthropic Console](https://console.anthropic.com) → API Keys.
+2. **Local dev:** add `ANTHROPIC_API_KEY=sk-ant-...` to your `.env` (see `.env.example`). Note that plain `npm run dev` (Vite only) does **not** run Netlify Functions — install the [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`) and run `netlify dev` instead; it runs the Vite dev server *and* proxies `/api/*` to your local function together, reading `ANTHROPIC_API_KEY` from the same `.env`.
+3. **Production (Netlify):** add `ANTHROPIC_API_KEY` in the same place you added the `VITE_FIREBASE_*` variables — Site configuration → Environment variables — then trigger a new deploy. Unlike the `VITE_*` variables, this one doesn't need a rebuild to take effect the *next* time the function runs (functions read `process.env` live), but redeploying is the safest way to confirm it's picked up.
+4. Optionally set `ANTHROPIC_MODEL` (default `claude-opus-5`) and `ANTHROPIC_EFFORT` (default `low` — fast, cost-conscious replies well suited to a kids' chat app; raise to `medium`/`high` for more careful reasoning at the cost of latency and price).
+
+**Graceful degradation:** if `ANTHROPIC_API_KEY` isn't set, or the function call fails for any reason (network issue, rate limit, function not deployed), `getIgeriResponse()` in [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts) silently falls back to the original keyword-matched mock responses (`generateAIResponse()`) rather than breaking the chat — you'll just get the old canned replies instead of real Claude output until the key is configured correctly.
+
 ## Design System
 
 **Mascot assets:** `public/mascot.png` and `public/mascot-face.png` are cropped locally from the app's logo lockup (the wordmark removed). The original template shipped two image URLs literally named "igeri-mascot-pro" and "nigerian-support-mascot" that, on inspection, depicted an unrelated landscape photo and a stock photo of a human call-center agent respectively — neither was actually the Igeri character. `src/lib/assets.ts` now points `MASCOT_PRO`/`SUPPORT_MASCOT` at the local crops instead.
@@ -183,6 +226,9 @@ Shared layout components ([`src/components/site/`](src/components/site)) — `Na
 ## Project Structure
 
 ```
+netlify/
+└── functions/
+    └── chat.ts               # Server-side Claude API call (see Real AI Backend)
 src/
 ├── App.tsx                 # Routing + Firebase auth bootstrap
 ├── main.tsx                # Entry point
@@ -190,13 +236,13 @@ src/
 ├── lib/
 │   ├── firebase.ts          # Firebase app/auth/db initialization (env-driven)
 │   ├── store.ts              # Zustand store, backed by Firebase Auth + Firestore
-│   ├── ai-logic.ts           # Mock AI response generator (keyword-based, age-tiered)
+│   ├── ai-logic.ts           # getIgeriResponse() calls the Claude backend, with a keyword-based mock as fallback
 │   ├── assets.ts              # Centralized image asset URLs
-│   ├── types.ts                # Shared TypeScript types (User, Profile, Session, Message)
+│   ├── types.ts                # Shared TypeScript types (User, Profile, Session, Message, Language)
 │   └── utils.ts                 # `cn()` class-merging helper
 ├── components/
 │   ├── AvatarBubble.tsx      # Generated colorful avatar (no stranger photos)
-│   ├── site/                  # Shared marketing-page chrome (Navbar, Footer, …)
+│   ├── site/                  # Shared marketing-page chrome (Navbar, Footer, PhotoFeatureCard, …)
 │   └── ui/                     # shadcn/ui primitives
 └── pages/
     ├── LandingPage.tsx, About.tsx, HowItWorks.tsx, Curriculum.tsx,
@@ -218,7 +264,7 @@ cp .env.example .env   # then fill in your Firebase config — see below
 npm run dev
 ```
 
-The app runs at `http://localhost:3000`.
+The app runs at `http://localhost:3000`. Note: plain `npm run dev` does **not** run the Netlify Function that powers real AI replies — see [Real AI Backend](#real-ai-backend-claude-api) for the `netlify dev` alternative.
 
 ## Firebase Setup
 
@@ -255,7 +301,8 @@ The repo is configured for **Netlify** (deploy previews are already wired up via
 
 Documenting these honestly rather than overstating what's implemented:
 
-- **AI responses are currently mocked.** [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts) uses keyword/pattern matching against a fixed pool of age-tiered, bilingual responses — it is not yet calling a real language model. Marketing copy on the "How it Works" page describes the intended Claude API integration as the product vision.
+- **AI responses use the real Claude API** when `ANTHROPIC_API_KEY` is configured (see [Real AI Backend](#real-ai-backend-claude-api)) — but automatically fall back to a small keyword-matched mock pool in [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts) if that key is missing or the request fails, so the chat never simply breaks. The mock pool only covers 3 languages (English, Pidgin, plus short Yoruba/Igbo/Hausa phrases) and won't feel as natural as real Claude output in Yoruba/Igbo/Hausa — configuring the API key is what gives the other 3 languages a genuinely fluent experience.
+- **No streaming yet** — chat responses arrive as one block once Claude finishes, rather than appearing word-by-word. This keeps the Netlify Function simple; streaming would need Server-Sent Events support added to both the function and the chat UI.
 - **Guardrail controls (Homework Mode toggle, daily time limit) are UI-only** — the parent dashboard renders them, but there's no backend enforcement yet.
 - **The Teacher Console uses static demo data** and has no auth gate — unlike `/dashboard` and `/parent`, `/teacher` doesn't currently require sign-in. Anyone with the URL can view it.
 - **No password reset flow yet** for parent *or* admin accounts.

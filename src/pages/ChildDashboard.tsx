@@ -16,6 +16,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { LOGO_URL, MASCOT_PRO } from '@/lib/assets';
+import { LANGUAGES } from '@/lib/types';
 
 export const ChildDashboard = () => {
   const { profile, clearAll, language, setLanguage } = useStore();
@@ -52,12 +53,17 @@ export const ChildDashboard = () => {
             </div>
           </div>
           <div className="flex items-center gap-4">
-             <button
-                onClick={() => setLanguage(language === 'English' ? 'Pidgin' : 'English')}
-                className="kid-button hidden md:flex bg-white text-earth-brown text-xs h-10 px-4 rounded-xl items-center"
-              >
-                {language === 'English' ? '🇬🇧 English' : '🇳🇬 Pidgin'}
-              </button>
+             <div className="relative hidden md:block">
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value as typeof language)}
+                  className="kid-button appearance-none bg-white text-earth-brown text-xs h-10 pl-4 pr-9 rounded-xl font-black cursor-pointer"
+                >
+                  {LANGUAGES.map((l) => (
+                    <option key={l.value} value={l.value}>{l.flag} {l.label}</option>
+                  ))}
+                </select>
+              </div>
             <button
               onClick={async () => {
                 await clearAll();

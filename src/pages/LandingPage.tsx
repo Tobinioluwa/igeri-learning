@@ -12,7 +12,7 @@ import { HERO_KIDS, MASCOT_PRO, PARENTS_GUIDE_IMG, SAFETY_HERO_IMG, CURRICULUM_I
 const FEATURES = [
   { image: SAFETY_HERO_IMG, position: 'center', accent: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
   { image: CURRICULUM_IMG, position: 'center', accent: 'gold' as const, title: 'Curriculum Aligned', desc: 'Mapped to the Nigerian NERDC curriculum, from Primary to JSS.', path: '/curriculum' },
-  { image: MASCOT_PRO, position: 'top', accent: 'sky' as const, title: 'Speaks Our Languages', desc: 'English and Pidgin support, with more Nigerian languages on the way.', path: '/how-it-works' },
+  { image: MASCOT_PRO, position: 'top', accent: 'sky' as const, title: 'Speaks Our Languages', desc: 'English, Pidgin, Yoruba, Igbo, and Hausa — pick a favorite anytime.', path: '/how-it-works' },
   { image: HERO_KIDS, position: '70% 20%', accent: 'berry' as const, title: 'Guided, Not Given', desc: 'Anti-dependency guardrails teach kids to think, not just copy answers.', path: '/parents-guide' },
 ];
 
@@ -22,7 +22,7 @@ const TESTIMONIALS = [
   { name: 'Amaka', role: 'JSS2 Teacher', quote: 'Finally an AI that speaks Pidgin and understands our curriculum. A real Nigerian classroom tool.' },
 ];
 
-const TRUST_BADGES = ['100% Kid-Safe', 'NERDC Aligned', 'English & Pidgin', 'Parent Dashboard', 'NDPA 2023 Compliant'];
+const TRUST_BADGES = ['100% Kid-Safe', 'NERDC Aligned', '5 Nigerian Languages', 'Parent Dashboard', 'NDPA 2023 Compliant'];
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -132,7 +132,7 @@ export const LandingPage = () => {
               Igeri fits into your family's life — a quick homework hint after school, a curiosity question at bedtime, always with a parent in the loop.
             </p>
             <div className="grid grid-cols-2 gap-4 mb-10 max-w-sm">
-              {['NERDC Curriculum', 'Kid-Safe Guardrails', 'English & Pidgin', 'Parent Dashboard'].map((item) => (
+              {['NERDC Curriculum', 'Kid-Safe Guardrails', '5 Nigerian Languages', 'Parent Dashboard'].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-nigerian-green border-2 border-earth-brown shrink-0" />
                   <span className="text-sm font-bold text-earth-brown/80">{item}</span>

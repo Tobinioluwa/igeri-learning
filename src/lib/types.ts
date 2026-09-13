@@ -1,5 +1,17 @@
 export type AgeTier = '5-8' | '9-13' | '14-17';
 
+// Nigeria's major languages: English (official) and Nigerian Pidgin
+// alongside the three largest indigenous languages by number of speakers.
+export type Language = 'English' | 'Pidgin' | 'Yoruba' | 'Igbo' | 'Hausa';
+
+export const LANGUAGES: { value: Language; label: string; flag: string }[] = [
+  { value: 'English', label: 'English', flag: '🇬🇧' },
+  { value: 'Pidgin', label: 'Pidgin', flag: '🇳🇬' },
+  { value: 'Yoruba', label: 'Yorùbá', flag: '🇳🇬' },
+  { value: 'Igbo', label: 'Igbo', flag: '🇳🇬' },
+  { value: 'Hausa', label: 'Hausa', flag: '🇳🇬' },
+];
+
 export interface User {
   id: string;
   name: string;
@@ -12,7 +24,7 @@ export interface Profile {
   name: string;
   age: number;
   tier: AgeTier;
-  language: 'English' | 'Pidgin';
+  language: Language;
   subjects: string[];
 }
 
