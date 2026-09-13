@@ -1,202 +1,207 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Shield, BookOpen, Globe, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, Play, Shield, BookOpen, Globe, Sparkles, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AvatarBubble } from '@/components/AvatarBubble';
+import { Navbar } from '@/components/site/Navbar';
+import { AnnouncementBar } from '@/components/site/AnnouncementBar';
+import { Footer } from '@/components/site/Footer';
+import { IconBadgeCard } from '@/components/site/IconBadgeCard';
+import { HERO_KIDS, MASCOT_PRO } from '@/lib/assets';
+
+const FEATURES = [
+  { icon: Shield, color: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
+  { icon: BookOpen, color: 'gold' as const, title: 'Curriculum Aligned', desc: 'Mapped to the Nigerian NERDC curriculum, from Primary to JSS.', path: '/curriculum' },
+  { icon: Globe, color: 'sky' as const, title: 'Speaks Our Languages', desc: 'English and Pidgin support, with more Nigerian languages on the way.', path: '/how-it-works' },
+  { icon: Sparkles, color: 'berry' as const, title: 'Guided, Not Given', desc: 'Anti-dependency guardrails teach kids to think, not just copy answers.', path: '/parents-guide' },
+];
+
+const TESTIMONIALS = [
+  { name: 'Chiamaka', role: 'Parent in Lagos', quote: 'My daughter actually asks to do her homework now. Igeri makes maths feel like a game.' },
+  { name: 'Tunde', role: 'Parent in Abuja', quote: "I love that I can see every conversation. It's the first AI tool I've trusted for my kids." },
+  { name: 'Amaka', role: 'JSS2 Teacher', quote: 'Finally an AI that speaks Pidgin and understands our curriculum. A real Nigerian classroom tool.' },
+];
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const LOGO_URL = "https://storage.googleapis.com/dala-prod-public-storage/attachments/78945f35-5d84-451e-a6ab-d03eb2edbe61/1779824627581_ChatGPT_Image_May_26__2026__08_43_18_PM.png";
-  const MASCOT_PRO = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/igeri-mascot-pro-png-a5d3d9c2-1779825769745.webp";
-  const HERO_KIDS = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/joyful-nigerian-kids-hero-png-0fde037d-1779836834434.webp";
-
-  const navLinks = [
-    { name: 'How it works', path: '/how-it-works' },
-    { name: 'Curriculum', path: '/curriculum' },
-    { name: 'Safety', path: '/safety' },
-    { name: 'For Schools', path: '/for-schools' }
-  ];
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-parchment">
-      <div className="absolute inset-0 adire-pattern pointer-events-none" />
-      
-      <div className="absolute -top-48 -right-48 w-[600px] h-[600px] bg-nigerian-green/5 rounded-full blur-[120px]" />
-      <div className="absolute top-1/2 -left-48 w-96 h-96 bg-adire-gold/10 rounded-full blur-[100px]" />
+      <AnnouncementBar />
+      <Navbar variant="full" />
 
-      <nav className="relative z-30 container mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-earth-brown/5 group-hover:rotate-6 transition-transform">
-             <img src={LOGO_URL} alt="Igeri AI Logo" className="w-9 h-9 object-contain" />
+      <main className="relative z-10 container mx-auto px-6 pt-16 pb-8">
+        {/* Decorative dots */}
+        <div className="deco-dot w-4 h-4 bg-berry-pink/60 top-4 left-4 hidden md:block" />
+        <div className="deco-dot w-3 h-3 bg-sky-blue/50 top-2 right-16 hidden md:block" />
+        <div className="deco-dot w-5 h-5 bg-adire-gold/40 top-40 left-0 hidden lg:block" />
+        <div className="deco-dot w-3 h-3 bg-nigerian-green/50 top-56 right-0 hidden lg:block" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <h1 className="text-5xl md:text-7xl font-black text-earth-brown mb-6 leading-[1.05] tracking-tight">
+            Let's learn with <span className="text-nigerian-green">Igeri</span>, our AI learning friend.
+          </h1>
+          <p className="text-lg md:text-xl text-earth-brown/60 font-medium mb-10 max-w-xl mx-auto leading-relaxed">
+            Discover new knowledge, make learning fun, and grow with an AI companion that speaks our languages and knows our curriculum.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <Button
+              size="lg"
+              onClick={() => navigate('/onboarding')}
+              className="bg-earth-brown hover:bg-earth-brown/90 text-white h-14 px-8 text-base font-black rounded-full kid-button group"
+            >
+              Get Started <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform" size={18} />
+            </Button>
+            <button
+              onClick={() => navigate('/how-it-works')}
+              className="flex items-center gap-3 font-black text-earth-brown"
+            >
+              <span className="w-11 h-11 rounded-full bg-adire-gold flex items-center justify-center text-white shadow-kid">
+                <Play size={16} className="fill-white ml-0.5" />
+              </span>
+              Watch How it Works
+            </button>
           </div>
-          <div className="flex flex-col">
-            <span className="text-2xl font-black text-nigerian-green tracking-tighter leading-none">IGERI AI</span>
-            <span className="text-[10px] font-bold text-earth-brown/40 tracking-widest uppercase">Heart of Nigeria</span>
+        </motion.div>
+
+        {/* Photo / decorative collage */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative mt-16 flex items-end justify-center gap-4 md:gap-6 max-w-4xl mx-auto"
+        >
+          <div className="relative w-1/3 md:w-64 aspect-[3/4] pill-photo overflow-hidden bg-sky-blue/10 shadow-kid">
+            <img src={HERO_KIDS} alt="Nigerian children learning together" className="w-full h-full object-cover" />
           </div>
-        </div>
-        
-        <div className="hidden lg:flex items-center gap-10">
-           {navLinks.map((link) => (
-             <button key={link.name} onClick={() => navigate(link.path)} className="text-sm font-bold text-earth-brown/60 hover:text-nigerian-green transition-colors relative group">
-               {link.name}
-               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-nigerian-green transition-all group-hover:w-full" />
-             </button>
-           ))}
+          <div className="relative w-1/3 md:w-64 aspect-square pill-photo overflow-hidden bg-nigerian-green shadow-kid flex items-center justify-center">
+            <img src={MASCOT_PRO} alt="Igeri mascot" className="w-4/5 h-4/5 object-contain animate-float" />
+          </div>
+          <div className="relative w-1/3 md:w-64 aspect-[3/4] pill-photo overflow-hidden bg-adire-gold shadow-kid flex flex-col items-center justify-center text-white p-6 text-center">
+            <Sparkles size={36} className="mb-3" />
+            <p className="text-2xl font-black leading-none">50k+</p>
+            <p className="text-xs font-bold uppercase tracking-widest mt-2 opacity-80">Nigerian Kids Learning</p>
+          </div>
+          <div className="deco-dot w-4 h-4 bg-berry-pink hidden md:block -bottom-2 left-1/4" />
+          <div className="deco-dot w-3 h-3 bg-sky-blue hidden md:block -top-4 right-1/4" />
+        </motion.div>
+
+        {/* Trust strip */}
+        <div className="mt-24 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-earth-brown/40 font-black text-xs uppercase tracking-widest">
+          <span>100% Kid-Safe</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-earth-brown/20" />
+          <span>NERDC Aligned</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-earth-brown/20" />
+          <span>English &amp; Pidgin</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-earth-brown/20" />
+          <span>Parent Dashboard</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-earth-brown/20" />
+          <span>NDPA 2023 Compliant</span>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            className="hidden sm:flex text-earth-brown font-bold"
-            onClick={() => navigate('/onboarding')}
-          >
-            Login
-          </Button>
-          <Button 
-            onClick={() => navigate('/onboarding')}
-            className="bg-nigerian-green hover:bg-nigerian-green/90 text-white rounded-2xl px-8 font-black shadow-lg hover:shadow-nigerian-green/20 kid-button"
-          >
-            Join Now
-          </Button>
-        </div>
-      </nav>
+        {/* Features */}
+        <section className="mt-28">
+          <div className="text-center mb-14">
+            <p className="text-sm font-black uppercase tracking-widest text-accent mb-3">How it works</p>
+            <h2 className="text-4xl md:text-5xl font-black text-earth-brown tracking-tight">What makes Igeri different?</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {FEATURES.map((f) => (
+              <IconBadgeCard
+                key={f.title}
+                icon={f.icon}
+                color={f.color}
+                title={f.title}
+                description={f.desc}
+                onClick={() => navigate(f.path)}
+              />
+            ))}
+          </div>
+        </section>
 
-      <main className="relative z-20 container mx-auto px-6 pt-10 pb-32">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-2xl border border-earth-brown/5 shadow-sm mb-8">
-               <span className="w-2 h-2 bg-nigerian-green rounded-full animate-pulse" />
-               <span className="text-xs font-black text-earth-brown/60 uppercase tracking-widest">Empowering Nigerian Excellence</span>
+        {/* Split CTA section */}
+        <section className="mt-28 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="relative flex justify-center">
+            <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-adire-gold rounded-[3rem] -rotate-6" />
+            <div className="relative w-64 h-80 md:w-80 md:h-[26rem] pill-photo overflow-hidden shadow-2xl">
+              <img src={HERO_KIDS} alt="A Nigerian child learning" className="w-full h-full object-cover" />
             </div>
-            
-            <h1 className="text-6xl md:text-8xl font-black text-earth-brown mb-8 leading-[0.9] tracking-tighter">
-              The Heart of <br />
-              <span className="text-nigerian-green">Learning.</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-earth-brown/60 font-medium mb-10 leading-relaxed max-w-lg">
-              Smart AI for Nigerian kids that speaks our languages, honors our culture, and matches our curriculum.
+            <div className="deco-dot w-4 h-4 bg-sky-blue -top-4 -left-2" />
+          </div>
+          <div>
+            <p className="text-sm font-black uppercase tracking-widest text-nigerian-green mb-3">Learning Methods</p>
+            <h2 className="text-4xl md:text-5xl font-black text-earth-brown mb-6 tracking-tight leading-tight">
+              Access to learning, anytime and anywhere.
+            </h2>
+            <p className="text-earth-brown/60 font-medium leading-relaxed mb-8 max-w-md">
+              Igeri fits into your family's life — a quick homework hint after school, a curiosity question at bedtime, always with a parent in the loop.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-5 items-center">
-              <Button 
-                size="lg" 
-                onClick={() => navigate('/onboarding')}
-                className="w-full sm:w-auto bg-nigerian-green text-white h-16 px-10 text-xl font-black rounded-[1.25rem] shadow-2xl kid-button group"
-              >
-                Start Learning <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <div className="flex items-center gap-4 p-2 pl-4 bg-white/40 rounded-2xl border border-white/60">
-                 <div className="flex -space-x-3">
-                   {['Emeka','Kemi','Chike','Zainab'].map(name => (
-                     <AvatarBubble key={name} name={name} size={40} className="border-2 border-white shadow-sm" />
-                   ))}
-                 </div>
-                 <div className="flex flex-col">
-                   <span className="text-sm font-black text-earth-brown">50,000+</span>
-                   <span className="text-[10px] font-bold text-earth-brown/40 uppercase">Nigerian Kids</span>
-                 </div>
-              </div>
-            </div>
-
-            <div className="mt-16 grid grid-cols-2 gap-8 border-t border-earth-brown/5 pt-10">
-               <div className="flex gap-4 cursor-pointer" onClick={() => navigate('/safety-center')}>
-                  <CheckCircle2 className="text-nigerian-green shrink-0" />
-                  <div>
-                    <p className="font-black text-earth-brown">100% Kid Safe</p>
-                    <p className="text-xs text-earth-brown/50 font-medium leading-tight">View our Safety Center →</p>
-                  </div>
-               </div>
-               <div className="flex gap-4 cursor-pointer" onClick={() => navigate('/curriculum')}>
-                  <CheckCircle2 className="text-nigerian-green shrink-0" />
-                  <div>
-                    <p className="font-black text-earth-brown">Curriculum Match</p>
-                    <p className="text-xs text-earth-brown/50 font-medium leading-tight">NERDC Standardized →</p>
-                  </div>
-               </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative z-10 w-full aspect-square max-w-xl mx-auto">
-               <div className="absolute inset-0 bg-gradient-to-tr from-nigerian-green to-adire-gold rounded-[3rem] rotate-6 scale-95 opacity-10" />
-               <div className="absolute inset-0 glass rounded-[3rem] overflow-hidden border-2 border-white/50">
-                  <img 
-                    src={HERO_KIDS} 
-                    alt="Joyful Nigerian Kids" 
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-earth-brown/60 to-transparent" />
-                  <div className="absolute bottom-10 left-10 text-white">
-                     <p className="text-2xl font-black">Built for the future.</p>
-                     <p className="text-sm font-bold opacity-80">Empowering every Nigerian child.</p>
-                  </div>
-               </div>
-            </div>
-            <div className="absolute -right-12 -bottom-12 w-48 h-48 animate-float">
-               <img src={MASCOT_PRO} alt="Igeri Mascot" className="w-full h-full object-contain drop-shadow-2xl" />
-            </div>
-          </motion.div>
-        </div>
-
-        <section className="mt-32">
-           <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">Safe. Smart. Indigenous.</h2>
-              <p className="text-lg text-earth-brown/50 max-w-xl mx-auto font-medium">IGERI AI is more than a chatbot—it's a mentor designed for our classroom.</p>
-           </div>
-           
-           <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { title: 'Safety Center', path: '/safety-center', icon: Shield, color: 'bg-green-100', text: 'text-nigerian-green', desc: 'How we keep children safe and parents in control.' },
-                { title: 'Parents Guide', path: '/parents-guide', icon: BookOpen, color: 'bg-amber-100', text: 'text-adire-gold', desc: 'Everything you need to support your child.' },
-                { title: 'Schools', path: '/schools', icon: Globe, color: 'bg-slate-100', text: 'text-earth-brown', desc: 'Partnering with educational institutions nationwide.' }
-              ].map((card) => (
-                <motion.div
-                  key={card.title}
-                  whileHover={{ y: -10 }}
-                  onClick={() => navigate(card.path)}
-                  className="p-10 glass rounded-[2.5rem] cursor-pointer group"
-                >
-                   <div className={`w-14 h-14 ${card.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
-                      <card.icon className={card.text} size={28} />
-                   </div>
-                   <h3 className="text-2xl font-black mb-4">{card.title}</h3>
-                   <p className="text-earth-brown/60 font-medium leading-relaxed">{card.desc}</p>
-                   <div className="mt-6 flex items-center gap-2 font-bold text-sm text-nigerian-green uppercase tracking-widest">
-                     Explore More <ChevronRight size={14} />
-                   </div>
-                </motion.div>
+            <div className="grid grid-cols-2 gap-4 mb-10 max-w-sm">
+              {['NERDC Curriculum', 'Kid-Safe Guardrails', 'English & Pidgin', 'Parent Dashboard'].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-nigerian-green shrink-0" />
+                  <span className="text-sm font-bold text-earth-brown/80">{item}</span>
+                </div>
               ))}
-           </div>
+            </div>
+            <Button
+              onClick={() => navigate('/onboarding')}
+              className="bg-earth-brown hover:bg-earth-brown/90 text-white h-14 px-8 font-black rounded-full kid-button"
+            >
+              Get Started
+            </Button>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="mt-28">
+          <div className="text-center mb-14">
+            <p className="text-sm font-black uppercase tracking-widest text-accent mb-3">Testimonials</p>
+            <h2 className="text-4xl md:text-5xl font-black text-earth-brown tracking-tight">Loved by families across Nigeria</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} className="bg-white p-8 rounded-[2rem] shadow-kid relative">
+                <Quote className="text-nigerian-green/15 absolute top-6 right-6" size={40} />
+                <p className="text-earth-brown/80 font-medium leading-relaxed mb-6 relative z-10">"{t.quote}"</p>
+                <div className="flex items-center gap-3">
+                  <AvatarBubble name={t.name} size={40} />
+                  <div>
+                    <p className="font-black text-earth-brown text-sm">{t.name}</p>
+                    <p className="text-xs text-earth-brown/40 font-bold uppercase tracking-widest">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="mt-28 mb-8 nigerian-gradient rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden">
+          <div className="absolute inset-0 adire-pattern opacity-10" />
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">Ready to start the journey?</h2>
+            <p className="text-white/80 font-medium mb-10 max-w-xl mx-auto">
+              Join thousands of Nigerian families already learning with Igeri.
+            </p>
+            <Button
+              size="lg"
+              onClick={() => navigate('/onboarding')}
+              className="bg-white text-nigerian-green hover:bg-white/90 h-16 px-10 text-lg font-black rounded-full kid-button"
+            >
+              Create Your Free Account
+            </Button>
+          </div>
         </section>
       </main>
 
-      <footer className="bg-white/50 backdrop-blur-md py-12 relative overflow-hidden border-t border-earth-brown/5">
-         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div className="flex items-center gap-3">
-              <img src={LOGO_URL} alt="Igeri AI logo" className="w-8 h-8 grayscale opacity-50" />
-              <span className="text-lg font-black text-earth-brown/30 tracking-widest uppercase">IGERI AI</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-earth-brown/40 uppercase tracking-widest">
-               <button onClick={() => navigate('/safety-center')}>Safety Center</button>
-               <button onClick={() => navigate('/parents-guide')}>Parents Guide</button>
-               <button onClick={() => navigate('/for-schools')}>For Schools</button>
-               <button onClick={() => navigate('/contact')}>Contact</button>
-            </div>
-            <p className="text-[10px] font-black text-earth-brown/30 uppercase tracking-widest">© 2026 IGERI AI • NYSC Abuja</p>
-         </div>
-         <div className="ankara-border mt-12" />
-      </footer>
+      <Footer />
     </div>
   );
 };

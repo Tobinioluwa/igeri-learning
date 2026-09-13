@@ -15,12 +15,11 @@ import {
   Download,
   Sparkles
 } from 'lucide-react';
+import { PARENTS_GUIDE_IMG } from '@/lib/assets';
 
 export const ParentDashboard = () => {
   const { user, profile, sessions } = useStore();
   const navigate = useNavigate();
-
-  const PARENTS_GUIDE_IMG = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/nigerian-parents-guide-png-0c1f7abf-1779836835572.webp";
 
   if (!user) return null;
 
@@ -35,7 +34,7 @@ export const ParentDashboard = () => {
               variant="outline"
               size="icon"
               onClick={() => navigate('/dashboard')}
-              className="rounded-2xl border-earth-brown/10 w-12 h-12"
+              className="rounded-full border-earth-brown/10 w-12 h-12"
             >
               <ArrowLeft size={22} />
             </Button>
@@ -160,7 +159,7 @@ export const ParentDashboard = () => {
                    <div className="absolute inset-0 bg-nigerian-green/25 mix-blend-multiply" />
                  </div>
               </div>
-              <Button className="w-full bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black h-12 rounded-2xl kid-button">
+              <Button className="w-full bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black h-12 rounded-full kid-button">
                 Enable WhatsApp Digest
               </Button>
             </Card>
@@ -168,10 +167,10 @@ export const ParentDashboard = () => {
             <Card className="p-7 rounded-[2rem] border-earth-brown/5 shadow-kid">
                <h4 className="font-black mb-4 uppercase text-xs tracking-widest text-earth-brown/40">Quick Actions</h4>
                <div className="space-y-2">
-                 <Button onClick={() => navigate('/parents-guide')} variant="outline" className="w-full justify-start gap-2 h-12 text-earth-brown font-black rounded-2xl border-earth-brown/10">
+                 <Button onClick={() => navigate('/parents-guide')} variant="outline" className="w-full justify-start gap-2 h-12 text-earth-brown font-black rounded-full border-earth-brown/10">
                    <ShieldAlert size={18} /> Safety Guide
                  </Button>
-                 <Button variant="outline" className="w-full justify-start gap-2 h-12 text-earth-brown font-black rounded-2xl border-earth-brown/10">
+                 <Button variant="outline" className="w-full justify-start gap-2 h-12 text-earth-brown font-black rounded-full border-earth-brown/10">
                    <Download size={18} /> Export History
                  </Button>
                </div>

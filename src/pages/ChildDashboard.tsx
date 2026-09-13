@@ -17,16 +17,13 @@ import {
   ChevronRight,
   Sparkles
 } from 'lucide-react';
+import { LOGO_URL, MASCOT_PRO, HOW_IT_WORKS_ILLU } from '@/lib/assets';
 
 export const ChildDashboard = () => {
   const { profile, clearAll, language, setLanguage } = useStore();
   const navigate = useNavigate();
 
   if (!profile) return null;
-
-  const LOGO_URL = "https://storage.googleapis.com/dala-prod-public-storage/attachments/78945f35-5d84-451e-a6ab-d03eb2edbe61/1779824627581_ChatGPT_Image_May_26__2026__08_43_18_PM.png";
-  const MASCOT_PRO = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/igeri-mascot-pro-png-a5d3d9c2-1779825769745.webp";
-  const HOW_IT_WORKS_ILLU = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/how-igeri-works-png-3b93aeff-1779836835366.webp";
 
   const subjects = [
     { name: 'Maths', icon: Calculator, color: 'bg-blue-50 text-blue-600', border: 'border-blue-100' },
@@ -61,18 +58,18 @@ export const ChildDashboard = () => {
                 variant="outline" 
                 size="sm"
                 onClick={() => setLanguage(language === 'English' ? 'Pidgin' : 'English')}
-                className="hidden md:flex rounded-2xl border-earth-brown/10 font-black text-xs h-10 px-4"
+                className="hidden md:flex rounded-full border-earth-brown/10 font-black text-xs h-10 px-4"
               >
                 {language === 'English' ? '🇬🇧 English' : '🇳🇬 Pidgin'}
               </Button>
             <Button 
               variant="outline" 
               size="icon" 
-              onClick={() => {
-                clearAll();
+              onClick={async () => {
+                await clearAll();
                 navigate('/');
               }}
-              className="rounded-2xl border-earth-brown/10 w-12 h-12 hover:bg-destructive hover:text-white transition-all"
+              className="rounded-full border-earth-brown/10 w-12 h-12 hover:bg-destructive hover:text-white transition-all"
             >
               <LogOut size={22} />
             </Button>
@@ -99,7 +96,7 @@ export const ChildDashboard = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate('/chat')}
-                className="bg-white text-nigerian-green hover:bg-white/90 rounded-2xl h-16 px-10 shadow-xl font-black text-xl kid-button"
+                className="bg-white text-nigerian-green hover:bg-white/90 rounded-full h-16 px-10 shadow-xl font-black text-xl kid-button"
               >
                 Start Learning Now <ChevronRight className="ml-2" />
               </Button>
@@ -156,7 +153,7 @@ export const ChildDashboard = () => {
                     <h4 className="text-2xl font-black mb-2">How Igeri Works 🧠</h4>
                     <p className="text-earth-brown/60 font-medium max-w-md">Ever wondered how Igeri knows so much? Learn about the magic of AI.</p>
                  </div>
-                 <Button className="md:ml-auto bg-earth-brown text-white font-black rounded-2xl kid-button h-14 px-8">
+                 <Button className="md:ml-auto bg-earth-brown hover:bg-earth-brown/90 text-white font-black rounded-full kid-button h-14 px-8">
                     Discover
                  </Button>
               </div>

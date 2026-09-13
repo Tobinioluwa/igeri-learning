@@ -5,13 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { Navbar } from '@/components/site/Navbar';
+import { Footer } from '@/components/site/Footer';
+import { SUPPORT_MASCOT } from '@/lib/assets';
 
 const Contact = () => {
-  const navigate = useNavigate();
-  const CONTACT_MASCOT = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/nigerian-support-mascot-png-da050e15-1779836834795.webp";
-
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,24 +30,16 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-parchment relative overflow-hidden">
       <div className="absolute inset-0 adire-pattern pointer-events-none" />
-      
-      <nav className="relative z-30 container mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-earth-brown/5">
-             <img src="https://storage.googleapis.com/dala-prod-public-storage/attachments/78945f35-5d84-451e-a6ab-d03eb2edbe61/1779824627581_ChatGPT_Image_May_26__2026__08_43_18_PM.png" alt="Logo" className="w-8 h-8 object-contain" />
-          </div>
-          <span className="text-xl font-black text-nigerian-green">IGERI AI</span>
-        </div>
-        <Button variant="ghost" className="font-bold text-earth-brown" onClick={() => navigate('/')}>Back Home</Button>
-      </nav>
+
+      <Navbar />
 
       <main className="relative z-10 container mx-auto px-6 py-12">
         <div className="text-center mb-20">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-5xl md:text-7xl font-black text-earth-brown mb-8 leading-[0.9] tracking-tighter">
+            <h1 className="text-5xl md:text-7xl font-black text-earth-brown mb-8 leading-[0.9] tracking-tight">
               Get in <span className="text-nigerian-green">Touch</span>
             </h1>
             <p className="text-xl text-earth-brown/60 font-medium leading-relaxed max-w-2xl mx-auto">
@@ -93,22 +84,22 @@ const Contact = () => {
                </div>
             </div>
 
-            <div className="relative glass p-10 rounded-[3rem] border-white/60 overflow-hidden">
+            <div className="relative bg-white p-10 rounded-[3rem] shadow-kid overflow-hidden">
                <div className="relative z-10">
-                  <h3 className="text-2xl font-black mb-4">Direct Chat</h3>
+                  <h3 className="text-2xl font-black mb-4 text-earth-brown">Direct Chat</h3>
                   <p className="text-earth-brown/60 font-medium mb-8">Need instant help? Our support mascot is waiting for you.</p>
-                  <Button className="bg-nigerian-green text-white font-black px-8 h-14 rounded-2xl kid-button flex items-center gap-2">
+                  <Button className="bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black px-8 h-14 rounded-full kid-button flex items-center gap-2">
                      <MessageSquare size={20} /> Open Chat
                   </Button>
                </div>
-               <img src={CONTACT_MASCOT} alt="" className="absolute -bottom-10 -right-10 w-48 h-48 opacity-20 pointer-events-none" />
+               <img src={SUPPORT_MASCOT} alt="" className="absolute -bottom-10 -right-10 w-48 h-48 opacity-20 pointer-events-none" />
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="glass p-10 md:p-12 rounded-[3rem] border-white/60 shadow-xl"
+            className="bg-white p-10 md:p-12 rounded-[3rem] shadow-kid"
           >
              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-6">
@@ -129,13 +120,15 @@ const Contact = () => {
                    <Label className="font-bold ml-2">Message</Label>
                    <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-[2rem] border-earth-brown/10 p-6" />
                 </div>
-                <Button type="submit" className="w-full h-16 bg-nigerian-green text-white font-black text-xl rounded-2xl shadow-xl kid-button">
+                <Button type="submit" className="w-full h-16 bg-nigerian-green hover:bg-nigerian-green/90 text-white font-black text-xl rounded-full shadow-xl kid-button">
                    Send Message <Send className="ml-2" size={20} />
                 </Button>
              </form>
           </motion.div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
