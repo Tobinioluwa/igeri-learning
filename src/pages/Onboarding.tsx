@@ -118,15 +118,17 @@ export const Onboarding = () => {
                className="mb-12"
             >
                {step === 1 ? (
-                 <div className="w-64 h-64 mx-auto rounded-2xl bg-nigerian-green flex items-center justify-center border-[3px] border-white/30">
-                   <img src={MASCOT_PRO} alt="Igeri mascot" className="w-44 h-44 object-contain" />
+                 <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-[3px] border-white/30">
+                   <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover" />
                  </div>
                ) : (
-                 <img
-                   src={MASCOT_PRO}
-                   alt="Igeri mascot cheering you on"
-                   className="max-w-sm mx-auto object-contain animate-float"
-                 />
+                 <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-[3px] border-white/30 animate-float">
+                   <img
+                     src={MASCOT_PRO}
+                     alt="Igeri mascot cheering you on"
+                     className="w-full h-full object-cover"
+                   />
+                 </div>
                )}
             </motion.div>
             <h2 className="text-white text-4xl font-black mb-6 leading-tight">

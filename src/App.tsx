@@ -15,6 +15,7 @@ import Curriculum from './pages/Curriculum';
 import Safety from './pages/Safety';
 import ForSchools from './pages/ForSchools';
 import Contact from './pages/Contact';
+import About from './pages/About';
 import { useStore, initAuth } from './lib/store';
 import { AnimatePresence } from 'framer-motion';
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/safety" element={<Safety />} />
             <Route path="/for-schools" element={<ForSchools />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
             
             {/* Protected Routes */}
             <Route 

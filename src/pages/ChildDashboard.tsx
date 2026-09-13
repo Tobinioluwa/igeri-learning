@@ -15,7 +15,7 @@ import {
   ChevronRight,
   Sparkles
 } from 'lucide-react';
-import { LOGO_URL, MASCOT_PRO, HOW_IT_WORKS_ILLU } from '@/lib/assets';
+import { LOGO_URL, MASCOT_PRO } from '@/lib/assets';
 
 export const ChildDashboard = () => {
   const { profile, clearAll, language, setLanguage } = useStore();
@@ -94,13 +94,14 @@ export const ChildDashboard = () => {
               </button>
             </div>
 
-            <motion.img
+            <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              src={MASCOT_PRO}
-              alt="Igeri mascot"
-              className="absolute -bottom-10 -right-6 w-72 h-72 md:w-[450px] md:h-[450px] object-contain pointer-events-none hidden md:block"
-            />
+              className="absolute -bottom-10 -right-6 w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden border-[3px] border-white pointer-events-none hidden md:block rotate-3"
+              style={{ boxShadow: '8px 8px 0 0 rgba(0,0,0,0.25)' }}
+            >
+              <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover" />
+            </motion.div>
           </div>
         </motion.div>
 
@@ -133,10 +134,7 @@ export const ChildDashboard = () => {
         </section>
 
         <div className="grid lg:grid-cols-3 gap-8">
-           <div className="lg:col-span-2 brut-card p-10 overflow-hidden relative cursor-pointer" onClick={() => navigate('/how-it-works')}>
-              <div className="absolute top-0 right-0 p-10 opacity-10 w-1/3">
-                 <img src={HOW_IT_WORKS_ILLU} alt="" className="w-full h-full object-contain" />
-              </div>
+           <div className="lg:col-span-2 brut-card p-10 cursor-pointer" onClick={() => navigate('/how-it-works')}>
               <div className="flex flex-col md:flex-row items-center gap-10">
                  <div className="w-24 h-24 bg-adire-gold-light rounded-full flex items-center justify-center text-adire-gold shrink-0 brut-border">
                     <BrainCircuit size={48} />
