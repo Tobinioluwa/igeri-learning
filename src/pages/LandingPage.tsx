@@ -7,7 +7,7 @@ import { Navbar } from '@/components/site/Navbar';
 import { AnnouncementBar } from '@/components/site/AnnouncementBar';
 import { Footer } from '@/components/site/Footer';
 import { IconBadgeCard } from '@/components/site/IconBadgeCard';
-import { HERO_KIDS, MASCOT_PRO } from '@/lib/assets';
+import { HERO_KIDS, MASCOT_PRO, PARENTS_GUIDE_IMG } from '@/lib/assets';
 
 const FEATURES = [
   { icon: Shield, color: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
@@ -77,8 +77,8 @@ export const LandingPage = () => {
           <div className="brut-card overflow-hidden -rotate-2">
             <img src={HERO_KIDS} alt="Nigerian children learning together" className="w-full h-full object-cover aspect-[3/4]" />
           </div>
-          <div className="brut-card overflow-hidden bg-nigerian-green flex items-center justify-center rotate-1">
-            <img src={MASCOT_PRO} alt="Igeri mascot" className="w-4/5 h-4/5 object-contain animate-float" />
+          <div className="brut-card overflow-hidden rotate-1">
+            <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover aspect-[3/4] animate-float" />
           </div>
           <div className="brut-card overflow-hidden bg-adire-gold flex flex-col items-center justify-center text-earth-brown p-6 text-center -rotate-1">
             <Sparkles size={36} className="mb-3" />
@@ -119,7 +119,7 @@ export const LandingPage = () => {
           <div className="relative flex justify-center">
             <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-adire-gold rounded-2xl brut-border rotate-6" />
             <div className="relative w-64 h-80 md:w-80 md:h-[26rem] brut-card overflow-hidden -rotate-3">
-              <img src={HERO_KIDS} alt="A Nigerian child learning" className="w-full h-full object-cover" />
+              <img src={PARENTS_GUIDE_IMG} alt="A Nigerian family learning together" className="w-full h-full object-cover" />
             </div>
           </div>
           <div>

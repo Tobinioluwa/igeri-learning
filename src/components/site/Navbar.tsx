@@ -7,6 +7,7 @@ const DEFAULT_LINKS = [
   { name: 'Curriculum', path: '/curriculum' },
   { name: 'Safety', path: '/safety' },
   { name: 'For Schools', path: '/for-schools' },
+  { name: 'About', path: '/about' },
 ];
 
 interface NavbarProps {
@@ -32,7 +33,7 @@ export function Navbar({ variant = 'minimal', links = DEFAULT_LINKS }: NavbarPro
         </div>
 
         {variant === 'full' && (
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {links.map((link) => (
               <button
                 key={link.name}

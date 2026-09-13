@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Globe, MessageCircle, ShieldCheck, Zap, Layers } from 'lucide-react';
+import { Cpu, Globe, MessageCircle, ShieldCheck, Zap, Layers, BookOpen, Brain, Lightbulb } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { HOW_IT_WORKS_ILLU } from '@/lib/assets';
+import { MASCOT_PRO } from '@/lib/assets';
 
 const HowItWorks = () => {
   const navigate = useNavigate();
@@ -36,13 +36,36 @@ const HowItWorks = () => {
            <motion.div
              initial={{ opacity: 0, scale: 0.9 }}
              animate={{ opacity: 1, scale: 1 }}
-             className="relative max-w-4xl brut-card overflow-hidden p-6 bg-white"
+             className="relative w-full max-w-2xl"
            >
-              <img src={HOW_IT_WORKS_ILLU} alt="How it works visualization" className="w-full h-auto" />
+              <div className="brut-card overflow-hidden">
+                <img src={MASCOT_PRO} alt="Igeri, the AI learning companion" className="w-full h-auto" />
+              </div>
+
+              <div className="brut-card-sm absolute -top-6 -left-6 md:-left-16 px-4 py-3 flex items-center gap-2 bg-white -rotate-6">
+                <div className="w-8 h-8 rounded-lg bg-sky-blue text-white flex items-center justify-center shrink-0">
+                  <Globe size={16} />
+                </div>
+                <span className="font-black text-sm text-earth-brown">English & Pidgin</span>
+              </div>
+
+              <div className="brut-card-sm absolute -bottom-6 -right-4 md:-right-16 px-4 py-3 flex items-center gap-2 bg-white rotate-3">
+                <div className="w-8 h-8 rounded-lg bg-adire-gold text-earth-brown flex items-center justify-center shrink-0">
+                  <BookOpen size={16} />
+                </div>
+                <span className="font-black text-sm text-earth-brown">NERDC Aligned</span>
+              </div>
+
+              <div className="brut-card-sm absolute top-1/3 -right-6 md:-right-20 px-4 py-3 flex items-center gap-2 bg-white rotate-6 hidden sm:flex">
+                <div className="w-8 h-8 rounded-lg bg-berry-pink text-white flex items-center justify-center shrink-0">
+                  <ShieldCheck size={16} />
+                </div>
+                <span className="font-black text-sm text-earth-brown">Kid-Safe</span>
+              </div>
            </motion.div>
         </div>
 
-        <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">
+        <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
            {[
              { icon: Cpu, color: 'bg-nigerian-green', title: "Claude AI Layer", desc: "Powered by Anthropic's Claude API, customized with Nigerian-specific context and age filters." },
              { icon: Layers, color: 'bg-adire-gold', title: "Age-Gated Tiers", desc: "Buba, Kemi, and Chike modes ensure the language and complexity match the child's age." },
@@ -59,6 +82,26 @@ const HowItWorks = () => {
                <p className="text-earth-brown/60 font-medium leading-relaxed">{tech.desc}</p>
              </div>
            ))}
+        </section>
+
+        <section className="brut-card bg-white p-10 md:p-16 mb-24">
+           <div className="grid lg:grid-cols-[auto_1fr] gap-8 items-start">
+              <div className="w-16 h-16 bg-earth-brown text-white rounded-xl flex items-center justify-center shrink-0 brut-border">
+                 <Brain size={32} />
+              </div>
+              <div>
+                 <h2 className="text-3xl font-black text-earth-brown mb-4">Igeri answers with a question, on purpose.</h2>
+                 <p className="text-lg text-earth-brown/70 font-medium leading-relaxed mb-6">
+                    Most AI tools are built to give the fastest possible answer. That's convenient — and it's quietly making a generation of kids worse at thinking for themselves. Igeri does the opposite: when a question looks like homework, it responds with a guiding question instead of the answer, so your child does the actual thinking.
+                 </p>
+                 <div className="flex items-start gap-3 p-4 bg-adire-gold-light rounded-xl brut-border">
+                    <Lightbulb size={20} className="text-adire-gold shrink-0 mt-0.5" />
+                    <p className="text-sm font-bold text-earth-brown">
+                       The goal isn't a faster homework answer. It's a kid who can solve the next problem without any AI at all.
+                    </p>
+                 </div>
+              </div>
+           </div>
         </section>
 
         <section className="bg-nigerian-green rounded-2xl p-12 md:p-20 text-white flex flex-col items-center text-center">

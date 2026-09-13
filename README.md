@@ -130,6 +130,8 @@ Security rules ([`firestore.rules`](firestore.rules)) enforce that a document un
 
 ## Design System
 
+**Mascot assets:** `public/mascot.png` and `public/mascot-face.png` are cropped locally from the app's logo lockup (the wordmark removed). The original template shipped two image URLs literally named "igeri-mascot-pro" and "nigerian-support-mascot" that, on inspection, depicted an unrelated landscape photo and a stock photo of a human call-center agent respectively — neither was actually the Igeri character. `src/lib/assets.ts` now points `MASCOT_PRO`/`SUPPORT_MASCOT` at the local crops instead.
+
 The UI uses a **neo-brutalist** design language: thick ink-colored borders, flat saturated colors, and hard "offset" shadows (no blur) instead of soft glassmorphism. Buttons are physically "pressable" — the shadow grows on hover and collapses to zero on click, so the button appears to shift into its own shadow.
 
 Core building blocks (all in [`src/index.css`](src/index.css)):
@@ -170,9 +172,9 @@ src/
 │   ├── site/                  # Shared marketing-page chrome (Navbar, Footer, …)
 │   └── ui/                     # shadcn/ui primitives
 └── pages/
-    ├── LandingPage.tsx, HowItWorks.tsx, Curriculum.tsx, Safety.tsx,
-    │   SafetyCenter.tsx, ParentsGuide.tsx, Schools.tsx, ForSchools.tsx,
-    │   Contact.tsx                                    # Public marketing pages
+    ├── LandingPage.tsx, About.tsx, HowItWorks.tsx, Curriculum.tsx,
+    │   Safety.tsx, SafetyCenter.tsx, ParentsGuide.tsx, Schools.tsx,
+    │   ForSchools.tsx, Contact.tsx                    # Public marketing pages
     ├── Onboarding.tsx                                 # Sign up / log in / create child profile
     ├── ChildDashboard.tsx, ChatInterface.tsx           # Child-facing app
     └── ParentDashboard.tsx, TeacherDashboard.tsx        # Parent/teacher-facing app
