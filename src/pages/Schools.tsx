@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { School, Users, Award, Layout, GraduationCap } from 'lucide-react';
+import { School, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { SCHOOL_IMG } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { SCHOOL_IMG, CURRICULUM_IMG, HERO_KIDS } from '@/lib/assets';
 
 const Schools = () => {
   const navigate = useNavigate();
@@ -44,19 +45,20 @@ const Schools = () => {
           </div>
         </motion.div>
 
-        <section className="grid md:grid-cols-3 gap-6 mb-32">
+        <section className="grid md:grid-cols-3 gap-6 mb-32 text-left">
           {[
-            { icon: Users, color: 'bg-nigerian-green', title: "School-wide Access", desc: "Annual licenses for every pupil and teacher in your primary or junior secondary school." },
-            { icon: Layout, color: 'bg-adire-gold', title: "Teacher Dashboard", desc: "Gain insights into class progress, common learning gaps, and individual engagement." },
-            { icon: GraduationCap, color: 'bg-sky-blue', title: "Teacher Support", desc: "IGERI AI helps teachers with lesson plans and provides instant explanations for complex topics." }
-          ].map((feature, i) => (
-            <div key={i} className="p-10 brut-card">
-              <div className={`w-16 h-16 ${feature.color} text-white rounded-xl flex items-center justify-center mx-auto mb-8 brut-border`}>
-                <feature.icon size={32} />
-              </div>
-              <h3 className="text-2xl font-black mb-4 text-earth-brown">{feature.title}</h3>
-              <p className="text-earth-brown/60 font-medium leading-relaxed">{feature.desc}</p>
-            </div>
+            { image: SCHOOL_IMG, position: 'top', accent: 'green' as const, title: "School-wide Access", desc: "Annual licenses for every pupil and teacher in your primary or junior secondary school." },
+            { image: CURRICULUM_IMG, position: 'bottom', accent: 'gold' as const, title: "Teacher Dashboard", desc: "Gain insights into class progress, common learning gaps, and individual engagement." },
+            { image: HERO_KIDS, position: 'top', accent: 'sky' as const, title: "Teacher Support", desc: "IGERI AI helps teachers with lesson plans and provides instant explanations for complex topics." }
+          ].map((feature) => (
+            <PhotoFeatureCard
+              key={feature.title}
+              image={feature.image}
+              imagePosition={feature.position}
+              accent={feature.accent}
+              title={feature.title}
+              description={feature.desc}
+            />
           ))}
         </section>
 

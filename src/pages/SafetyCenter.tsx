@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, ShieldAlert, Lock, UserCheck, Heart, Eye } from 'lucide-react';
+import { Shield, UserCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { SAFETY_CENTER_IMG } from '@/lib/assets';
+import { SAFETY_CENTER_IMG, SAFETY_HERO_IMG, PARENTS_GUIDE_IMG, MASCOT_PRO } from '@/lib/assets';
 
 const SafetyCenter = () => {
   const navigate = useNavigate();
@@ -39,14 +39,14 @@ const SafetyCenter = () => {
             className="space-y-6"
           >
             {[
-              { icon: ShieldAlert, color: 'bg-nigerian-green', title: "Automated Moderation", desc: "Every word is filtered by AI to prevent adult content, violence, or harmful advice." },
-              { icon: Lock, color: 'bg-adire-gold', title: "Data Privacy", desc: "We comply with Nigeria Data Protection Act (NDPA) 2023. We never sell child data." },
-              { icon: Eye, color: 'bg-sky-blue', title: "Parental Oversight", desc: "Parents get full logs of every conversation and can lock specific subjects anytime." },
-              { icon: Heart, color: 'bg-berry-pink', title: "Emotional Safety", desc: "Our AI is designed to be warm and encouraging, never critical or scolding." }
+              { image: SAFETY_HERO_IMG, position: 'center', title: "Automated Moderation", desc: "Every word is filtered by AI to prevent adult content, violence, or harmful advice." },
+              { image: SAFETY_CENTER_IMG, position: 'top', title: "Data Privacy", desc: "We comply with Nigeria Data Protection Act (NDPA) 2023. We never sell child data." },
+              { image: PARENTS_GUIDE_IMG, position: 'center', title: "Parental Oversight", desc: "Parents get full logs of every conversation and can lock specific subjects anytime." },
+              { image: MASCOT_PRO, position: 'center', title: "Emotional Safety", desc: "Our AI is designed to be warm and encouraging, never critical or scolding." }
             ].map((item, i) => (
               <div key={i} className="flex gap-6 p-6 brut-card-sm">
-                <div className={`w-14 h-14 ${item.color} text-white rounded-xl flex items-center justify-center shrink-0 brut-border`}>
-                  <item.icon size={28} />
+                <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 brut-border">
+                  <img src={item.image} alt="" className="w-full h-full object-cover" style={{ objectPosition: item.position }} />
                 </div>
                 <div>
                   <h3 className="text-xl font-black mb-2 text-earth-brown">{item.title}</h3>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, HelpCircle, LayoutDashboard, Settings, Smartphone } from 'lucide-react';
+import { BookOpen, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { PARENTS_GUIDE_IMG } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { PARENTS_GUIDE_IMG, CURRICULUM_IMG, SAFETY_HERO_IMG } from '@/lib/assets';
 
 const ParentsGuide = () => {
   const navigate = useNavigate();
@@ -51,17 +52,18 @@ const ParentsGuide = () => {
           <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-earth-brown">How to Get Started</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: Smartphone, title: "1. Setup Profile", desc: "Create your parent account and add your child. We'll ask for their age to set the right mode." },
-              { icon: LayoutDashboard, title: "2. Explore Dashboard", desc: "Familiarize yourself with the dashboard where you can see learning stats and conversation logs." },
-              { icon: Settings, title: "3. Set Limits", desc: "Use our time-limit controls to ensure a healthy balance between digital and offline learning." }
-            ].map((step, i) => (
-              <div key={i} className="p-8 brut-card">
-                <div className="w-16 h-16 bg-adire-gold text-white rounded-xl flex items-center justify-center mb-6 brut-border">
-                  <step.icon size={32} />
-                </div>
-                <h3 className="text-2xl font-black mb-4 text-earth-brown">{step.title}</h3>
-                <p className="text-earth-brown/60 font-medium leading-relaxed">{step.desc}</p>
-              </div>
+              { image: PARENTS_GUIDE_IMG, position: 'center', title: "1. Setup Profile", desc: "Create your parent account and add your child. We'll ask for their age to set the right mode." },
+              { image: CURRICULUM_IMG, position: 'top', title: "2. Explore Dashboard", desc: "Familiarize yourself with the dashboard where you can see learning stats and conversation logs." },
+              { image: SAFETY_HERO_IMG, position: 'center', title: "3. Set Limits", desc: "Use our time-limit controls to ensure a healthy balance between digital and offline learning." }
+            ].map((step) => (
+              <PhotoFeatureCard
+                key={step.title}
+                image={step.image}
+                imagePosition={step.position}
+                accent="gold"
+                title={step.title}
+                description={step.desc}
+              />
             ))}
           </div>
         </section>

@@ -2,19 +2,66 @@ rules_version = '2';
 
 // Every parent's data (account doc, child profiles, chat sessions) lives
 // under users/{uid}, keyed by their own Firebase Auth uid. Nobody — not even
-// another signed-in parent — can read or write a document that isn't theirs.
+// another signed-in parent — can read or write a document that isn't theirs,
+// EXCEPT a signed-in admin (their uid has a doc in admins/{uid}), who can
+// read/write any user's data for support and moderation.
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
     match /users/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if request.auth != null && (request.auth.uid == uid || isAdmin());
 
       match /profiles/{profileId} {
-        allow read, write: if request.auth != null && request.auth.uid == uid;
+        allow read, write: if request.auth != null && (request.auth.uid == uid || isAdmin());
       }
 
       match /sessions/{sessionId} {
-        allow read, write: if request.auth != null && request.auth.uid == uid;
+        allow read, write: if request.auth != null && (request.auth.uid == uid || isAdmin());
       }
+    }
+
+    // Admin accounts. Everyone signed in can read their OWN doc (to check
+    // "am I an admin?") and any admin can list the whole roster (to manage
+    // other admins), but only an existing admin can edit/remove one.
+    // Two ways to create one: (a) a signed-in admin directly promotes any
+    // other uid — no key needed, since they're already trusted — or
+    // (b) brand-new self-signup, gated by the shared key. There's no Cloud
+    // Function to check that key server side, so the rule does it inline:
+    // the write is only accepted if the "signupKeyUsed" field the client
+    // submitted matches the current key in config/adminSettings (read via
+    // get(), which — unlike a normal client read — is allowed during rule
+    // evaluation regardless of the requester's own read access to that
+    // document). The app immediately deletes that field right after a
+    // successful self-signup create; see adminSignUp in src/lib/store.ts.
+    match /admins/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list: if isAdmin();
+      allow create: if request.auth != null && (
+        isAdmin() ||
+        (request.auth.uid == uid &&
+         request.resource.data.signupKeyUsed ==
+           get(/databases/$(database)/documents/config/adminSettings).data.signupKey)
+      );
+      allow update, delete: if isAdmin();
+    }
+
+    // Holds the single shared admin signup key, seeded to "12291212" the
+    // very first time anyone (even signed out) hits this path — but only
+    // with that exact default value, so nobody can hijack an unseeded
+    // project onto a key of their own choosing. Once it exists, only an
+    // existing admin may rotate it, and nobody but an admin may read it
+    // back (the signup flow above never reads it directly — the create
+    // rule on admins/{uid} does that check internally).
+    match /config/adminSettings {
+      allow get: if isAdmin();
+      allow create: if !exists(/databases/$(database)/documents/config/adminSettings)
+        && request.resource.data.signupKey == "12291212";
+      allow update: if isAdmin();
+      allow delete: if false;
     }
   }
 }
