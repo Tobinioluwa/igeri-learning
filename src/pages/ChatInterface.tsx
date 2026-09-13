@@ -19,6 +19,7 @@ import {
 import { Message } from '@/lib/types';
 import { toast } from 'sonner';
 import { AvatarBubble } from '@/components/AvatarBubble';
+import { LOGO_URL, SUPPORT_MASCOT } from '@/lib/assets';
 
 export const ChatInterface = () => {
   const { profile, language, addMessage, sessions, addSession } = useStore();
@@ -30,9 +31,6 @@ export const ChatInterface = () => {
   
   const initialSubject = location.state?.subject || 'General Learning';
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
-
-  const LOGO_URL = "https://storage.googleapis.com/dala-prod-public-storage/attachments/78945f35-5d84-451e-a6ab-d03eb2edbe61/1779824627581_ChatGPT_Image_May_26__2026__08_43_18_PM.png";
-  const SUPPORT_MASCOT = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/nigerian-support-mascot-png-da050e15-1779836834795.webp";
 
   useEffect(() => {
     if (!profile) return;
@@ -46,8 +44,8 @@ export const ChatInterface = () => {
         {
           id: 'welcome',
           role: 'assistant',
-          content: initialSubject !== 'General Learning' 
-            ? language === 'Pidgin' 
+          content: initialSubject !== 'General Learning'
+            ? language === 'Pidgin'
               ? `Oya! Make we start ${initialSubject} lessons. Wetin you want know? 🌟`
               : `Hello! Let's dive into ${initialSubject}. What would you like to explore today? 🌟`
             : language === 'Pidgin'
@@ -58,7 +56,7 @@ export const ChatInterface = () => {
         }
       ],
       startTime: Date.now()
-    });
+    }).catch(() => toast.error("Couldn't start this chat session. Please try again."));
     setCurrentSessionId(newSessionId);
   }, [profile, language]);
 
@@ -82,11 +80,11 @@ export const ChatInterface = () => {
       timestamp: Date.now()
     };
 
-    addMessage(currentSessionId, userMsg);
     setInput('');
     setIsTyping(true);
 
     try {
+      await addMessage(currentSessionId, userMsg);
       await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
       const aiResponse = await generateAIResponse(input, profile!.tier, language);
       const aiMsg: Message = {
@@ -95,7 +93,7 @@ export const ChatInterface = () => {
         content: aiResponse,
         timestamp: Date.now()
       };
-      addMessage(currentSessionId, aiMsg);
+      await addMessage(currentSessionId, aiMsg);
     } catch {
       toast.error("Network issue. Please try again.");
     } finally {

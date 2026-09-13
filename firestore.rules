@@ -1,0 +1,20 @@
+rules_version = '2';
+
+// Every parent's data (account doc, child profiles, chat sessions) lives
+// under users/{uid}, keyed by their own Firebase Auth uid. Nobody — not even
+// another signed-in parent — can read or write a document that isn't theirs.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /profiles/{profileId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /sessions/{sessionId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}

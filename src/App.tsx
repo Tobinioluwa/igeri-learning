@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { LandingPage } from './pages/LandingPage';
@@ -15,12 +15,25 @@ import Curriculum from './pages/Curriculum';
 import Safety from './pages/Safety';
 import ForSchools from './pages/ForSchools';
 import Contact from './pages/Contact';
-import { useStore } from './lib/store';
+import { useStore, initAuth } from './lib/store';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
-  const { user, profile } = useStore();
-  
+  const { user, profile, authReady } = useStore();
+
+  useEffect(() => {
+    const unsubscribe = initAuth();
+    return unsubscribe;
+  }, []);
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-parchment flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-nigerian-green/20 border-t-nigerian-green rounded-full animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <Router>
       <div className="min-h-screen bg-parchment font-sans text-earth-brown selection:bg-nigerian-green/20 selection:text-nigerian-green">

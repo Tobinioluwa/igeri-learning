@@ -37,6 +37,10 @@
   --adire-gold-light: #FFF8E1;
   --earth-brown: #4A2B0F;
   --parchment-cream: #FDF9F0;
+
+  /* Extra decorative accents for dots/icon badges, alongside the brand trio above */
+  --sky-blue: #3B82F6;
+  --berry-pink: #EC4899;
 }
 
 @theme inline {
@@ -46,7 +50,9 @@
   --color-adire-gold-light: var(--adire-gold-light);
   --color-earth-brown: var(--earth-brown);
   --color-parchment: var(--parchment-cream);
-  
+  --color-sky-blue: var(--sky-blue);
+  --color-berry-pink: var(--berry-pink);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -156,6 +162,22 @@
 
 .kid-button {
   @apply transition-all duration-300 active:scale-95 hover:scale-105 hover:shadow-kid-hover font-bold rounded-2xl;
+}
+
+/* Floating pill navbar used site-wide. */
+.pill-nav {
+  @apply bg-white/90 backdrop-blur-xl rounded-full shadow-kid border border-earth-brown/5;
+}
+
+/* A tall photo crop rounded into a capsule/pill shape, as used in the hero
+   photo collages. Pair with an aspect ratio on the element. */
+.pill-photo {
+  border-radius: 999px;
+}
+
+/* Small floating decorative dot, colored via a `bg-*` utility on the element. */
+.deco-dot {
+  @apply absolute rounded-full pointer-events-none;
 }
 
 /* Playful custom cursors — a little green arrow by default, a gold sparkle

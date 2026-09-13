@@ -12,10 +12,10 @@ import {
   Plus,
   Sparkles
 } from 'lucide-react';
+import { SCHOOL_IMG } from '@/lib/assets';
 
 export const TeacherDashboard = () => {
   const navigate = useNavigate();
-  const SCHOOL_IMG = "https://storage.googleapis.com/dala-prod-public-storage/generated-images/51ea7ae6-efde-48bd-af24-5a0b35cb5bfb/modern-nigerian-school-png-b5b11cb2-1779836835736.webp";
 
   const students = [
     { name: 'Emeka Obi', grade: 'JSS1', activity: 'Maths - Equations', status: 'Active' },
@@ -35,7 +35,7 @@ export const TeacherDashboard = () => {
               variant="outline"
               size="icon"
               onClick={() => navigate('/')}
-              className="rounded-2xl border-earth-brown/10 w-12 h-12"
+              className="rounded-full border-earth-brown/10 w-12 h-12"
             >
               <ArrowLeft size={22} />
             </Button>
@@ -44,7 +44,7 @@ export const TeacherDashboard = () => {
               <p className="text-[10px] text-earth-brown/40 font-black uppercase tracking-widest mt-0.5">JSS 1 · Green House</p>
             </div>
           </div>
-          <Button className="bg-nigerian-green text-white rounded-2xl px-6 font-black h-12 kid-button shadow-lg">
+          <Button className="bg-nigerian-green hover:bg-nigerian-green/90 text-white rounded-full px-6 font-black h-12 kid-button shadow-lg">
             <Plus size={18} className="mr-2" /> Add Student
           </Button>
         </div>
@@ -148,10 +148,10 @@ export const TeacherDashboard = () => {
                 <img src={SCHOOL_IMG} alt="" className="absolute inset-0 w-full h-full object-cover opacity-5 grayscale pointer-events-none" />
                 <h4 className="font-black mb-6 uppercase text-xs tracking-widest text-earth-brown/40 relative z-10">Reports</h4>
                 <div className="space-y-2 relative z-10">
-                   <Button variant="outline" className="w-full justify-start gap-2 h-14 text-earth-brown font-black rounded-2xl border-earth-brown/10 bg-white/50">
+                   <Button variant="outline" className="w-full justify-start gap-2 h-14 text-earth-brown font-black rounded-full border-earth-brown/10 bg-white/50">
                      <FileText size={18} /> Class Report
                    </Button>
-                   <Button onClick={() => navigate('/curriculum')} variant="outline" className="w-full justify-start gap-2 h-14 text-earth-brown font-black rounded-2xl border-earth-brown/10 bg-white/50">
+                   <Button onClick={() => navigate('/curriculum')} variant="outline" className="w-full justify-start gap-2 h-14 text-earth-brown font-black rounded-full border-earth-brown/10 bg-white/50">
                      <BookOpen size={18} /> Curriculum
                    </Button>
                 </div>
