@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Lock, EyeOff, FileText, CheckCircle, Database } from 'lucide-react';
+import { Shield, CheckCircle } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { SAFETY_HERO_IMG } from '@/lib/assets';
+import { SAFETY_HERO_IMG, SAFETY_CENTER_IMG, SCHOOL_IMG, PARENTS_GUIDE_IMG } from '@/lib/assets';
 
 const Safety = () => {
   return (
@@ -41,14 +41,14 @@ const Safety = () => {
 
         <section className="grid md:grid-cols-2 gap-6 mb-32">
            {[
-             { icon: Lock, color: 'bg-nigerian-green', title: "Data Encryption", desc: "All conversations and personal data are encrypted at rest using AES-256 standard and in transit via TLS." },
-             { icon: EyeOff, color: 'bg-adire-gold', title: "No Third-Party Tracking", desc: "We never use third-party ad tracking or selling services. Your child's identity stays private." },
-             { icon: Database, color: 'bg-sky-blue', title: "Nigerian Data Residency", desc: "We process data in compliance with the Nigeria Data Protection Act (NDPA) 2023 guidelines." },
-             { icon: FileText, color: 'bg-berry-pink', title: "Parental Consent", desc: "No child account can be activated without explicit parent or guardian verification via OTP." }
+             { image: SAFETY_HERO_IMG, position: '80% center', title: "Data Encryption", desc: "All conversations and personal data are encrypted at rest using AES-256 standard and in transit via TLS." },
+             { image: SAFETY_CENTER_IMG, position: 'bottom', title: "No Third-Party Tracking", desc: "We never use third-party ad tracking or selling services. Your child's identity stays private." },
+             { image: SCHOOL_IMG, position: 'center', title: "Nigerian Data Residency", desc: "We process data in compliance with the Nigeria Data Protection Act (NDPA) 2023 guidelines." },
+             { image: PARENTS_GUIDE_IMG, position: 'top', title: "Parental Consent", desc: "No child account can be activated without explicit parent or guardian verification via OTP." }
            ].map((policy, i) => (
              <div key={i} className="flex gap-6 p-8 brut-card">
-               <div className={`w-16 h-16 ${policy.color} text-white rounded-xl flex items-center justify-center shrink-0 brut-border`}>
-                 <policy.icon size={32} />
+               <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 brut-border">
+                 <img src={policy.image} alt="" className="w-full h-full object-cover" style={{ objectPosition: policy.position }} />
                </div>
                <div>
                  <h3 className="text-2xl font-black mb-3 text-earth-brown">{policy.title}</h3>

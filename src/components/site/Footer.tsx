@@ -65,10 +65,16 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t-[3px] border-white/20 py-6">
+      <div className="border-t-[3px] border-white/20 py-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
         <p className="text-center text-[11px] font-black uppercase tracking-widest text-white/40">
           © 2026 IGERI AI • NYSC Abuja
         </p>
+        <button
+          onClick={() => navigate('/admin/login')}
+          className="text-[11px] font-black uppercase tracking-widest text-white/30 hover:text-white/60 transition-colors"
+        >
+          Admin Login
+        </button>
       </div>
     </footer>
   );

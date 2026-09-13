@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { School, ClipboardCheck, LayoutGrid, Users2, FileOutput, ShieldCheck } from 'lucide-react';
+import { School } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { HERO_KIDS } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { HERO_KIDS, SCHOOL_IMG, CURRICULUM_IMG, SAFETY_CENTER_IMG, SAFETY_HERO_IMG, MASCOT_PRO } from '@/lib/assets';
 
 const ForSchools = () => {
   const navigate = useNavigate();
@@ -52,20 +53,21 @@ const ForSchools = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-6 mb-32">
            {[
-             { icon: LayoutGrid, color: 'bg-nigerian-green', title: "Teacher Console", desc: "A centralized dashboard to manage classes, assign topics, and monitor engagement across the school." },
-             { icon: ClipboardCheck, color: 'bg-adire-gold', title: "Lesson Planning", desc: "Teachers can use IGERI AI to draft curriculum-aligned lesson plans and assessment questions." },
-             { icon: FileOutput, color: 'bg-sky-blue', title: "Progress Reports", desc: "Export detailed learning reports per pupil or per class for school records and parent meetings." },
-             { icon: Users2, color: 'bg-berry-pink', title: "Bulk Profiles", desc: "Quickly onboard entire grades without individual parent setup using secure school-issued PINs." },
-             { icon: ShieldCheck, color: 'bg-nigerian-green', title: "Admin Oversight", desc: "School administrators maintain full control over the AI's subject focus and safety settings." },
-             { icon: School, color: 'bg-adire-gold', title: "Lab Deployment", desc: "Optimized for school computer labs with multi-user support on shared workstations." }
-           ].map((f, i) => (
-             <div key={i} className="p-8 brut-card">
-                <div className={`w-14 h-14 ${f.color} text-white rounded-xl flex items-center justify-center mb-6 brut-border`}>
-                   <f.icon size={28} />
-                </div>
-                <h3 className="text-xl font-black mb-4 text-earth-brown">{f.title}</h3>
-                <p className="text-earth-brown/60 font-medium leading-relaxed">{f.desc}</p>
-             </div>
+             { image: SCHOOL_IMG, position: 'bottom', accent: 'green' as const, title: "Teacher Console", desc: "A centralized dashboard to manage classes, assign topics, and monitor engagement across the school." },
+             { image: CURRICULUM_IMG, position: 'top', accent: 'gold' as const, title: "Lesson Planning", desc: "Teachers can use IGERI AI to draft curriculum-aligned lesson plans and assessment questions." },
+             { image: SAFETY_CENTER_IMG, position: 'center', accent: 'sky' as const, title: "Progress Reports", desc: "Export detailed learning reports per pupil or per class for school records and parent meetings." },
+             { image: HERO_KIDS, position: 'bottom', accent: 'berry' as const, title: "Bulk Profiles", desc: "Quickly onboard entire grades without individual parent setup using secure school-issued PINs." },
+             { image: SAFETY_HERO_IMG, position: 'top', accent: 'green' as const, title: "Admin Oversight", desc: "School administrators maintain full control over the AI's subject focus and safety settings." },
+             { image: MASCOT_PRO, position: 'bottom', accent: 'gold' as const, title: "Lab Deployment", desc: "Optimized for school computer labs with multi-user support on shared workstations." }
+           ].map((f) => (
+             <PhotoFeatureCard
+               key={f.title}
+               image={f.image}
+               imagePosition={f.position}
+               accent={f.accent}
+               title={f.title}
+               description={f.desc}
+             />
            ))}
         </div>
 

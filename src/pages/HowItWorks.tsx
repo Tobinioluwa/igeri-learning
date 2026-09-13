@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Globe, MessageCircle, ShieldCheck, Zap, Layers, BookOpen, Brain, Lightbulb } from 'lucide-react';
+import { Globe, ShieldCheck, Zap, BookOpen, Brain, Lightbulb } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { MASCOT_PRO } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { MASCOT_PRO, HERO_KIDS, SAFETY_HERO_IMG, SCHOOL_IMG, CURRICULUM_IMG } from '@/lib/assets';
 
 const HowItWorks = () => {
   const navigate = useNavigate();
@@ -67,20 +68,21 @@ const HowItWorks = () => {
 
         <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
            {[
-             { icon: Cpu, color: 'bg-nigerian-green', title: "Claude AI Layer", desc: "Powered by Anthropic's Claude API, customized with Nigerian-specific context and age filters." },
-             { icon: Layers, color: 'bg-adire-gold', title: "Age-Gated Tiers", desc: "Buba, Kemi, and Chike modes ensure the language and complexity match the child's age." },
-             { icon: Globe, color: 'bg-sky-blue', title: "Language Logic", desc: "A hybrid model that supports Standard English, Pidgin, and indigenous languages fluently." },
-             { icon: ShieldCheck, color: 'bg-berry-pink', title: "Safety Guardrails", desc: "Our 'Anti-Dependency' system prevents the AI from simply giving answers to homework." },
-             { icon: MessageCircle, color: 'bg-nigerian-green', title: "Nigerian Context", desc: "Examples use local names, currency, and cultural references instead of Western ones." },
-             { icon: Zap, color: 'bg-adire-gold', title: "Offline Ready", desc: "Content packs can be cached to support learning in areas with intermittent internet." }
+             { image: MASCOT_PRO, position: 'center', accent: 'green' as const, title: "Claude AI Layer", desc: "Powered by Anthropic's Claude API, customized with Nigerian-specific context and age filters." },
+             { image: HERO_KIDS, position: 'top', accent: 'gold' as const, title: "Age-Gated Tiers", desc: "Buba, Kemi, and Chike modes ensure the language and complexity match the child's age." },
+             { image: MASCOT_PRO, position: 'bottom', accent: 'sky' as const, title: "Language Logic", desc: "A hybrid model that supports Standard English, Pidgin, and indigenous languages fluently." },
+             { image: SAFETY_HERO_IMG, position: 'bottom', accent: 'berry' as const, title: "Safety Guardrails", desc: "Our 'Anti-Dependency' system prevents the AI from simply giving answers to homework." },
+             { image: SCHOOL_IMG, position: 'top', accent: 'green' as const, title: "Nigerian Context", desc: "Examples use local names, currency, and cultural references instead of Western ones." },
+             { image: CURRICULUM_IMG, position: 'center', accent: 'gold' as const, title: "Offline Ready", desc: "Content packs can be cached to support learning in areas with intermittent internet." }
            ].map((tech, i) => (
-             <div key={i} className="p-8 brut-card">
-               <div className={`w-14 h-14 ${tech.color} text-white rounded-xl flex items-center justify-center mb-6 brut-border`}>
-                 <tech.icon size={28} />
-               </div>
-               <h3 className="text-xl font-black mb-4 text-earth-brown">{tech.title}</h3>
-               <p className="text-earth-brown/60 font-medium leading-relaxed">{tech.desc}</p>
-             </div>
+             <PhotoFeatureCard
+               key={i}
+               image={tech.image}
+               imagePosition={tech.position}
+               accent={tech.accent}
+               title={tech.title}
+               description={tech.desc}
+             />
            ))}
         </section>
 

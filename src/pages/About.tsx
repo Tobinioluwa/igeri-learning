@@ -1,16 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Brain, Users, Shield, Sparkles, TrendingDown, MessageCircleQuestion } from 'lucide-react';
+import { Heart, Sparkles, TrendingDown, MessageCircleQuestion } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
-import { MASCOT_PRO } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { MASCOT_PRO, PARENTS_GUIDE_IMG, SCHOOL_IMG, HERO_KIDS } from '@/lib/assets';
 
 const VALUES = [
-  { icon: Brain, color: 'bg-nigerian-green', title: 'Think First, Ask Second', desc: "Igeri's job is to make your child a stronger thinker, not a faster copier." },
-  { icon: Shield, color: 'bg-adire-gold', title: 'Parents Stay in the Loop', desc: 'Every conversation is visible to the parent account. Nothing is hidden.' },
-  { icon: Heart, color: 'bg-berry-pink', title: 'Proudly Nigerian', desc: 'Built with our languages, our curriculum, and our culture — not a translated import.' },
-  { icon: Users, color: 'bg-sky-blue', title: 'Built for Every Child', desc: 'Three age tiers, from a 5-year-old learning to count to a 17-year-old prepping for exams.' },
+  { image: MASCOT_PRO, position: 'center', accent: 'green' as const, title: 'Think First, Ask Second', desc: "Igeri's job is to make your child a stronger thinker, not a faster copier." },
+  { image: PARENTS_GUIDE_IMG, position: 'bottom', accent: 'gold' as const, title: 'Parents Stay in the Loop', desc: 'Every conversation is visible to the parent account. Nothing is hidden.' },
+  { image: SCHOOL_IMG, position: 'center', accent: 'berry' as const, title: 'Proudly Nigerian', desc: 'Built with our languages, our curriculum, and our culture — not a translated import.' },
+  { image: HERO_KIDS, position: 'center', accent: 'sky' as const, title: 'Built for Every Child', desc: 'Three age tiers, from a 5-year-old learning to count to a 17-year-old prepping for exams.' },
 ];
 
 const About = () => {
@@ -97,13 +98,14 @@ const About = () => {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {VALUES.map((v) => (
-              <div key={v.title} className="brut-card p-8">
-                <div className={`w-14 h-14 ${v.color} text-white rounded-xl flex items-center justify-center mb-6 brut-border`}>
-                  <v.icon size={26} />
-                </div>
-                <h3 className="text-xl font-black text-earth-brown mb-3">{v.title}</h3>
-                <p className="text-earth-brown/60 font-medium leading-relaxed text-sm">{v.desc}</p>
-              </div>
+              <PhotoFeatureCard
+                key={v.title}
+                image={v.image}
+                imagePosition={v.position}
+                accent={v.accent}
+                title={v.title}
+                description={v.desc}
+              />
             ))}
           </div>
         </section>

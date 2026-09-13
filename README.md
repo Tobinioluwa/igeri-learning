@@ -14,6 +14,7 @@
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Data Model & Security Rules](#data-model--security-rules)
+- [Admin System](#admin-system)
 - [Design System](#design-system)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
@@ -50,6 +51,12 @@ The product is built around one core promise: **Igeri helps kids think, it doesn
 ### For Schools & Teachers
 - **Teacher Console** — a class roster view with per-student activity, status, and AI-generated insight cards.
 - **Bulk licensing / institutional pages** — marketing pages for school partnerships and pilot programs (FCT Abuja).
+
+### For Admins
+- **Admin Control Room** (`/admin/dashboard`) — full oversight of every parent account: browse all users, drill into a parent's child profiles and chat sessions, and delete any of it.
+- **Admin management** — promote any existing parent to admin, or remove another admin's access (you can't remove your own).
+- **Rotatable signup key** — a shared key gates *new* admin signups; any admin can change it from the dashboard's Settings tab at any time.
+- **Discoverable but out of the way** — a small "Admin Login" link sits in the site footer; it's not part of the regular parent/child navigation.
 
 ### Platform-wide
 - **NERDC-aligned subject coverage** for Primary (P1–P6) and JSS (JSS1–JSS3).
@@ -122,11 +129,31 @@ Firestore documents live entirely under each parent's own Auth `uid` — there i
 users/{uid}                        — { id, name, email, role: 'parent' }
 users/{uid}/profiles/{profileId}   — { id, name, age, tier, language, subjects[] }
 users/{uid}/sessions/{sessionId}   — { id, profileId, messages[], startTime, endTime?, summary? }
+
+admins/{uid}                       — { id, name, email, createdAt }
+config/adminSettings               — { signupKey }
 ```
 
-Security rules ([`firestore.rules`](firestore.rules)) enforce that a document under `users/{uid}/...` can only be read or written by a signed-in user whose Auth `uid` matches that path segment — nobody, including another signed-in parent, can read or write someone else's data. This has been verified end-to-end against a live Firebase project (real signup → write own doc → read own doc → write rejected for a different uid → read rejected with no token).
+Security rules ([`firestore.rules`](firestore.rules)) enforce that a document under `users/{uid}/...` can only be read or written by a signed-in user whose Auth `uid` matches that path segment, **or** by a signed-in admin (see [Admin System](#admin-system) below) — nobody else, including another signed-in parent, can read or write someone else's data. This has been verified end-to-end against a live Firebase project (real signup → write own doc → read own doc → write rejected for a different uid → read rejected with no token).
 
-**⚠️ The `firestore.rules` file must be deployed** (via the Firebase Console's Rules tab, or `firebase deploy --only firestore:rules` with the Firebase CLI) — having it in the repo doesn't automatically apply it to your live database.
+**⚠️ The `firestore.rules` file must be deployed** (via the Firebase Console's Rules tab, or `firebase deploy --only firestore:rules` with the Firebase CLI) — having it in the repo doesn't automatically apply it to your live database. **This matters even more now that it also contains the admin rules** — an old, un-redeployed ruleset has no `isAdmin()` bypass and no `admins`/`config` paths at all, so the whole admin system will fail with `PERMISSION_DENIED` until you republish it.
+
+## Admin System
+
+IGERI AI ships a separate, parallel admin auth flow — same Firebase project, same `auth` instance, but a completely different collection (`admins/{uid}`) from parent accounts (`users/{uid}`), gated by its own pages and route guard.
+
+**Signing in as an admin:** click **"Admin Login"** in the site footer (or go straight to `/admin/login`). From there you can either log in with an existing admin's email/password, or create a brand-new admin account.
+
+**Creating the first admin account:** admin signup requires a shared key — by default **`12291212`** — typed into the "Admin Key" field. The very first time anyone signs up, the app seeds `config/adminSettings` with that default key (the security rules only allow this seeding write if the value being written is exactly the default, so nobody can hijack an unseeded project onto a key of their choosing). After that, **rotate the key immediately** from the dashboard's Settings tab — anyone who still knows the old key can otherwise keep creating admin accounts.
+
+**How the key check works without a backend:** this is a fully client-side app with no Cloud Functions, so the shared key can't be validated server-side in the usual sense. Instead, [`firestore.rules`](firestore.rules) validates it *inline*, inside the security rule for creating an `admins/{uid}` document: the write is only accepted if the field the client submits matches the current key in `config/adminSettings`, read via a rules-only `get()` that doesn't require the requester to otherwise have read access to that document. The app deletes that field immediately after a successful signup (see `adminSignUp` in [`src/lib/store.ts`](src/lib/store.ts)), so the raw key is never persisted on the admin's own document. `config/adminSettings` itself is only readable/writable by existing admins — the signup flow never reads it directly.
+
+**What an admin can do**, from `/admin/dashboard`:
+- **Users & Data tab** — search/browse every parent account; expand one to see their child profiles and chat sessions; delete an individual profile, an individual session, or wipe a parent's entire Firestore footprint in one action.
+- **Admins tab** — see every admin account, promote any parent to admin (no key needed — an existing admin's session is itself the authorization), or remove another admin's access. You can't remove your own admin access from the UI, to avoid accidentally locking yourself out.
+- **Settings tab** — rotate the shared signup key.
+
+**Known limitation:** deleting a user from the admin dashboard wipes their Firestore data (account doc, profiles, sessions) but **cannot** delete their underlying Firebase Auth login — that requires the Firebase Admin SDK (a server/Cloud Function), which this client-only app doesn't have. Their email would simply have no data left if they signed back in.
 
 ## Design System
 
@@ -151,7 +178,7 @@ Brand colors (defined as CSS custom properties in `:root`, exposed as Tailwind u
 - `sky-blue` `#2563EB` and `berry-pink` `#E11D74` — decorative accent variety
 - `parchment` `#FFFBF2` — page background
 
-Shared layout components ([`src/components/site/`](src/components/site)) — `Navbar`, `Footer`, `AnnouncementBar`, `IconBadgeCard` — are reused across all marketing pages so the header/footer/card style only needs to change in one place.
+Shared layout components ([`src/components/site/`](src/components/site)) — `Navbar`, `Footer`, `AnnouncementBar`, `PhotoFeatureCard` — are reused across all marketing pages so the header/footer/card style only needs to change in one place.
 
 ## Project Structure
 
@@ -177,7 +204,8 @@ src/
     │   ForSchools.tsx, Contact.tsx                    # Public marketing pages
     ├── Onboarding.tsx                                 # Sign up / log in / create child profile
     ├── ChildDashboard.tsx, ChatInterface.tsx           # Child-facing app
-    └── ParentDashboard.tsx, TeacherDashboard.tsx        # Parent/teacher-facing app
+    ├── ParentDashboard.tsx, TeacherDashboard.tsx        # Parent/teacher-facing app
+    └── AdminLogin.tsx, AdminDashboard.tsx               # Admin auth + control room (see Admin System)
 ```
 
 ## Getting Started
@@ -214,7 +242,14 @@ Optionally add `VITE_FIREBASE_MEASUREMENT_ID` to enable Firebase Analytics (it's
 
 ## Deployment
 
-The repo is configured for **Netlify** (deploy previews are already wired up via GitHub — see the `netlify[bot]` checks on pull requests). Set the same `VITE_FIREBASE_*` environment variables in your Netlify site settings that you used locally.
+The repo is configured for **Netlify** (deploy previews are already wired up via GitHub — see the `netlify[bot]` checks on pull requests).
+
+**"Firebase isn't connected yet" on the live site, but not locally?** This means your `.env` file (which is git-ignored and never deployed) has real keys on your machine, but Netlify's *own* build never received them — a local `.env` file has no effect on a Netlify deploy. Fix it in the Netlify dashboard, not in code:
+
+1. Go to your site in the [Netlify dashboard](https://app.netlify.com) → **Site configuration → Environment variables**.
+2. Add each variable from `.env.example` (`VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`, and optionally `VITE_FIREBASE_MEASUREMENT_ID`), using the same values from your Firebase project's web app config (Firebase Console → Project settings → Your apps).
+3. **Trigger a new deploy** — Vite bakes `import.meta.env.VITE_*` values in at *build* time, so simply adding the variables doesn't retroactively fix an already-built deploy. Use "Trigger deploy → Clear cache and deploy site" to be safe.
+4. Make sure [Firestore security rules](#data-model--security-rules) are deployed to the same Firebase project, and that Email/Password auth is enabled (see [Firebase Setup](#firebase-setup)) — a missing env var and un-deployed rules produce different errors, so if the banner is gone but sign-up still fails, it's the rules step.
 
 ## Known Limitations & Roadmap
 
@@ -223,5 +258,6 @@ Documenting these honestly rather than overstating what's implemented:
 - **AI responses are currently mocked.** [`src/lib/ai-logic.ts`](src/lib/ai-logic.ts) uses keyword/pattern matching against a fixed pool of age-tiered, bilingual responses — it is not yet calling a real language model. Marketing copy on the "How it Works" page describes the intended Claude API integration as the product vision.
 - **Guardrail controls (Homework Mode toggle, daily time limit) are UI-only** — the parent dashboard renders them, but there's no backend enforcement yet.
 - **The Teacher Console uses static demo data** and has no auth gate — unlike `/dashboard` and `/parent`, `/teacher` doesn't currently require sign-in. Anyone with the URL can view it.
-- **No password reset flow yet** for parent accounts.
+- **No password reset flow yet** for parent *or* admin accounts.
 - **Contact form** shows a success toast but doesn't send anywhere yet (no backend endpoint or email service wired up).
+- **Admin "delete user" only wipes Firestore data**, not the underlying Firebase Auth login (deleting another person's Auth account requires the Admin SDK / a Cloud Function, which this client-only app doesn't have) — see [Admin System](#admin-system).

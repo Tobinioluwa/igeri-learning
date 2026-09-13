@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookMarked, Calculator, Globe2, Landmark, Microscope, PenTool, TreePine, ShieldCheck, GraduationCap, Zap } from 'lucide-react';
+import { BookMarked, PenTool, GraduationCap } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
 import { CURRICULUM_IMG } from '@/lib/assets';
@@ -51,17 +51,10 @@ const Curriculum = () => {
                  <PenTool size={28} /> Primary (P1–P6)
                </h3>
                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { icon: Calculator, label: "Mathematics" },
-                    { icon: Globe2, label: "English" },
-                    { icon: Microscope, label: "Basic Science" },
-                    { icon: Landmark, label: "Social Studies" },
-                    { icon: TreePine, label: "Agric Science" },
-                    { icon: ShieldCheck, label: "Civic Ed" }
-                  ].map((s, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 brut-card-sm">
-                       <s.icon className="text-nigerian-green" size={20} />
-                       <span className="font-bold text-earth-brown">{s.label}</span>
+                  {["Mathematics", "English", "Basic Science", "Social Studies", "Agric Science", "Civic Ed"].map((label) => (
+                    <div key={label} className="flex items-center gap-3 p-4 brut-card-sm">
+                       <span className="w-2.5 h-2.5 rounded-full bg-nigerian-green shrink-0" />
+                       <span className="font-bold text-earth-brown">{label}</span>
                     </div>
                   ))}
                </div>
@@ -72,17 +65,10 @@ const Curriculum = () => {
                  <GraduationCap size={28} /> JSS (JSS1–JSS3)
                </h3>
                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { icon: Calculator, label: "Mathematics" },
-                    { icon: Globe2, label: "English" },
-                    { icon: Microscope, label: "Science & Tech" },
-                    { icon: Landmark, label: "Social Studies" },
-                    { icon: Zap, label: "Business Studies" },
-                    { icon: PenTool, label: "Creative Arts" }
-                  ].map((s, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 brut-card-sm">
-                       <s.icon className="text-adire-gold" size={20} />
-                       <span className="font-bold text-earth-brown">{s.label}</span>
+                  {["Mathematics", "English", "Science & Tech", "Social Studies", "Business Studies", "Creative Arts"].map((label) => (
+                    <div key={label} className="flex items-center gap-3 p-4 brut-card-sm">
+                       <span className="w-2.5 h-2.5 rounded-full bg-adire-gold shrink-0" />
+                       <span className="font-bold text-earth-brown">{label}</span>
                     </div>
                   ))}
                </div>

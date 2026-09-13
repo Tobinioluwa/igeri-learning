@@ -16,11 +16,13 @@ import Safety from './pages/Safety';
 import ForSchools from './pages/ForSchools';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 import { useStore, initAuth } from './lib/store';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
-  const { user, profile, authReady } = useStore();
+  const { user, profile, authReady, adminUser } = useStore();
 
   useEffect(() => {
     const unsubscribe = initAuth();
@@ -52,6 +54,7 @@ function App() {
             <Route path="/for-schools" element={<ForSchools />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/admin/login" element={adminUser ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
             
             {/* Protected Routes */}
             <Route 
@@ -66,11 +69,15 @@ function App() {
               path="/parent" 
               element={user ? <ParentDashboard /> : <Navigate to="/onboarding" />} 
             />
-            <Route 
-              path="/teacher" 
-              element={<TeacherDashboard />} 
+            <Route
+              path="/teacher"
+              element={<TeacherDashboard />}
             />
-            
+            <Route
+              path="/admin/dashboard"
+              element={adminUser ? <AdminDashboard /> : <Navigate to="/admin/login" />}
+            />
+
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

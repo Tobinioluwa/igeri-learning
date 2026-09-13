@@ -1,19 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Play, Shield, BookOpen, Globe, Sparkles, Quote } from 'lucide-react';
+import { ChevronRight, Play, Sparkles, Quote } from 'lucide-react';
 import { AvatarBubble } from '@/components/AvatarBubble';
 import { Navbar } from '@/components/site/Navbar';
 import { AnnouncementBar } from '@/components/site/AnnouncementBar';
 import { Footer } from '@/components/site/Footer';
-import { IconBadgeCard } from '@/components/site/IconBadgeCard';
-import { HERO_KIDS, MASCOT_PRO, PARENTS_GUIDE_IMG } from '@/lib/assets';
+import { PhotoFeatureCard } from '@/components/site/PhotoFeatureCard';
+import { HERO_KIDS, MASCOT_PRO, PARENTS_GUIDE_IMG, SAFETY_HERO_IMG, CURRICULUM_IMG } from '@/lib/assets';
 
 const FEATURES = [
-  { icon: Shield, color: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
-  { icon: BookOpen, color: 'gold' as const, title: 'Curriculum Aligned', desc: 'Mapped to the Nigerian NERDC curriculum, from Primary to JSS.', path: '/curriculum' },
-  { icon: Globe, color: 'sky' as const, title: 'Speaks Our Languages', desc: 'English and Pidgin support, with more Nigerian languages on the way.', path: '/how-it-works' },
-  { icon: Sparkles, color: 'berry' as const, title: 'Guided, Not Given', desc: 'Anti-dependency guardrails teach kids to think, not just copy answers.', path: '/parents-guide' },
+  { image: SAFETY_HERO_IMG, position: 'center', accent: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
+  { image: CURRICULUM_IMG, position: 'center', accent: 'gold' as const, title: 'Curriculum Aligned', desc: 'Mapped to the Nigerian NERDC curriculum, from Primary to JSS.', path: '/curriculum' },
+  { image: MASCOT_PRO, position: 'top', accent: 'sky' as const, title: 'Speaks Our Languages', desc: 'English and Pidgin support, with more Nigerian languages on the way.', path: '/how-it-works' },
+  { image: HERO_KIDS, position: '70% 20%', accent: 'berry' as const, title: 'Guided, Not Given', desc: 'Anti-dependency guardrails teach kids to think, not just copy answers.', path: '/parents-guide' },
 ];
 
 const TESTIMONIALS = [
@@ -102,10 +102,11 @@ export const LandingPage = () => {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURES.map((f) => (
-              <IconBadgeCard
+              <PhotoFeatureCard
                 key={f.title}
-                icon={f.icon}
-                color={f.color}
+                image={f.image}
+                imagePosition={f.position}
+                accent={f.accent}
                 title={f.title}
                 description={f.desc}
                 onClick={() => navigate(f.path)}
