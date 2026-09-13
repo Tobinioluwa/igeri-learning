@@ -31,12 +31,12 @@ const COLUMNS = [
 export function Footer() {
   const navigate = useNavigate();
   return (
-    <footer className="bg-earth-brown text-white/70 relative overflow-hidden">
+    <footer className="bg-earth-brown text-white/70 border-t-[3px] border-earth-brown">
       <div className="ankara-border" />
       <div className="container mx-auto px-6 py-16 grid md:grid-cols-[1.3fr_1fr_1fr_1fr] gap-12">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-adire-gold rounded-xl flex items-center justify-center border-[3px] border-white/20">
               <img src={LOGO_URL} alt="Igeri AI logo" className="w-6 h-6 object-contain" />
             </div>
             <span className="text-xl font-black text-white tracking-tight">IGERI AI</span>
@@ -64,7 +64,7 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-white/10 py-6">
+      <div className="border-t-[3px] border-white/20 py-6">
         <p className="text-center text-[11px] font-black uppercase tracking-widest text-white/40">
           © 2026 IGERI AI • NYSC Abuja
         </p>

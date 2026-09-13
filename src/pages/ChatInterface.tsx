@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '@/lib/store';
 import { generateAIResponse } from '@/lib/ai-logic';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
   ArrowLeft,
@@ -28,13 +27,13 @@ export const ChatInterface = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+
   const initialSubject = location.state?.subject || 'General Learning';
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!profile) return;
-    
+
     // Start a new session on mount
     const newSessionId = Math.random().toString(36).substr(2, 9);
     addSession({
@@ -124,55 +123,51 @@ export const ChatInterface = () => {
 
   return (
     <div className={`relative flex flex-col h-screen overflow-hidden transition-colors duration-500 ${getModeClass()}`}>
-      <div className="absolute inset-0 adire-pattern opacity-[0.03] pointer-events-none" />
-
-      <header className="relative z-30 bg-white/80 backdrop-blur-2xl border-b border-earth-brown/5 px-4 h-24 flex items-center justify-between shrink-0">
+      <header className="relative z-30 bg-parchment border-b-[3px] border-earth-brown px-4 h-24 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <button
             onClick={() => navigate('/dashboard')}
-            className="rounded-2xl hover:bg-earth-brown/5 w-12 h-12"
+            className="kid-button bg-white w-12 h-12 rounded-xl flex items-center justify-center"
           >
-            <ArrowLeft size={28} className="text-earth-brown" />
-          </Button>
+            <ArrowLeft size={24} className="text-earth-brown" />
+          </button>
           <div className="flex items-center gap-4">
-             <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center overflow-hidden">
+             <div className="w-14 h-14 rounded-xl bg-adire-gold flex items-center justify-center overflow-hidden brut-border">
                 <img src={LOGO_URL} alt="Igeri AI logo" className="w-9 h-9 object-contain" />
              </div>
              <div>
                 <h2 className="font-black text-earth-brown text-xl leading-none">{initialSubject}</h2>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="w-2 h-2 bg-nigerian-green rounded-full animate-pulse" />
-                  <p className="text-[11px] text-earth-brown/40 uppercase font-black tracking-widest">{getModeLabel()}</p>
+                  <p className="text-[11px] text-earth-brown/50 uppercase font-black tracking-widest">{getModeLabel()}</p>
                 </div>
              </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-           <Button variant="ghost" size="icon" className="rounded-full text-earth-brown/40 hover:bg-earth-brown/5">
-              <Volume2 size={24} />
-           </Button>
-           <AvatarBubble name={profile.name} size={40} className="border-2 border-white shadow-sm" />
+        <div className="flex items-center gap-3">
+           <button className="kid-button bg-white text-earth-brown/60 w-11 h-11 rounded-xl flex items-center justify-center">
+              <Volume2 size={22} />
+           </button>
+           <AvatarBubble name={profile.name} size={44} />
         </div>
       </header>
 
-      <div 
+      <div
         ref={scrollRef}
         className="flex-1 overflow-y-auto p-4 md:p-10 space-y-10 scroll-smooth relative z-10"
       >
         <div className="flex justify-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass px-6 py-4 rounded-3xl flex items-center gap-4 border-white/60"
+            className="brut-card-sm bg-white px-6 py-4 flex items-center gap-4"
           >
-             <div className="w-10 h-10 rounded-2xl bg-nigerian-green/10 flex items-center justify-center">
-                <ShieldCheck size={20} className="text-nigerian-green" />
+             <div className="w-10 h-10 rounded-xl bg-nigerian-green text-white flex items-center justify-center">
+                <ShieldCheck size={20} />
              </div>
              <div className="flex flex-col">
-                <span className="text-[10px] font-black text-earth-brown/40 uppercase tracking-widest leading-none mb-1">Kid-Safe AI Session</span>
-                <span className="text-xs text-earth-brown/70 font-bold leading-none">Following Nigerian curriculum guidelines.</span>
+                <span className="text-[10px] font-black text-earth-brown/50 uppercase tracking-widest leading-none mb-1">Kid-Safe AI Session</span>
+                <span className="text-xs text-earth-brown/80 font-bold leading-none">Following Nigerian curriculum guidelines.</span>
              </div>
           </motion.div>
         </div>
@@ -187,19 +182,20 @@ export const ChatInterface = () => {
             >
               <div className={`flex gap-5 max-w-[85%] md:max-w-[75%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                 {msg.role === 'assistant' && (
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center shrink-0 overflow-hidden self-end">
+                  <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center shrink-0 overflow-hidden self-end brut-border">
                     <img src={SUPPORT_MASCOT} alt="Igeri mascot" className="w-full h-full object-contain animate-float" />
                   </div>
                 )}
-                <div 
-                  className={`relative p-6 md:p-8 rounded-[2rem] shadow-kid text-lg leading-relaxed ${
-                    msg.role === 'user' 
-                      ? 'bg-nigerian-green text-white rounded-tr-none font-bold' 
-                      : 'bg-white text-earth-brown border border-earth-brown/5 rounded-tl-none font-bold'
+                <div
+                  className={`relative p-6 md:p-8 rounded-2xl text-lg leading-relaxed brut-border ${
+                    msg.role === 'user'
+                      ? 'bg-nigerian-green text-white rounded-tr-none font-bold'
+                      : 'bg-white text-earth-brown rounded-tl-none font-bold'
                   }`}
+                  style={{ boxShadow: 'var(--shadow-brut-sm)' }}
                 >
                   {msg.content}
-                  <div className={`mt-3 flex items-center gap-2 ${msg.role === 'user' ? 'justify-end text-white/50' : 'text-earth-brown/30'}`}>
+                  <div className={`mt-3 flex items-center gap-2 ${msg.role === 'user' ? 'justify-end text-white/60' : 'text-earth-brown/40'}`}>
                      <span className="text-[10px] font-black uppercase tracking-widest">
                         {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                      </span>
@@ -217,10 +213,10 @@ export const ChatInterface = () => {
             className="flex justify-start"
           >
             <div className="flex gap-5">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-kid border border-earth-brown/5 flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center shrink-0 overflow-hidden brut-border">
                 <img src={SUPPORT_MASCOT} alt="Igeri is typing" className="w-full h-full object-contain animate-bounce" />
               </div>
-              <div className="bg-white p-6 rounded-3xl rounded-tl-none border border-earth-brown/5 flex gap-3 items-center shadow-sm">
+              <div className="bg-white p-6 rounded-2xl rounded-tl-none brut-border flex gap-3 items-center" style={{ boxShadow: 'var(--shadow-brut-sm)' }}>
                 <div className="w-2.5 h-2.5 bg-nigerian-green rounded-full animate-bounce" />
                 <div className="w-2.5 h-2.5 bg-nigerian-green rounded-full animate-bounce [animation-delay:0.2s]" />
                 <div className="w-2.5 h-2.5 bg-nigerian-green rounded-full animate-bounce [animation-delay:0.4s]" />
@@ -230,58 +226,56 @@ export const ChatInterface = () => {
         )}
       </div>
 
-      <div className="relative z-30 p-6 md:p-10 bg-white/80 backdrop-blur-2xl border-t border-earth-brown/5 shrink-0">
+      <div className="relative z-30 p-6 md:p-10 bg-parchment border-t-[3px] border-earth-brown shrink-0">
         <form onSubmit={handleSend} className="max-w-4xl mx-auto flex flex-col gap-6">
           <div className="relative flex items-center gap-3">
-            <div className="absolute left-6 flex items-center gap-2 text-earth-brown/40">
-               <Smile size={28} className="cursor-pointer hover:text-nigerian-green transition-colors" />
+            <div className="absolute left-6 flex items-center gap-2 text-earth-brown/50">
+               <Smile size={26} className="cursor-pointer hover:text-nigerian-green transition-colors" />
             </div>
-            <Input 
+            <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={language === 'English' ? "Wetin dey your mind?..." : "Ask me anything..."}
-              className="flex-1 h-20 bg-white border-earth-brown/10 rounded-[2.5rem] pl-16 pr-36 text-xl font-bold focus:ring-nigerian-green focus:border-nigerian-green shadow-kid transition-all"
+              className="flex-1 h-20 bg-white border-[3px] border-earth-brown rounded-2xl pl-16 pr-36 text-xl font-bold focus-visible:border-nigerian-green transition-all"
             />
             <div className="absolute right-3 flex items-center gap-3">
-               <Button 
+               <button
                  type="button"
-                 variant="ghost" 
-                 size="icon" 
-                 className="rounded-full text-earth-brown/40 hover:text-nigerian-green w-12 h-12"
+                 className="kid-button bg-white text-earth-brown/50 w-12 h-12 rounded-xl flex items-center justify-center"
                >
-                 <Mic size={28} />
-               </Button>
-               <Button 
-                type="submit" 
+                 <Mic size={24} />
+               </button>
+               <button
+                type="submit"
                 disabled={!input.trim() || isTyping}
-                className="h-14 w-14 bg-nigerian-green hover:bg-nigerian-green/90 text-white rounded-full shadow-2xl kid-button disabled:opacity-50"
+                className="kid-button h-14 w-14 bg-nigerian-green text-white rounded-xl disabled:opacity-50 flex items-center justify-center"
               >
-                <Send size={28} />
-              </Button>
+                <Send size={24} />
+              </button>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between px-6">
              <div className="flex items-center gap-6">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setInput("Igera, can you give me a hint? 🤔")}
-                  className="text-[11px] font-black text-earth-brown/50 uppercase tracking-widest flex items-center gap-2 hover:text-nigerian-green transition-colors"
+                  className="text-[11px] font-black text-earth-brown/60 uppercase tracking-widest flex items-center gap-2 hover:text-nigerian-green transition-colors"
                 >
                   <HelpCircle size={16} /> Get a Hint
                 </button>
-                <span className="w-1.5 h-1.5 bg-earth-brown/10 rounded-full" />
-                <button 
-                   type="button" 
+                <span className="w-1.5 h-1.5 bg-earth-brown/20 rounded-full" />
+                <button
+                   type="button"
                    onClick={() => setInput("Please explain this differently.")}
-                   className="text-[11px] font-black text-earth-brown/50 uppercase tracking-widest flex items-center gap-2 hover:text-nigerian-green transition-colors"
+                   className="text-[11px] font-black text-earth-brown/60 uppercase tracking-widest flex items-center gap-2 hover:text-nigerian-green transition-colors"
                 >
                   <Sparkles size={16} /> Try Different Way
                 </button>
              </div>
-             
+
              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-adire-gold/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-adire-gold-light flex items-center justify-center">
                    <Star size={16} className="text-adire-gold fill-adire-gold" />
                 </div>
                 <span className="text-[11px] font-black text-earth-brown/40 uppercase tracking-widest">Premium Learning</span>
