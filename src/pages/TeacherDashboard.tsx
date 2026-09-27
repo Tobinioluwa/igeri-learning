@@ -72,7 +72,7 @@ export const TeacherDashboard = () => {
                    <input
                      type="text"
                      placeholder="Search students..."
-                     className="pl-10 pr-4 py-2 bg-parchment rounded-xl text-sm border-[3px] border-earth-brown/20 focus:border-nigerian-green outline-none w-64 font-medium"
+                     className="pl-10 pr-4 py-2 bg-parchment rounded-xl text-sm border-2 border-earth-brown/15 focus:border-nigerian-green outline-none w-64 font-medium"
                    />
                  </div>
                </div>

@@ -12,7 +12,7 @@ import { HERO_KIDS, MASCOT_PRO, PARENTS_GUIDE_IMG, SAFETY_HERO_IMG, CURRICULUM_I
 const FEATURES = [
   { image: SAFETY_HERO_IMG, position: 'center', accent: 'green' as const, title: 'Kid-Safe by Design', desc: 'Every reply is filtered and age-gated. Parents see everything, always.', path: '/safety-center' },
   { image: CURRICULUM_IMG, position: 'center', accent: 'gold' as const, title: 'Curriculum Aligned', desc: 'Mapped to the Nigerian NERDC curriculum, from Primary to JSS.', path: '/curriculum' },
-  { image: MASCOT_PRO, position: 'top', accent: 'sky' as const, title: 'Speaks Our Languages', desc: 'English and Pidgin support, with more Nigerian languages on the way.', path: '/how-it-works' },
+  { image: MASCOT_PRO, position: 'top', accent: 'sky' as const, title: 'Speaks Our Languages', desc: 'English, Pidgin, Yoruba, Igbo, and Hausa — pick a favorite anytime.', path: '/how-it-works' },
   { image: HERO_KIDS, position: '70% 20%', accent: 'berry' as const, title: 'Guided, Not Given', desc: 'Anti-dependency guardrails teach kids to think, not just copy answers.', path: '/parents-guide' },
 ];
 
@@ -22,7 +22,7 @@ const TESTIMONIALS = [
   { name: 'Amaka', role: 'JSS2 Teacher', quote: 'Finally an AI that speaks Pidgin and understands our curriculum. A real Nigerian classroom tool.' },
 ];
 
-const TRUST_BADGES = ['100% Kid-Safe', 'NERDC Aligned', 'English & Pidgin', 'Parent Dashboard', 'NDPA 2023 Compliant'];
+const TRUST_BADGES = ['100% Kid-Safe', 'NERDC Aligned', '5 Nigerian Languages', 'Parent Dashboard', 'NDPA 2023 Compliant'];
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -67,23 +67,26 @@ export const LandingPage = () => {
           </div>
         </motion.div>
 
-        {/* Photo / decorative collage — a bento of hard-bordered blocks, not a photo wall */}
+        {/* Photo / decorative collage — organic blob frames on a soft gradient backdrop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative mt-20 grid grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"
+          className="relative mt-20 max-w-4xl mx-auto"
         >
-          <div className="brut-card overflow-hidden -rotate-2">
-            <img src={HERO_KIDS} alt="Nigerian children learning together" className="w-full h-full object-cover aspect-[3/4]" />
-          </div>
-          <div className="brut-card overflow-hidden rotate-1">
-            <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover aspect-[3/4] animate-float" />
-          </div>
-          <div className="brut-card overflow-hidden bg-adire-gold flex flex-col items-center justify-center text-earth-brown p-6 text-center -rotate-1">
-            <Sparkles size={36} className="mb-3" />
-            <p className="text-2xl font-black leading-none">50k+</p>
-            <p className="text-xs font-black uppercase tracking-widest mt-2">Nigerian Kids Learning</p>
+          <div className="absolute -inset-x-10 -inset-y-10 mesh-green rounded-[4rem] opacity-10 pointer-events-none" />
+          <div className="relative grid grid-cols-3 gap-4 md:gap-6">
+            <div className="blob-frame animate-blob shadow-[var(--shadow-brut)]">
+              <img src={HERO_KIDS} alt="Nigerian children learning together" className="w-full h-full object-cover aspect-[3/4]" />
+            </div>
+            <div className="blob-frame-alt shadow-[var(--shadow-brut)] mt-8">
+              <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover aspect-[3/4] animate-float" />
+            </div>
+            <div className="blob-frame-soft shadow-[var(--shadow-brut)] mesh-gold flex flex-col items-center justify-center text-white p-6 text-center aspect-[3/4]">
+              <Sparkles size={36} className="mb-3" />
+              <p className="text-2xl font-black leading-none">50k+</p>
+              <p className="text-xs font-black uppercase tracking-widest mt-2">Nigerian Kids Learning</p>
+            </div>
           </div>
         </motion.div>
 
@@ -118,8 +121,8 @@ export const LandingPage = () => {
         {/* Split CTA section */}
         <section className="mt-28 grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative flex justify-center">
-            <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-adire-gold rounded-2xl brut-border rotate-6" />
-            <div className="relative w-64 h-80 md:w-80 md:h-[26rem] brut-card overflow-hidden -rotate-3">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 mesh-gold blob-frame-alt animate-blob opacity-80" />
+            <div className="relative w-64 h-80 md:w-80 md:h-[26rem] blob-frame shadow-[var(--shadow-brut-lg)]">
               <img src={PARENTS_GUIDE_IMG} alt="A Nigerian family learning together" className="w-full h-full object-cover" />
             </div>
           </div>
@@ -132,9 +135,9 @@ export const LandingPage = () => {
               Igeri fits into your family's life — a quick homework hint after school, a curiosity question at bedtime, always with a parent in the loop.
             </p>
             <div className="grid grid-cols-2 gap-4 mb-10 max-w-sm">
-              {['NERDC Curriculum', 'Kid-Safe Guardrails', 'English & Pidgin', 'Parent Dashboard'].map((item) => (
+              {['NERDC Curriculum', 'Kid-Safe Guardrails', '5 Nigerian Languages', 'Parent Dashboard'].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-nigerian-green border-2 border-earth-brown shrink-0" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-nigerian-green shrink-0" />
                   <span className="text-sm font-bold text-earth-brown/80">{item}</span>
                 </div>
               ))}
@@ -172,7 +175,7 @@ export const LandingPage = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="mt-28 mb-8 bg-nigerian-green rounded-2xl brut-border p-12 md:p-20 text-center text-white relative overflow-hidden" style={{ boxShadow: 'var(--shadow-brut-lg)' }}>
+        <section className="mt-28 mb-8 mesh-green rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden" style={{ boxShadow: 'var(--shadow-brut-lg)' }}>
           <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">Ready to start the journey?</h2>
           <p className="text-white/80 font-medium mb-10 max-w-xl mx-auto">
             Join thousands of Nigerian families already learning with Igeri.

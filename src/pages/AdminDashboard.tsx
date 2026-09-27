@@ -275,7 +275,7 @@ const AdminDashboard = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by name or email…"
-                className="h-12 px-5 rounded-xl bg-white border-[3px] border-earth-brown/20 focus:border-nigerian-green outline-none font-medium flex-1 max-w-md"
+                className="h-12 px-5 rounded-xl bg-white border-2 border-earth-brown/15 focus:border-nigerian-green outline-none font-medium flex-1 max-w-md"
               />
               <button onClick={loadUsers} className="kid-button bg-white h-12 w-12 rounded-xl flex items-center justify-center shrink-0">
                 <RefreshCw size={18} className={loadingUsers ? 'animate-spin' : ''} />
@@ -285,7 +285,7 @@ const AdminDashboard = () => {
             {loadingUsers ? (
               <p className="text-earth-brown/50 font-bold p-8 text-center">Loading users…</p>
             ) : filteredUsers.length === 0 ? (
-              <div className="bg-white p-10 rounded-2xl border-[3px] border-dashed border-earth-brown/30 text-center">
+              <div className="bg-white p-10 rounded-2xl border-2 border-dashed border-earth-brown/20 text-center">
                 <p className="text-earth-brown/50 font-medium">No parent accounts found yet.</p>
               </div>
             ) : (
@@ -327,7 +327,7 @@ const AdminDashboard = () => {
                               ) : (
                                 <div className="grid sm:grid-cols-2 gap-3">
                                   {profilesByUid[u.id].map((p) => (
-                                    <div key={p.id} className="bg-white rounded-xl p-4 border-[3px] border-earth-brown/10 flex items-center justify-between">
+                                    <div key={p.id} className="bg-white rounded-xl p-4 border border-earth-brown/10 flex items-center justify-between">
                                       <div>
                                         <p className="font-black text-sm text-earth-brown">{p.name}</p>
                                         <p className="text-xs text-earth-brown/50 font-medium">Age {p.age} • {p.tier} • {p.language}</p>
@@ -353,7 +353,7 @@ const AdminDashboard = () => {
                               ) : (
                                 <div className="space-y-2">
                                   {sessionsByUid[u.id].map((s) => (
-                                    <div key={s.id} className="bg-white rounded-xl p-4 border-[3px] border-earth-brown/10 flex items-center justify-between">
+                                    <div key={s.id} className="bg-white rounded-xl p-4 border border-earth-brown/10 flex items-center justify-between">
                                       <div>
                                         <p className="font-black text-sm text-earth-brown">{s.messages[0]?.subject || 'Learning Session'}</p>
                                         <p className="text-xs text-earth-brown/50 font-medium">
@@ -428,7 +428,7 @@ const AdminDashboard = () => {
                 <select
                   value={promoteUid}
                   onChange={(e) => setPromoteUid(e.target.value)}
-                  className="h-12 px-4 rounded-xl bg-parchment border-[3px] border-earth-brown/20 font-medium flex-1"
+                  className="h-12 px-4 rounded-xl bg-parchment border-2 border-earth-brown/15 font-medium flex-1"
                 >
                   <option value="">Select a parent account…</option>
                   {users.map((u) => (
@@ -460,7 +460,7 @@ const AdminDashboard = () => {
                 value={newKey}
                 onChange={(e) => setNewKey(e.target.value)}
                 placeholder="New admin signup key"
-                className="h-12 w-full px-4 rounded-xl bg-parchment border-[3px] border-earth-brown/20 focus:border-berry-pink outline-none font-medium"
+                className="h-12 w-full px-4 rounded-xl bg-parchment border-2 border-earth-brown/15 focus:border-berry-pink outline-none font-medium"
               />
               <button type="submit" disabled={savingKey} className="kid-button bg-berry-pink text-white h-12 px-6 rounded-xl font-black disabled:opacity-60">
                 {savingKey ? 'Saving…' : 'Update Key'}

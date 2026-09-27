@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Route the chat app's API calls to the Netlify Function that talks to Claude.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback — without this, refreshing on a client-side route like
+# /admin/dashboard or /dashboard 404s instead of loading the app and letting
+# React Router take over.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

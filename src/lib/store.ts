@@ -21,7 +21,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { auth, db, firebaseEnabled } from './firebase';
-import { Admin, AgeTier, Message, Profile, Session, User } from './types';
+import { Admin, AgeTier, Language, Message, Profile, Session, User } from './types';
 
 const DEFAULT_ADMIN_KEY = '12291212';
 
@@ -31,14 +31,14 @@ interface AppState {
   profile: Profile | null;
   profiles: Profile[];
   sessions: Session[];
-  language: 'English' | 'Pidgin';
+  language: Language;
   adminUser: Admin | null;
 
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   setProfile: (profile: Profile | null) => void;
   addProfile: (profile: Omit<Profile, 'id'>) => Promise<Profile>;
-  setLanguage: (lang: 'English' | 'Pidgin') => void;
+  setLanguage: (lang: Language) => void;
   addSession: (session: Session) => Promise<void>;
   addMessage: (sessionId: string, message: Message) => Promise<void>;
   clearAll: () => Promise<void>;

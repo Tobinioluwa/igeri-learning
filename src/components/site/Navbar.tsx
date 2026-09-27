@@ -20,13 +20,13 @@ export function Navbar({ variant = 'minimal', links = DEFAULT_LINKS }: NavbarPro
   const navigate = useNavigate();
 
   return (
-    <nav className="relative z-30 bg-parchment border-b-[3px] border-earth-brown">
+    <nav className="relative z-30 bg-parchment" style={{ boxShadow: '0 1px 0 rgba(43,27,18,0.08), var(--shadow-brut-sm)' }}>
       <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between gap-4">
         <div
           className="flex items-center gap-2.5 cursor-pointer shrink-0"
           onClick={() => navigate('/')}
         >
-          <div className="w-11 h-11 bg-adire-gold rounded-xl flex items-center justify-center overflow-hidden brut-border">
+          <div className="w-11 h-11 blob-frame mesh-gold flex items-center justify-center overflow-hidden">
             <img src={LOGO_URL} alt="Igeri AI logo" className="w-7 h-7 object-contain" />
           </div>
           <span className="text-xl font-black text-earth-brown tracking-tight">IGERI AI</span>
