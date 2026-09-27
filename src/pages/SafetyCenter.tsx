@@ -73,7 +73,7 @@ const SafetyCenter = () => {
           </motion.div>
         </div>
 
-        <section className="bg-earth-brown rounded-2xl p-12 md:p-20 text-white text-center">
+        <section className="mesh-ink rounded-[3rem] p-12 md:p-20 text-white text-center">
            <h2 className="text-4xl md:text-5xl font-black mb-8">Report a Concern</h2>
            <p className="text-white/70 text-lg mb-12 max-w-2xl mx-auto font-medium">
              If you notice anything unusual or have a safety question, our dedicated team is here to help 24/7.

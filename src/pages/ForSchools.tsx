@@ -71,12 +71,12 @@ const ForSchools = () => {
            ))}
         </div>
 
-        <section className="bg-adire-gold rounded-2xl p-12 md:p-20 text-earth-brown text-center">
+        <section className="mesh-gold rounded-[3rem] p-12 md:p-20 text-white text-center">
            <h2 className="text-3xl md:text-5xl font-black mb-8">Ready to modernize?</h2>
-           <p className="text-earth-brown/70 text-lg mb-12 max-w-2xl mx-auto font-medium">
+           <p className="text-white/80 text-lg mb-12 max-w-2xl mx-auto font-medium">
              Contact our school partnership team today to schedule a demo and learn about our subsidized plans for government schools.
            </p>
-           <button onClick={() => navigate('/contact')} className="kid-button bg-white text-adire-gold px-12 h-16 rounded-xl text-xl">
+           <button onClick={() => navigate('/contact')} className="kid-button bg-white text-adire-gold px-12 h-16 text-xl">
              Schedule School Demo
            </button>
         </section>

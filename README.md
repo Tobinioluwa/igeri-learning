@@ -202,24 +202,29 @@ The last 10 messages of the current session are sent along as conversation histo
 
 **Mascot assets:** `public/mascot.png` and `public/mascot-face.png` are cropped locally from the app's logo lockup (the wordmark removed). The original template shipped two image URLs literally named "igeri-mascot-pro" and "nigerian-support-mascot" that, on inspection, depicted an unrelated landscape photo and a stock photo of a human call-center agent respectively — neither was actually the Igeri character. `src/lib/assets.ts` now points `MASCOT_PRO`/`SUPPORT_MASCOT` at the local crops instead.
 
-The UI uses a **neo-brutalist** design language: thick ink-colored borders, flat saturated colors, and hard "offset" shadows (no blur) instead of soft glassmorphism. Buttons are physically "pressable" — the shadow grows on hover and collapses to zero on click, so the button appears to shift into its own shadow.
+The UI uses **"Adire Canvas"** — a design language inspired by Adire (Yorùbá resist-dye textile) and Ankara wax-print patterns: organic asymmetric shapes, soft layered shadows, and a wide textile-inspired color palette, replacing an earlier neo-brutalist look (thick ink borders, flat colors, hard offset shadows) that shipped in an earlier iteration of this app. Buttons float upward on hover with a blooming soft shadow rather than physically "pressing" into a hard offset shadow.
 
 Core building blocks (all in [`src/index.css`](src/index.css)):
 
 | Class | Use |
 |---|---|
-| `.brut-card` / `.brut-card-sm` | White card with a 3px ink border and a hard offset shadow |
-| `.kid-button` | Pressable button — pair with your own `bg-*`/`text-*` and `rounded-xl` |
-| `.sticker-badge` | Small bold eyebrow/label pill (white bg, ink border) |
+| `.brut-card` / `.brut-card-sm` | White card, large organic radius, soft layered shadow (class names kept from the earlier design system so every page that already used them updated automatically) |
+| `.kid-button` | Pill-shaped button that lifts on hover — pair with your own `bg-*`/`text-*` utilities |
+| `.sticker-badge` | Small bold eyebrow/label pill (white bg, hairline border, soft shadow) |
 | `.deco-mark` | Scattered decorative circle/square accents |
+| `.blob-frame` / `.blob-frame-alt` / `.blob-frame-soft` | Organic asymmetric image frames — the signature replacement for rectangular bordered photos, used for hero mascots/photos |
+| `.mesh-green` / `.mesh-gold` / `.mesh-indigo` / `.mesh-coral` / `.mesh-teal` / `.mesh-ink` | Layered gradient-mesh section backgrounds — replace flat solid-color CTA/hero sections, one per color family so pages read as visually distinct from each other |
+| `.pattern-dots` | Faint scattered-dot texture, a nod to Adire resist-dye patterns |
+| `.animate-blob` | Slowly morphs a blob frame's corners over time |
 
 Brand colors (defined as CSS custom properties in `:root`, exposed as Tailwind utilities):
 
 - `nigerian-green` `#009654` — primary actions, trust
 - `adire-gold` `#E8A711` — secondary accent
-- `earth-brown` `#331D0A` — ink color for all borders/shadows/headings
-- `sky-blue` `#2563EB` and `berry-pink` `#E11D74` — decorative accent variety
-- `parchment` `#FFFBF2` — page background
+- `indigo-dye` `#3B3486`, `terracotta` `#C1502E`, `teal-adire` `#0E8074` — expanded textile-inspired accents, giving different pages/sections their own color family instead of repeating one trio everywhere
+- `earth-brown` `#2B1B12` — ink color for text/headings (no longer used for thick borders)
+- `sky-blue` `#2F5FD8` and `berry-pink` `#C2255C` — further decorative accent variety
+- `parchment` `#FFF8EE` — page background
 
 Shared layout components ([`src/components/site/`](src/components/site)) — `Navbar`, `Footer`, `AnnouncementBar`, `PhotoFeatureCard` — are reused across all marketing pages so the header/footer/card style only needs to change in one place.
 

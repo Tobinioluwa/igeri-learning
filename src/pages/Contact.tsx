@@ -102,20 +102,20 @@ const Contact = () => {
                 <div className="grid sm:grid-cols-2 gap-6">
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Your Name</Label>
-                      <Input value={form.name} onChange={handleChange('name')} placeholder="Olukayode Israel" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
+                      <Input value={form.name} onChange={handleChange('name')} placeholder="Olukayode Israel" className="h-14 rounded-xl border-2 border-earth-brown/15 focus-visible:border-nigerian-green px-6" />
                    </div>
                    <div className="space-y-2">
                       <Label className="font-bold ml-2">Email Address</Label>
-                      <Input type="email" value={form.email} onChange={handleChange('email')} placeholder="hello@example.com" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
+                      <Input type="email" value={form.email} onChange={handleChange('email')} placeholder="hello@example.com" className="h-14 rounded-xl border-2 border-earth-brown/15 focus-visible:border-nigerian-green px-6" />
                    </div>
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Subject</Label>
-                   <Input value={form.subject} onChange={handleChange('subject')} placeholder="How can we help?" className="h-14 rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green px-6" />
+                   <Input value={form.subject} onChange={handleChange('subject')} placeholder="How can we help?" className="h-14 rounded-xl border-2 border-earth-brown/15 focus-visible:border-nigerian-green px-6" />
                 </div>
                 <div className="space-y-2">
                    <Label className="font-bold ml-2">Message</Label>
-                   <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-xl border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green p-6" />
+                   <Textarea value={form.message} onChange={handleChange('message')} placeholder="Tell us more..." className="min-h-[150px] rounded-xl border-2 border-earth-brown/15 focus-visible:border-nigerian-green p-6" />
                 </div>
                 <button type="submit" className="kid-button w-full h-16 bg-nigerian-green text-white text-xl rounded-xl flex items-center justify-center">
                    Send Message <Send className="ml-2" size={20} />

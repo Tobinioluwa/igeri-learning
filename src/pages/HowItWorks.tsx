@@ -37,10 +37,11 @@ const HowItWorks = () => {
            <motion.div
              initial={{ opacity: 0, scale: 0.9 }}
              animate={{ opacity: 1, scale: 1 }}
-             className="relative w-full max-w-2xl"
+             className="relative w-full max-w-lg"
            >
-              <div className="brut-card overflow-hidden">
-                <img src={MASCOT_PRO} alt="Igeri, the AI learning companion" className="w-full h-auto" />
+              <div className="absolute -inset-8 mesh-teal blob-frame-alt animate-blob opacity-15 -z-10" />
+              <div className="blob-frame shadow-[var(--shadow-brut-lg)] aspect-square">
+                <img src={MASCOT_PRO} alt="Igeri, the AI learning companion" className="w-full h-full object-cover" />
               </div>
 
               <div className="brut-card-sm absolute -top-6 -left-6 md:-left-16 px-4 py-3 flex items-center gap-2 bg-white -rotate-6">
@@ -106,7 +107,7 @@ const HowItWorks = () => {
            </div>
         </section>
 
-        <section className="bg-nigerian-green rounded-2xl p-12 md:p-20 text-white flex flex-col items-center text-center">
+        <section className="mesh-teal rounded-[3rem] p-12 md:p-20 text-white flex flex-col items-center text-center">
            <h2 className="text-3xl md:text-4xl font-black mb-8 max-w-2xl">Rooted in who we are.</h2>
            <p className="text-white/70 text-lg mb-12 max-w-2xl font-medium">
              IGERI AI doesn't just process data—it reflects the color, warmth, and intelligence of Nigeria. It's AI with a Nigerian soul.

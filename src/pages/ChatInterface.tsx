@@ -229,7 +229,7 @@ export const ChatInterface = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={getChatPlaceholder(language)}
-              className="flex-1 h-20 bg-white border-[3px] border-earth-brown rounded-2xl pl-16 pr-36 text-xl font-bold focus-visible:border-nigerian-green transition-all"
+              className="flex-1 h-20 bg-white border-2 border-earth-brown/15 rounded-full pl-16 pr-36 text-xl font-bold focus-visible:border-nigerian-green transition-all shadow-[var(--shadow-brut-sm)]"
             />
             <div className="absolute right-3 flex items-center gap-3">
                <button

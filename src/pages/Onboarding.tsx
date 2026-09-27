@@ -108,9 +108,9 @@ export const Onboarding = () => {
 
   return (
     <div className="min-h-screen bg-parchment flex overflow-hidden">
-      <div className="hidden lg:flex w-2/5 relative bg-earth-brown items-center justify-center p-12 overflow-hidden border-r-[3px] border-earth-brown">
-         <div className="absolute top-16 right-16 w-12 h-12 bg-adire-gold rounded-xl brut-border rotate-12" />
-         <div className="absolute bottom-24 left-16 w-9 h-9 bg-sky-blue rounded-full brut-border" />
+      <div className="hidden lg:flex w-2/5 relative mesh-green items-center justify-center p-12 overflow-hidden">
+         <div className="absolute top-16 right-16 w-12 h-12 bg-adire-gold blob-frame rotate-12" />
+         <div className="absolute bottom-24 left-16 w-9 h-9 bg-sky-blue rounded-full" />
 
          <div className="relative z-10 text-center">
             <motion.div
@@ -120,11 +120,11 @@ export const Onboarding = () => {
                className="mb-12"
             >
                {step === 1 ? (
-                 <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-[3px] border-white/30">
+                 <div className="w-64 h-64 mx-auto blob-frame shadow-[var(--shadow-brut-lg)]">
                    <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover" />
                  </div>
                ) : (
-                 <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-[3px] border-white/30 animate-float">
+                 <div className="w-64 h-64 mx-auto blob-frame-alt shadow-[var(--shadow-brut-lg)] animate-float">
                    <img
                      src={MASCOT_PRO}
                      alt="Igeri mascot cheering you on"
@@ -197,7 +197,7 @@ export const Onboarding = () => {
                                placeholder="e.g. Olukayode Israel"
                                value={parentName}
                                onChange={(e) => setParentName(e.target.value)}
-                               className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green text-lg font-medium"
+                               className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-nigerian-green text-lg font-medium"
                             />
                          </div>
                       </div>
@@ -212,7 +212,7 @@ export const Onboarding = () => {
                              placeholder="you@email.com"
                              value={email}
                              onChange={(e) => setEmail(e.target.value)}
-                             className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green text-lg font-medium"
+                             className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-nigerian-green text-lg font-medium"
                           />
                        </div>
                     </div>
@@ -226,7 +226,7 @@ export const Onboarding = () => {
                              placeholder="At least 6 characters"
                              value={password}
                              onChange={(e) => setPassword(e.target.value)}
-                             className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-nigerian-green text-lg font-medium"
+                             className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-nigerian-green text-lg font-medium"
                           />
                        </div>
                     </div>
@@ -280,7 +280,7 @@ export const Onboarding = () => {
                              placeholder="e.g. Emeka"
                              value={childName}
                              onChange={(e) => setChildName(e.target.value)}
-                             className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-adire-gold text-lg font-medium"
+                             className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-adire-gold text-lg font-medium"
                           />
                        </div>
                     </div>
@@ -296,7 +296,7 @@ export const Onboarding = () => {
                              placeholder="e.g. 10"
                              value={childAge}
                              onChange={(e) => setChildAge(e.target.value)}
-                             className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-adire-gold text-lg font-medium"
+                             className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-adire-gold text-lg font-medium"
                           />
                        </div>
                        <p className="text-[10px] text-earth-brown/40 font-bold uppercase tracking-widest ml-2">This helps us pick the best learning mode.</p>

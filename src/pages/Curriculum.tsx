@@ -76,7 +76,7 @@ const Curriculum = () => {
           </div>
         </section>
 
-        <section className="bg-adire-gold-light rounded-2xl brut-border p-12 md:p-20 text-center">
+        <section className="bg-adire-gold-light rounded-[3rem] p-12 md:p-20 text-center" style={{ boxShadow: 'var(--shadow-brut)' }}>
            <h2 className="text-3xl font-black mb-6 text-earth-brown">Indigenous Knowledge</h2>
            <p className="text-lg text-earth-brown/60 font-medium max-w-3xl mx-auto">
              Beyond academic subjects, IGERI AI also teaches children about Nigerian history, cultural heritage, and values, helping them grow as well-rounded citizens of our nation.

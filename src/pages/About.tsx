@@ -111,7 +111,7 @@ const About = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="bg-earth-brown rounded-2xl p-12 md:p-20 text-white text-center">
+        <section className="mesh-indigo rounded-[3rem] p-12 md:p-20 text-white text-center">
            <Sparkles size={40} className="mx-auto mb-6 text-adire-gold" />
            <h2 className="text-3xl md:text-5xl font-black mb-6">Raise a thinker, not a copier.</h2>
            <p className="text-white/70 text-lg mb-12 max-w-2xl mx-auto font-medium">

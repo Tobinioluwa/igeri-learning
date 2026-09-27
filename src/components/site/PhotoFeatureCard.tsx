@@ -8,6 +8,8 @@ const ACCENT_COLORS = {
   coral: 'bg-accent',
   sky: 'bg-sky-blue',
   berry: 'bg-berry-pink',
+  indigo: 'bg-indigo-dye',
+  teal: 'bg-teal-adire',
 } as const;
 
 interface PhotoFeatureCardProps {
@@ -34,19 +36,19 @@ export function PhotoFeatureCard({
     <div
       onClick={onClick}
       className={cn(
-        'brut-card overflow-hidden transition-transform',
-        onClick && 'cursor-pointer hover:-translate-x-1 hover:-translate-y-1',
+        'brut-card overflow-hidden transition-transform duration-300',
+        onClick && 'cursor-pointer hover:-translate-y-2',
         className,
       )}
     >
-      <div className="relative aspect-[4/3] overflow-hidden border-b-[3px] border-earth-brown">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={image}
           alt=""
           className="w-full h-full object-cover"
           style={{ objectPosition: imagePosition }}
         />
-        <span className={cn('absolute top-3 left-3 w-4 h-4 rounded-full brut-border', ACCENT_COLORS[accent])} />
+        <span className={cn('absolute top-3 left-3 w-4 h-4 rounded-full shadow-[var(--shadow-brut-sm)]', ACCENT_COLORS[accent])} />
       </div>
       <div className="p-6">
         <h3 className="text-xl font-black text-earth-brown mb-2">{title}</h3>

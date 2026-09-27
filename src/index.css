@@ -3,16 +3,16 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #FFFBF2; /* Near-white canvas — bold color-block sections do the work now, not a background tint */
-  --foreground: #331D0A; /* Near-black brown ink for max contrast against flat colors */
+  --background: #FFF8EE; /* Warmer, softer cream canvas */
+  --foreground: #2B1B12; /* Softened near-black ink */
 
-  --primary: #009654; /* Punchier, more saturated green */
+  --primary: #009654;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #E8A711; /* Punchier gold */
-  --secondary-foreground: #331D0A;
+  --secondary: #E8A711;
+  --secondary-foreground: #2B1B12;
 
-  --accent: #FF5A36; /* Hotter coral */
+  --accent: #FF5A36;
   --accent-foreground: #FFFFFF;
 
   --destructive: #EF4444;
@@ -22,32 +22,36 @@
   --muted-foreground: #64748B;
 
   --card: #FFFFFF;
-  --card-foreground: #331D0A;
+  --card-foreground: #2B1B12;
 
-  --border: #331D0A;
-  --input: #E8E2D2;
+  --border: #2B1B12;
+  --input: #EDE3D3;
   --ring: #009654;
 
-  --radius: 1rem; /* Disciplined, moderate rounding — no more full pills */
+  --radius: 1.5rem; /* Generous, organic rounding — the opposite of the old disciplined brutalist radius */
 
   /* Brand Specifics */
   --nigerian-green: #009654;
   --nigerian-green-light: #E6F3EE;
   --adire-gold: #E8A711;
   --adire-gold-light: #FFF8E1;
-  --earth-brown: #331D0A;
-  --parchment-cream: #FFFBF2;
+  --earth-brown: #2B1B12;
+  --parchment-cream: #FFF8EE;
 
-  /* Extra decorative accents for badges/icon blocks, alongside the brand trio above */
-  --sky-blue: #2563EB;
-  --berry-pink: #E11D74;
+  /* Expanded "Adire Canvas" palette — textile-inspired accents that give
+     each page its own color family instead of one repeated trio. */
+  --sky-blue: #2F5FD8;
+  --berry-pink: #C2255C;
+  --indigo-dye: #3B3486;
+  --terracotta: #C1502E;
+  --teal-adire: #0E8074;
 
-  /* Hard, unblurred "offset" shadows — the signature of the neo-brutalist
-     look this design system uses: everything casts a flat ink-colored
-     shadow instead of a soft blur. */
-  --shadow-brut-sm: 4px 4px 0 0 var(--earth-brown);
-  --shadow-brut: 6px 6px 0 0 var(--earth-brown);
-  --shadow-brut-lg: 10px 10px 0 0 var(--earth-brown);
+  /* Soft, layered, warm-tinted shadows — replaces the old hard "offset"
+     shadow. Kept the same variable NAMES (used throughout the app's CSS
+     and inline styles) so this one redefinition retints the whole site. */
+  --shadow-brut-sm: 0 1px 2px rgba(43, 27, 18, 0.07), 0 10px 22px -8px rgba(43, 27, 18, 0.16);
+  --shadow-brut: 0 3px 8px rgba(43, 27, 18, 0.08), 0 20px 40px -12px rgba(43, 27, 18, 0.20);
+  --shadow-brut-lg: 0 6px 16px rgba(43, 27, 18, 0.10), 0 32px 64px -18px rgba(43, 27, 18, 0.24);
 }
 
 @theme inline {
@@ -59,6 +63,9 @@
   --color-parchment: var(--parchment-cream);
   --color-sky-blue: var(--sky-blue);
   --color-berry-pink: var(--berry-pink);
+  --color-indigo-dye: var(--indigo-dye);
+  --color-terracotta: var(--terracotta);
+  --color-teal-adire: var(--teal-adire);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -94,14 +101,12 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    /* No color here on purpose: headings inherit from their container so
-       ones on a colored section (text-white) read correctly. Body's
-       --foreground already equals --earth-brown, so on the plain
-       background they come out the same as before. */
     @apply font-extrabold tracking-tight;
   }
 }
 
+/* Ankara/Adire-inspired scalloped stripe — a row of soft dye-dots in the
+   expanded palette instead of a flat 4-color bar. */
 .ankara-border {
   position: relative;
 }
@@ -112,9 +117,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 6px;
-  background-image: linear-gradient(90deg, #008751 20%, #D4A017 20%, #D4A017 40%, #4A2B0F 40%, #4A2B0F 60%, #FF7043 60%, #FF7043 80%, #FDF9F0 80%);
-  background-size: 60px 100%;
+  height: 14px;
+  background-image: radial-gradient(circle at 12px 0, transparent 10px, #009654 10px, #009654 11px, transparent 11.5px),
+    radial-gradient(circle at 12px 0, transparent 10px, #E8A711 10px, #E8A711 11px, transparent 11.5px),
+    radial-gradient(circle at 12px 0, transparent 10px, #3B3486 10px, #3B3486 11px, transparent 11.5px),
+    radial-gradient(circle at 12px 0, transparent 10px, #FF5A36 10px, #FF5A36 11px, transparent 11.5px);
+  background-size: 96px 14px;
+  background-position: 0 0, 24px 0, 48px 0, 72px 0;
+  background-repeat: repeat-x;
+  opacity: 0.9;
 }
 
 .mode-buba {
@@ -131,70 +142,162 @@
 
 /* Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
 }
 
-/* Neo-brutalist core: thick ink borders + a flat, unblurred "offset" shadow
-   instead of a soft glow. Cards sit still; buttons physically press in. */
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  50% { border-radius: 63% 37% 37% 63% / 43% 37% 63% 57%; }
+}
+
+.animate-blob {
+  animation: blob-morph 12s ease-in-out infinite;
+}
+
+/* "Adire Canvas" core — organic rounded shapes, soft layered shadows, no
+   thick ink borders. Class names kept from the old neo-brutalist system so
+   every page that already uses them gets the new look for free. */
 .brut-border {
-  border: 3px solid var(--earth-brown);
+  border: 1px solid rgba(43, 27, 18, 0.08);
 }
 
 .brut-card {
-  @apply bg-white rounded-2xl;
-  border: 3px solid var(--earth-brown);
+  @apply bg-white;
+  border-radius: 28px;
+  border: 1px solid rgba(43, 27, 18, 0.06);
   box-shadow: var(--shadow-brut);
 }
 
 .brut-card-sm {
-  @apply bg-white rounded-xl;
-  border: 3px solid var(--earth-brown);
+  @apply bg-white;
+  border-radius: 20px;
+  border: 1px solid rgba(43, 27, 18, 0.06);
   box-shadow: var(--shadow-brut-sm);
 }
 
-/* A pressable button: the shadow grows on hover (lifts up) and vanishes on
-   active as the button physically shifts into its own shadow (presses in).
-   Combine with your own bg and text color utilities plus rounded-xl. */
+/* A soft, lifting pill button — shadow blooms and the button floats up on
+   hover, settles back down on click. Combine with your own bg/text color
+   utilities. Radius is forced full-pill regardless of any rounded-* utility
+   also present on the element, by design. */
 .kid-button {
-  @apply font-black transition-all duration-150 ease-out;
-  border: 3px solid var(--earth-brown);
+  @apply font-black transition-all duration-200 ease-out;
+  border: none;
+  border-radius: 9999px !important;
   box-shadow: var(--shadow-brut-sm);
 }
 
 .kid-button:hover {
-  transform: translate(-2px, -2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-brut);
+  filter: brightness(1.04);
 }
 
 .kid-button:active {
-  transform: translate(3px, 3px);
-  box-shadow: 0 0 0 0 var(--earth-brown);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-brut-sm);
+  filter: brightness(0.98);
 }
 
 /* Small bold eyebrow/label pill used above headings. */
 .sticker-badge {
   @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-widest bg-white;
-  border: 2.5px solid var(--earth-brown);
+  border: 1px solid rgba(43, 27, 18, 0.08);
   box-shadow: var(--shadow-brut-sm);
 }
 
 /* A colored circle/square marker used for scattered decorative accents —
-   color it with a bg-* utility on the element. */
+   color it with a bg-* utility on the element. Floats with a soft shadow
+   instead of a hard ink outline. */
 .deco-mark {
   @apply absolute rounded-full pointer-events-none;
-  border: 3px solid var(--earth-brown);
+  box-shadow: var(--shadow-brut-sm);
 }
 
-/* Playful custom cursors — a little green arrow by default, a gold sparkle
-   over anything clickable so kids always know what they can tap. */
+/* Organic asymmetric "blob" image frames — the signature replacement for
+   rectangular bordered photo cards. Three variants for visual rhythm when
+   several appear near each other. */
+.blob-frame {
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  overflow: hidden;
+}
+
+.blob-frame-alt {
+  border-radius: 63% 37% 37% 63% / 43% 37% 63% 57%;
+  overflow: hidden;
+}
+
+.blob-frame-soft {
+  border-radius: 58% 42% 39% 61% / 55% 48% 52% 45%;
+  overflow: hidden;
+}
+
+/* Gradient mesh backgrounds — replace flat solid-color hero/CTA sections
+   with a layered, textile-inspired glow. Each is a distinct color family so
+   different pages/sections read as visually distinct from one another. */
+.mesh-green {
+  background:
+    radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.55) 0%, transparent 55%),
+    radial-gradient(at 85% 10%, rgba(5, 150, 105, 0.5) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(4, 120, 87, 0.6) 0%, transparent 60%),
+    #009654;
+}
+
+.mesh-gold {
+  background:
+    radial-gradient(at 15% 20%, rgba(253, 224, 71, 0.55) 0%, transparent 55%),
+    radial-gradient(at 85% 0%, rgba(234, 179, 8, 0.45) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(202, 138, 4, 0.5) 0%, transparent 60%),
+    #E8A711;
+}
+
+.mesh-indigo {
+  background:
+    radial-gradient(at 20% 10%, rgba(99, 102, 241, 0.55) 0%, transparent 55%),
+    radial-gradient(at 85% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(30, 27, 75, 0.6) 0%, transparent 60%),
+    #3B3486;
+}
+
+.mesh-coral {
+  background:
+    radial-gradient(at 15% 15%, rgba(251, 146, 60, 0.55) 0%, transparent 55%),
+    radial-gradient(at 85% 10%, rgba(244, 63, 94, 0.4) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(194, 65, 12, 0.5) 0%, transparent 60%),
+    #FF5A36;
+}
+
+.mesh-teal {
+  background:
+    radial-gradient(at 15% 15%, rgba(45, 212, 191, 0.5) 0%, transparent 55%),
+    radial-gradient(at 85% 10%, rgba(20, 184, 166, 0.45) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(15, 118, 110, 0.55) 0%, transparent 60%),
+    #0E8074;
+}
+
+.mesh-ink {
+  background:
+    radial-gradient(at 20% 20%, rgba(120, 87, 60, 0.4) 0%, transparent 55%),
+    radial-gradient(at 85% 10%, rgba(193, 80, 46, 0.3) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(0, 150, 84, 0.25) 0%, transparent 60%),
+    #2B1B12;
+}
+
+/* Faint scattered-dot texture — a subtle nod to Adire resist-dye patterns,
+   for use as a section background layer under content. */
+.pattern-dots {
+  background-image: radial-gradient(rgba(43, 27, 18, 0.12) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* Playful custom cursors — retinted to the new palette. */
 html, body {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%202%20L3%2019%20L8%2015.5%20L11.5%2022%20L14.5%2020.5%20L11%2014%20L19%2014%20Z'%20fill='rgb(0,150,84)'%20stroke='rgb(51,29,10)'%20stroke-width='1.5'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E") 3 2, auto;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%202%20L3%2019%20L8%2015.5%20L11.5%2022%20L14.5%2020.5%20L11%2014%20L19%2014%20Z'%20fill='rgb(0,150,84)'%20stroke='rgb(43,27,18)'%20stroke-width='1'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E") 3 2, auto;
 }
 
 a,
@@ -208,7 +311,7 @@ input[type="radio"],
 select,
 summary,
 label[for] {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cpath%20d='M15%201%20L18.7%2011.3%20L29%2015%20L18.7%2018.7%20L15%2029%20L11.3%2018.7%20L1%2015%20L11.3%2011.3%20Z'%20fill='rgb(232,167,17)'%20stroke='rgb(51,29,10)'%20stroke-width='1.5'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='15'%20cy='15'%20r='3'%20fill='rgb(0,150,84)'/%3E%3C/svg%3E") 15 15, pointer;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cpath%20d='M15%201%20L18.7%2011.3%20L29%2015%20L18.7%2018.7%20L15%2029%20L11.3%2018.7%20L1%2015%20L11.3%2011.3%20Z'%20fill='rgb(232,167,17)'%20stroke='rgb(43,27,18)'%20stroke-width='1'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='15'%20cy='15'%20r='3'%20fill='rgb(0,150,84)'/%3E%3C/svg%3E") 15 15, pointer;
 }
 
 button:disabled,

@@ -86,7 +86,7 @@ export const ParentDashboard = () => {
 
               <div className="space-y-4">
                 {sessions.length === 0 ? (
-                  <div className="bg-white p-10 rounded-2xl border-[3px] border-dashed border-earth-brown/30 text-center">
+                  <div className="bg-white p-10 rounded-2xl border-2 border-dashed border-earth-brown/20 text-center">
                     <p className="text-earth-brown/50 font-medium">No activity yet. Let your child start chatting!</p>
                   </div>
                 ) : (

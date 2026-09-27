@@ -63,15 +63,15 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen bg-parchment flex overflow-hidden">
-      <div className="hidden lg:flex w-2/5 relative bg-earth-brown items-center justify-center p-12 overflow-hidden border-r-[3px] border-earth-brown">
-        <div className="absolute top-16 right-16 w-12 h-12 bg-adire-gold rounded-xl brut-border rotate-12" />
-        <div className="absolute bottom-24 left-16 w-9 h-9 bg-berry-pink rounded-full brut-border" />
+      <div className="hidden lg:flex w-2/5 relative mesh-indigo items-center justify-center p-12 overflow-hidden">
+        <div className="absolute top-16 right-16 w-12 h-12 bg-adire-gold blob-frame rotate-12" />
+        <div className="absolute bottom-24 left-16 w-9 h-9 bg-berry-pink rounded-full" />
 
         <div className="relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mb-12 w-64 h-64 mx-auto rounded-2xl overflow-hidden border-[3px] border-white/30"
+            className="mb-12 w-64 h-64 mx-auto blob-frame shadow-[var(--shadow-brut-lg)]"
           >
             <img src={SAFETY_HERO_IMG} alt="Admin control" className="w-full h-full object-cover" style={{ objectPosition: 'center' }} />
           </motion.div>
@@ -129,7 +129,7 @@ const AdminLogin = () => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Olukayode Israel"
-                      className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-berry-pink text-lg font-medium"
+                      className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-berry-pink text-lg font-medium"
                     />
                   </div>
                 </div>
@@ -144,7 +144,7 @@ const AdminLogin = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="admin@email.com"
-                    className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-berry-pink text-lg font-medium"
+                    className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-berry-pink text-lg font-medium"
                   />
                 </div>
               </div>
@@ -158,7 +158,7 @@ const AdminLogin = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="At least 6 characters"
-                    className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-berry-pink text-lg font-medium"
+                    className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-berry-pink text-lg font-medium"
                   />
                 </div>
               </div>
@@ -172,7 +172,7 @@ const AdminLogin = () => {
                       value={key}
                       onChange={(e) => setKey(e.target.value)}
                       placeholder="Enter the shared admin key"
-                      className="h-14 pl-12 rounded-xl bg-white border-[3px] border-earth-brown/20 focus-visible:border-berry-pink text-lg font-medium"
+                      className="h-14 pl-12 rounded-xl bg-white border-2 border-earth-brown/15 focus-visible:border-berry-pink text-lg font-medium"
                     />
                   </div>
                   <p className="text-[10px] text-earth-brown/40 font-bold uppercase tracking-widest ml-2">

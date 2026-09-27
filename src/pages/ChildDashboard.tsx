@@ -83,7 +83,7 @@ export const ChildDashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-14"
         >
-          <div className="bg-nigerian-green rounded-2xl p-10 md:p-16 text-white relative overflow-hidden brut-border" style={{ boxShadow: 'var(--shadow-brut-lg)' }}>
+          <div className="mesh-green rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden" style={{ boxShadow: 'var(--shadow-brut-lg)' }}>
             <div className="relative z-10 max-w-lg">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-widest bg-white/10 border-2 border-white/40 text-white mb-6">
                  <Sparkles size={16} />
@@ -103,8 +103,8 @@ export const ChildDashboard = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -bottom-10 -right-6 w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden border-[3px] border-white pointer-events-none hidden md:block rotate-3"
-              style={{ boxShadow: '8px 8px 0 0 rgba(0,0,0,0.25)' }}
+              className="absolute -bottom-10 -right-6 w-56 h-56 md:w-72 md:h-72 blob-frame-alt pointer-events-none hidden md:block"
+              style={{ boxShadow: 'var(--shadow-brut-lg)' }}
             >
               <img src={MASCOT_PRO} alt="Igeri mascot" className="w-full h-full object-cover" />
             </motion.div>
